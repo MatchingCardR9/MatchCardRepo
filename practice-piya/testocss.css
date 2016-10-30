@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+body {
+    background-color: #222;
+    font-family: monospace;
+}
+
+header {
+    background-color: #555;
+    width: 1300px;
+    margin: 0 auto;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: 1px solid #888;
+    padding: 10px;
+    position: relative;
+    height: 100px;
+}
+
+header h1 {
+    color: #ccc;
+    font-weight: 100;
+    font-size: 26pt;
+    width: auto;
+    text-align: center;
+}
+
+header div {
+    perspective: 700px;
+}
+
+header div span {
+    display: inline-block;
+    transform-style: preserve-3d;
+}
+
+header div.right {
+    float: right;
+}
+
+header div.right span.time,header div.right span.music,header div.left span.newG,header div.left span.score {
+    color: #ccc;
+    font-size: 18pt;
+    background-color: #222;
+    cursor: pointer;
+    padding: 10px;
+    text-transform: capitalize;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    transform: rotateX(36deg);
+    box-shadow: 0 3px 1px 2px #9f9c9c;
+    transition: all 1s ease-in-out;
+    position: absolute;
+    top: -20px;
+    width: 140px;
+    text-align: center;
+}
+
+header div.right span.time {
+    right: 15px;
+}
+
+header div.right span.music {
+    right: 170px;
+    font-family: cursive;
+    font-size: 15pt;
+    border-radius: 50%;
+}
+
+header div.left {
+    float: left;
+}
+
+header div.right span.time:hover,header div.right span.music:hover,header div.left span.newG:hover,header div.left span.score:hover {
+    transform: rotateX(0deg);
+    box-shadow: 0 3px 1px 0 #9f9c9c;
+}
+
+header div.left span.score {
+    left: 160px;
+    font-family: cursive;
+    font-size: 15pt;
+    border-radius: 50%;
+}
+
+section#memoryBoard {
+    background-color: #555;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 30px auto;
+    width: 1300px;
+    border: 1px solid #888;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+section#memoryBoard div#flip-container {
+    flex-basis: auto;
+    flex-grow: 1;
+    flex-basis: 200px;
+    background-color: #222;
+    border: 1px solid #888;
+    font-size: 24pt;
+    color: #ddd;
+    margin: 10px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 2px #000;
+    cursor: pointer;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+}
+
+section#memoryBoard div#flip-container div.flipper {
+    transform-style: preserve-3d;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: all .5s;
+}
+
+section#memoryBoard div#flip-container:hover div.flipper {
+}
+
+section#memoryBoard div#flip-container div.flipper div.front,section#memoryBoard div#flip-container div.flipper div.back {
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+section#memoryBoard div#flip-container div.flipper div img {
+    border-radius: 10px;
+}
+
+section#memoryBoard div#flip-container div.flipper div.front {
+    z-index: 1;
+}
+
+section#memoryBoard div#flip-container div.flipper div.back {
+    transform: rotateY(-180deg);
+}
+
+/* clear */
+div.clear {
+    clear: both;
+}
