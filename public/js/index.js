@@ -3,7 +3,7 @@ var socket = io();
 var myName ;
 var opponentName;
 var currentRoom;
-
+var initialcardposition = [];
 socket.on('roominfo',function(data){
     currentRoom = data.roomnumber;
     if(socket.id == data.roomdata.player1.id) opponentName = data.roomdata.player2.name;
@@ -12,10 +12,11 @@ socket.on('roominfo',function(data){
     }
 });
 socket.on('initialcardposition',function(data){
-
+    initialcardposition = data.initialcardposition;
 });
 
 function submitName(){
+    // --> after click , disable button
 //
 //        myName = elem.value;
 //        var id    = elem.id;
@@ -26,3 +27,4 @@ function submitName(){
 
     socket.emit('joingame',{name : 'aaaaatest'}); // change player name to playername from login box later
 }
+

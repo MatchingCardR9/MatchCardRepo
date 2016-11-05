@@ -8,7 +8,7 @@ app.use(express.static(__dirname+'/public'));
 
 var rooms = [];
 var roomnumber = 1;
-var initialcardposition;
+
 
 app.get('/',function(req,res){
     res.sendFile(path.join(__dirname+'/index.html'));
@@ -25,6 +25,7 @@ io.on('connection',function(socket){
             rooms[roomnumber] = new Object();
             rooms[roomnumber].player1 = new Object();
             rooms[roomnumber].player2 = new Object();
+            rooms[roomnumber].initialcardposition = randomCardPosition();
             if(Math.random()<0.5){
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
@@ -50,7 +51,7 @@ io.on('connection',function(socket){
                 }
             );
             io.sockets.in(roomnumber).emit('initialcardposition' , {
-                'initialcardposition' : initialcardposition
+                'initialcardposition' : rooms[roomnumber].initialcardposition
             });
         }
 
@@ -60,6 +61,31 @@ io.on('connection',function(socket){
         console.log('user'+socket.id+'disconnected');
     })
 });
+
+function randomCardPosition(){
+    var initialcardposition = [];
+    for(var i=0;i<18;i++){
+        initialcardposition[2*i] ="index:"+(2*i+1)+ " photonumber "+(i+1);
+        initialcardposition[(2*i)+1] = "index:"+(2*i+2)+"photonumber "+(i+1);
+    }
+    // for(var i=0;i<36;i++){
+    //     console.log(initialcardposition[i]);
+    // }
+
+    var j, x, i;
+    for (i = initialcardposition.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = initialcardposition[i - 1];
+        initialcardposition[i - 1] = initialcardposition[j];
+        initialcardposition[j] = x;
+    }
+
+    for(var i=0;i<36;i++){
+        console.log(initialcardposition[i]);
+    }
+
+    return initialcardposition;
+}
 
 http.listen(3000, function(){
     console.log('listening on localhost:3000');
