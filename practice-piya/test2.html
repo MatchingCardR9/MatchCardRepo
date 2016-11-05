@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="testcss2.css">
+<script src="testjs2.js"></script>
+
+<div ng-app="MemoryGame" ng-controller="GameCtrl" class="container main-container">
+    <div class="page-header">
+        <h2>Memory Game <small class="pull-right">
+            <label>No. Tiles:
+                <select ng-options="o[0] as o[1] for o in gridSizes" ng-model="gridSize"></select>
+            </label></small>
+        </h2>
+        <div ng-show="!showHowTo" class="small"><a href="#" ng-click="showHowTo=true">How to play?</a></div>
+    </div>
+    <div ng-show="showHowTo" class="well small">
+        <p>Click the tiles to match pairs by the image displayed. Clicking the "Give me a hint" button will show all tiles briefly to refresh your memory, but doing this will count against your score. </p>
+        <p>You are scored on how many successful pairs are made compared against failures and hints that have been used.</p>
+        <p>You can change the number of tiles displayed, by changing the value in the drop down above.</p><a href="#" ng-click="showHowTo=false">Hide this hint.</a>
+    </div>
+    <div class="text-center">
+        <memory-grid ng-model="grid" size="gridSize"></memory-grid>
+    </div>
+    <script type="text/ng-template" id="/memory-grid.tpl">
+        <div style="width: {{model.width}}px; height: {{model.height}}px;" class="memory-grid">
+            <div ng-class="{'locked': model.changesLocked}" class="mg-container">
+                <div ng-repeat="card in model.cells" ng-class="card.cssClass" ng-click="model.selectItem($event, card)" style="width: {{model.cellWidth}}px; height: {{model.cellHeight}}px" class="symbol"><i ng-class="card.symbol" class="icon fa"></i></div>
+                <div class="clearfix"></div>
+            </div>
+            <hr/>
+            <div class="text-center">
+                <div class="pull-left text-left"><span>Completed:
+            <label>{{(model.percentComplete*100)|number:2}}%</label></span></div>
+                <div class="pull-right">
+                    <div class="text-right"><span>Score:
+              <label title="Successful" class="label label-success">{{model.success|number}}</label>
+              <label title="Failed" class="label label-danger">{{model.fails|number}}</label>
+              <label title="Hints" class="label label-warning">{{model.hints|number}}</label> =
+              <label title="Total Score">{{model.score|number:1}} / 100</label></span></div>
+                    <div class="text-right small"><span>Duration:
+              <label>{{model.duration|duration:true}}</label></span></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <hr/>
+            <div class="btn-group pull-left">
+                <button ng-if="!model.completed" ng-click="model.hint()" ng-disabled="model.changesLocked" class="btn btn-lg btn-default"><span class="fa fa-question-circle"></span> Give me a hint
+                </button>
+            </div>
+            <div class="btn-group pull-right">
+                <button ng-click="model.reset()" ng-disabled="model.changesLocked" class="btn btn-lg btn-danger"><span class="fa fa-refresh"></span> Restart
+                </button>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </script>
+</div>
+</html>
