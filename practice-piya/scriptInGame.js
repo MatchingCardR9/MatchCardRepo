@@ -11,14 +11,20 @@ var score_b = 0;
 var status_array = ["Waiting for player...", "Player Full. Ready to initiate self-destruct sequence in 5 seconds", "'s Turn"];
 
 var playerName = '';
-var platerID='';
+var playerID='';
 var playerScore = 0;
 
 var opponentName = '';
 var opponentID = '';
 var opponentScore = 0;
 
-var socket = io();
+// var socket = io();
+
+
+// function initializeGame(){
+//     score_a = 0;
+//     score_b = 0;
+// }
 
 Array.prototype.memory_tile_shuffle = function(){
     var i = this.length, j, temp;
@@ -28,23 +34,17 @@ Array.prototype.memory_tile_shuffle = function(){
         this[j] = this[i];
         this[i] = temp;
     }
-} // tile shuffle
-function initializeGame(){
-    score_a = 0;
-    score_b = 0;
 }
-
 function newBoard(){
     tiles_flipped = 0;
     var output = '';
-    memory_array.memory_tile_shuffle(); // call this line whenever you wanna shuffle cards
+    memory_array.memory_tile_shuffle();
     for(var i = 0; i < memory_array.length; i++){
         output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
     }
     document.getElementById('memory_board').innerHTML = output;
-} // create new board
-
-function memoryFlipTile(tile,val){ //FLIP tiles FLIP tiles FLIP tiles FLIP tiles FLIP tiles FLIP tiles
+}
+function memoryFlipTile(tile,val){
     if(tile.innerHTML == "" && memory_values.length < 2){
         tile.style.background = '#FFF';
         tile.innerHTML = val;
