@@ -30,6 +30,7 @@ io.on('connection',function(socket){
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
 
+
                 console.log(rooms[roomnumber].player1.name+" joined "+roomnumber);
             }else {
                 rooms[roomnumber].player2.name = data.name;
@@ -37,25 +38,35 @@ io.on('connection',function(socket){
 
                 console.log(rooms[roomnumber].player2.name+" joined "+roomnumber);
             }
-        }else{ // 2 players connected to a room already
-            if(rooms[roomnumber].player1.id !=''){
+        }else { // 2 players connected to a room already
+            if (rooms[roomnumber].player1.id != '') {
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
-            }else{
+            } else {
                 rooms[roomnumber].player2.name = data.name;
                 rooms[roomnumber].player2.id = socket.id;
             }
-            io.sockets.in(roomnumber).emit('roominfo',{
-                'roomnumber' : roomnumber,
-                'roomdata' : rooms[roomnumber]
+            io.sockets.in(roomnumber).emit('roominfo', {
+                    'roomnumber': roomnumber,
+                    'roomdata': rooms[roomnumber]
                 }
             );
-            io.sockets.in(roomnumber).emit('initialcardposition' , {
-                'initialcardposition' : rooms[roomnumber].initialcardposition
+            io.sockets.in(roomnumber).emit('initialcardposition', {
+                'initialcardposition': rooms[roomnumber].initialcardposition
             });
         }
 
+    });
 
+    socket.on('readytoplay',function(data){
+        if(socket.id == rooms[data.roomnumber].player1.id) rooms[data.roomnumber].player1.ready = true;
+        else{
+            rooms[data.roomnumber].player2.ready = true;
+        }
+        if(rooms[data.roomnumber].player2.ready && rooms[data.roomnumber].player1.ready){
+            io.to(rooms[data.roomnumber].player1.id).emit('playfirstcard');
+            io.to(rooms[data.roomnumber].player2.id).emit('waitfirstcard');
+        }
     });
     socket.on('disconnect',function(){
         console.log('user'+socket.id+'disconnected');
