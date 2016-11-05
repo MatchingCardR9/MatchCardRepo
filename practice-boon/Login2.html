@@ -1,0 +1,53 @@
+<html>
+<head>
+	<title>Login now!</title>
+	<link rel="stylesheet" href="bootstrap-3.3.7-dist\css\bootstrap.css">
+	<style>
+		html, body {
+    height: 100%;
+		}
+
+		html {
+    display: table;
+    margin: auto;
+		}
+
+		body {
+    display: table-cell;
+    vertical-align: middle;
+	background-color: #FFCA28;
+		}
+	</style>
+	<script type="text/javascript">
+		function welcome(){
+			var welcomeName = document.getElementById('name').value;
+			if(welcomeName == ""){
+			}else{
+			alert('Welcome '+welcomeName+'! To Hatestone: Blizzard low budget matching card game')
+			}
+		}
+		
+		
+	</script>
+	
+</head>
+
+<body>
+
+
+<div style="text-align: center;">
+<h1 style="color: white"> Hatestone: Matching Card </h1>
+</div>
+<form action="haha.html">
+<div style="text-align: center;">
+      <label for="inputdefault" style="color: white">Tell us your name:</label></br>
+      <input id="name" type="text" maxlength="6" placeholder="Enter your name" autocomplete="off" required>
+	  <input type="submit" class="btn btn-success" value="GO" onclick="welcome()">
+</div>
+</form>
+
+
+
+</body>
+
+</html>
