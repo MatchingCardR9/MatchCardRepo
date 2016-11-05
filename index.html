@@ -3,7 +3,7 @@
 
 <head>
     <title>Log in now!</title>
-    <link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/loginstyle.css">
 </head>
 <script src="/socket.io/socket.io.js"></script>
@@ -11,12 +11,12 @@
 
 <body>
 
-<form  >
+<form id="nameform"  >
     <h1 class="menu-title">Card Matching of Destiny</h1>
     <p class="error-message"></p>
     <label for="Nickname">Nickname:</label>
-    <input type="text" id="name" placeholder="Enter nickname" autocomplete="off" required />
-    <input type="submit" value="Go"/>
+    <input type="text" id="username" placeholder="Enter nickname" autocomplete="off" required />
+    <input type="button" value="Go" onclick="submitName()" id="submitbutton"/>
 </form>
 
 <button onclick="submitName()"> AAAAA</button>

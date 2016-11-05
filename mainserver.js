@@ -42,9 +42,13 @@ io.on('connection',function(socket){
             if (rooms[roomnumber].player1.id != '') {
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
+
+                console.log(rooms[roomnumber].player1.name+" joined "+roomnumber);
             } else {
                 rooms[roomnumber].player2.name = data.name;
                 rooms[roomnumber].player2.id = socket.id;
+
+                console.log(rooms[roomnumber].player2.name+" joined "+roomnumber);
             }
             io.sockets.in(roomnumber).emit('roominfo', {
                     'roomnumber': roomnumber,
