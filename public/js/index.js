@@ -1,12 +1,9 @@
-/**
- * Created by Poom2 on 11/5/2016.
- */
+
 var socket = io();
-var name ;
+var myName ;
 var opponentName;
 var currentRoom;
 
-socket.emit('joingame',{name :'playername'}); // change player name to playername from login box later
 socket.on('roominfo',function(data){
     currentRoom = data.roomnumber;
     if(socket.id == data.roomdata.player1.id) opponentName = data.roomdata.player2.name;
@@ -17,3 +14,15 @@ socket.on('roominfo',function(data){
 socket.on('initialcardposition',function(data){
 
 });
+
+function submitName(){
+//
+//        myName = elem.value;
+//        var id    = elem.id;
+//        if (value === ""){
+//            alert("Enter your name!")
+//        }else{
+//            alert("Welcome "+ myName +"!! to the card matching game.")
+
+    socket.emit('joingame',{name : 'aaaaatest'}); // change player name to playername from login box later
+}

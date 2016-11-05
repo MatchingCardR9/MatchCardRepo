@@ -28,9 +28,13 @@ io.on('connection',function(socket){
             if(Math.random()<0.5){
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
+
+                console.log(rooms[roomnumber].player1.name+" joined "+roomnumber);
             }else {
                 rooms[roomnumber].player2.name = data.name;
                 rooms[roomnumber].player2.id = socket.id;
+
+                console.log(rooms[roomnumber].player2.name+" joined "+roomnumber);
             }
         }else{ // 2 players connected to a room already
             if(rooms[roomnumber].player1.id !=''){
@@ -50,8 +54,11 @@ io.on('connection',function(socket){
             });
         }
 
-       console.log('player joined at room'+roomnumber);
+
     });
+    socket.on('disconnect',function(){
+        console.log('user'+socket.id+'disconnected');
+    })
 });
 
 http.listen(3000, function(){
