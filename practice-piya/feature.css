@@ -2,11 +2,11 @@ div#memory_board{
     background: #FFCC00;
     border:#999 1px solid;
     width:800px;
-    height:540px;
+    height:780px;
     padding:24px;
     margin:0px auto;
 }
-div#memory_board > div{
+div#memory_board >div{
     background: url("bg.jpg") no-repeat;
     border:#000 1px solid;
     width:71px;
@@ -18,3 +18,95 @@ div#memory_board > div{
     cursor:pointer;
     text-align:center;
 }
+
+body{
+    text-align: center;
+    background: #00ECB9;
+    font-family: sans-serif;
+    font-weight: 100;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#clockdiv{
+    font-family: sans-serif;
+    color: #fff;
+    display: inline-block;
+    font-weight: 100;
+    text-align: center;
+    font-size: 30px;
+}
+#clockdiv > div{
+    padding: 10px;
+    border-radius: 3px;
+    background: #00BF96;
+    display: inline-block;
+}
+#clockdiv div > span{
+    padding: 15px;
+    border-radius: 3px;
+    background: #00816A;
+    display: inline-block;
+}
+.smalltext{
+    padding-top: 5px;
+    font-size: 16px;
+}
+
+/*//----------------------------------------------//*/
+html {
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+}
+
+html, input {
+    font-family:
+            "HelveticaNeue-Light",
+            "Helvetica Neue Light",
+            "Helvetica Neue",
+            Helvetica,
+            Arial,
+            "Lucida Grande",
+            sans-serif;
+}
+
+ul {
+    list-style: none;
+    word-wrap: break-word;
+}
+
+/* Change Placeholder Style */
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #fff;
+    font-style: italic;
+    opacity : 0.8;
+
+}
+::-moz-placeholder { /* Firefox 19+ */
+    color: #fff;
+    font-style: italic;
+    opacity : 0.8;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color: #fff;
+    font-style: italic;
+    opacity : 0.8;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #fff;
+    font-style: italic;
+    opacity : 0.8;
+}
+.pages {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+/*LOG-IN PAGE*/

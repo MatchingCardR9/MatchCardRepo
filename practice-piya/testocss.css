@@ -46,7 +46,7 @@ header div.right {
 
 header div.right span.time,header div.right span.music,header div.left span.newG,header div.left span.score {
     color: #ccc;
-    font-size: 18pt;
+    font-size: 16pt;
     background-color: #222;
     cursor: pointer;
     padding: 10px;

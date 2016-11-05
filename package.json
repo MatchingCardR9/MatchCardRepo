@@ -1,5 +1,5 @@
 {
-  "name": "MatchCardRepo",
+  "name": "matchcardrepo",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -13,5 +13,18 @@
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0"
-  }
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatchingCardR9/MatchCardRepo.git"
+  },
+  "author": "piya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MatchingCardR9/MatchCardRepo/issues"
+  },
+  "homepage": "https://github.com/MatchingCardR9/MatchCardRepo#readme",
+  "description": ""
 }

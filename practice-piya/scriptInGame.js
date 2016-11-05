@@ -1,12 +1,25 @@
 /**
  * Created by veryhotsos on 10/28/2016.
  */
-    // Scripted By Adam Khoury in connection with the following video tutorial:
-    // http://www.youtube.com/watch?v=c_ohDPWmsM0
-var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
+
+var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L','M','M','N','N','O','O','P','P','Q','Q','R','R'];
 var memory_values = [];
 var memory_tile_ids = [];
 var tiles_flipped = 0;
+var score_a = 0;
+var score_b = 0;
+var status_array = ["Waiting for player...", "Player Full. Ready to initiate self-destruct sequence in 5 seconds", "'s Turn"];
+
+var playerName = '';
+var platerID='';
+var playerScore = 0;
+
+var opponentName = '';
+var opponentID = '';
+var opponentScore = 0;
+
+var socket = io();
+
 Array.prototype.memory_tile_shuffle = function(){
     var i = this.length, j, temp;
     while(--i > 0){
@@ -15,17 +28,23 @@ Array.prototype.memory_tile_shuffle = function(){
         this[j] = this[i];
         this[i] = temp;
     }
+} // tile shuffle
+function initializeGame(){
+    score_a = 0;
+    score_b = 0;
 }
+
 function newBoard(){
     tiles_flipped = 0;
     var output = '';
-    memory_array.memory_tile_shuffle();
+    memory_array.memory_tile_shuffle(); // call this line whenever you wanna shuffle cards
     for(var i = 0; i < memory_array.length; i++){
         output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
     }
     document.getElementById('memory_board').innerHTML = output;
-}
-function memoryFlipTile(tile,val){
+} // create new board
+
+function memoryFlipTile(tile,val){ //FLIP tiles FLIP tiles FLIP tiles FLIP tiles FLIP tiles FLIP tiles
     if(tile.innerHTML == "" && memory_values.length < 2){
         tile.style.background = '#FFF';
         tile.innerHTML = val;
@@ -63,4 +82,30 @@ function memoryFlipTile(tile,val){
             }
         }
     }
+}
+
+// REMAIN TIMER REMAIN TIMER REMAIN TIMER REMAIN TIMER REMAIN TIMER REMAIN TIMER REMAIN TIMER
+var countRemain = 90;
+var counterR = setInterval(timeRemain, 1000); //1000 will run it every 1 second
+function timeRemain(){
+    countRemain = countRemain - 1;
+    if (countRemain <= 0) {
+        clearInterval(counterR);
+        //counter ended, do something here
+        return;
+    }
+    document.getElementById("timeRemain").innerHTML = countRemain + " seconds"; // watch for spelling
+}
+// TURN TIMER TURN TIMER TURN TIMER TURN TIMER TURN TIMER TURN TIMER TURN TIMER TURN TIMER TURN TIMER
+var countTurn = 11;
+var counter = setInterval(timer, 1000); //1000 will run it every 1 second
+function timer() {
+    countTurn = countTurn - 1;
+    if (countTurn <= 0) {
+        clearInterval(counter);
+        timer();
+        //counter ended, do something here
+        return;
+    }
+    document.getElementById("timeTurn").innerHTML = countTurn + " seconds"; // watch for spelling
 }

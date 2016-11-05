@@ -22,7 +22,7 @@ window.onload = function() {
     var Interval = setInterval(timer, 1000);
 
     function startMusic() {
-        sTAudio.src = externalMediaDir + "images/background.mp3"
+        sTAudio.src = externalMediaDir + "images/backgroundmusic.mp3"
         sTAudio.setAttribute("status", "play");
         $("span.music").innerHTML = "music : on";
         sTAudio.play();
@@ -46,13 +46,17 @@ window.onload = function() {
             ele = "";
         for (i = 0; i < len; i++) {
             ele += (
-            "<div id='flip-container' rel><div class='flipper' id='tile_" +
-            i +
-            "' ><div class='front' style='background-image:url(" +
+            "<div id='flip-container' rel>" +
+            "<div class='flipper' id='tile_" +
+            i + "' >" +
+            "<div class='front' style='background-image:url(" +
             externalMediaDir +
-            "images/js.png)'></div><div class='back' style='background-image: url(\"" +
+            "images/js.png)'></div>" +
+            "<div class='back' style='background-image: url(\"" +
             externalMediaDir + "images/" + m_array[i] +
-            ".jpg\");'></div></div></div>");
+            ".jpg\");'></div>" +
+            "</div>" +
+            "</div>");
         }
         tile_count = 0;
         maxTime = 60;
@@ -81,7 +85,7 @@ window.onload = function() {
                     'rotateY(0deg)'
                 allCon[i].setAttribute("rel", "");
             }
-        }, 3000);
+        }, 2000);
         for (var i = 0; i < allCon.length; i++) {
             allCon[i].childNodes[0].style.transform =
                 'rotateY(180deg)'
@@ -99,7 +103,7 @@ window.onload = function() {
             loseAudio.play();
             sTAudio.pause();
             loseAudio.onended = function() {
-                alert("You lose this game :) plz try again");
+                alert("Time's up!");
                 stage.innerHTML = "";
                 newGame();
             }
