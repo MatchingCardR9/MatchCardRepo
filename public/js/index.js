@@ -6,6 +6,20 @@ var opponentId;
 var opponentScore;
 var currentRoom;
 var initialcardposition = [];
+
+function submitName(){
+    // --> after click , disable button
+//
+//        myName = elem.value;
+//        var id    = elem.id;
+//        if (value === ""){
+//            alert("Enter your name!")
+//        }else{
+//            alert("Welcome "+ myName +"!! to the card matching game.")
+
+    socket.emit('joingame',{name : 'aaaaatest'}); // change player name to playername from login box later
+}
+
 socket.on('roominfo',function(data){
     currentRoom = data.roomnumber;
     if(socket.id == data.roomdata.player1.id) {
@@ -17,8 +31,19 @@ socket.on('roominfo',function(data){
         opponentId = data.roomdata.player1.id;
     }
 });
+
+function ready(){
+    // PRESS READY AFTER NAME SUBMISSION
+    socket.emit('readytoplay',{roomnumber : currentRoom});
+}
+
 socket.on('initialcardposition',function(data){
     initialcardposition = data.initialcardposition;
+    var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
+    //CARD POSITION FROM SERVBR
+    // SHOW ALL CARD 10 SEC
+    // PLAYFIRSTCARD for player 1
+    // WAITFIRSTCARD for player 2
 });
 
 socket.on('playfirstcard',function(){
@@ -36,19 +61,4 @@ function firstcardselected() {
     );
 }
 
-function ready(){
-    socket.emit('readytoplay',{roomnumber : currentRoom});
-}
-function submitName(){
-    // --> after click , disable button
-//
-//        myName = elem.value;
-//        var id    = elem.id;
-//        if (value === ""){
-//            alert("Enter your name!")
-//        }else{
-//            alert("Welcome "+ myName +"!! to the card matching game.")
-
-    socket.emit('joingame',{name : 'aaaaatest'}); // change player name to playername from login box later
-}
 
