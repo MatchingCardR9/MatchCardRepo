@@ -107,6 +107,15 @@ io.on('connection',function(socket){
     });
 
 
+    room[data.roomnumber].remainingcards --;
+    if(room[data.roomnumber].remainingcards ==0){
+        if(room[data.roomnumber].player1.score > room[data.roomnumber].player1.score,,,,,,,,)
+        io.sockets.in(data.roomnumber).emit('gameend',{
+
+        });
+    }
+
+
     socket.on('disconnect',function(){
         console.log('user'+socket.id+'disconnected');
     })
