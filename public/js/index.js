@@ -64,8 +64,18 @@ function firstcardselected() {
     );
 }
 
+function wrong(){
+    var cardposition = 1; // change this to real position later
+// if player choose wrong card use this method
+
+    socket.emit('wrong',{wrongpoistion: wrongposition , roomnumber : currentRoom})
+
+}
+
 function correct(){
-    
+    var cardposition = 2;
+// if player match correct card use this method
+    socket.emit('correct',{correctposition:correctposition, roomnumber : currentRoom})
 }
 
 

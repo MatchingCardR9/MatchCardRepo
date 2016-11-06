@@ -73,6 +73,16 @@ io.on('connection',function(socket){
             io.to(rooms[data.roomnumber].player2.id).emit('waitfirstcard');
         }
     });
+
+    socket.on('wrong',function(data){
+        if(room[data.roomnumber].player1.id == socket.id )
+            room[data.roomnumber].player.
+    });
+    socket.on('correct',function(data){
+        if(room[data.roomnumber].player1.id ==)
+    });
+
+
     socket.on('disconnect',function(){
         console.log('user'+socket.id+'disconnected');
     })
@@ -102,6 +112,8 @@ function randomCardPosition(){
 
     return initialcardposition;
 }
+
+
 
 http.listen(3000, function(){
     console.log('listening on localhost:3000');
