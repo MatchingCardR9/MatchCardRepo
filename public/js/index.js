@@ -20,8 +20,20 @@ function submitName(){
 //            alert("Welcome "+ myName +"!! to the card matching game.")
 
     var name = document.getElementById('username').value;
-    socket.emit('joingame',{name : name} ); // change player name to playername from login box later
+	if(name==""){
+		if(confirm("Write your name! or you will be called Gay")==true){
+			name = "Gay";
+				alert("Welcome " + name+ "! to Hatestone; cheap matching card game")
+	socket.emit('joingame',{name : name} ); // change player name to playername from login box later
     document.getElementById('submitbutton').disabled = "disabled";
+		}
+		}else{
+	alert("Welcome " + name+ "! to Hatestone; cheap matching card game")
+	socket.emit('joingame',{name : name} ); // change player name to playername from login box later
+    document.getElementById('submitbutton').disabled = "disabled";
+	
+	}
+
 }
 
 socket.on('roominfo',function(data){
