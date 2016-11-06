@@ -26,6 +26,7 @@ io.on('connection',function(socket){
             rooms[roomnumber].player1 = new Object();
             rooms[roomnumber].player2 = new Object();
             rooms[roomnumber].initialcardposition = randomCardPosition();
+            rooms[roomnumber].remainingcards = 36;
             if(Math.random()<0.5){
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
