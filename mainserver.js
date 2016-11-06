@@ -57,13 +57,7 @@ io.on('connection',function(socket){
                     'roomdata': rooms[roomnumber]
                 }
             );
-            //SEND CARD POSITION --> GAME START AT FRONTEND
-            io.to(rooms[data.roomnumber].player1.id).emit('gamestart',{
-                'initialcardposition': rooms[roomnumber].initialcardposition , turn :'play' //PLAYER1 PLAY FIRST
-            });
-            io.to(rooms[data.roomnumber].player2.id).emit('gamestart',{
-                'initialcardposition': rooms[roomnumber].initialcardposition , turn :'wait' //PLAYER@ WAIT FIRST
-            });
+
         }
 
     });
@@ -74,7 +68,13 @@ io.on('connection',function(socket){
             rooms[data.roomnumber].player2.ready = true;
         }
         if(rooms[data.roomnumber].player2.ready && rooms[data.roomnumber].player1.ready){
-
+            //SEND CARD POSITION --> GAME START AT FRONTEND
+            io.to(rooms[data.roomnumber].player1.id).emit('gamestart',{
+                'initialcardposition': rooms[roomnumber].initialcardposition , turn :'play' //PLAYER1 PLAY FIRST
+            });
+            io.to(rooms[data.roomnumber].player2.id).emit('gamestart',{
+                'initialcardposition': rooms[roomnumber].initialcardposition , turn :'wait' //PLAYER@ WAIT FIRST
+            });
         }
     });
 
