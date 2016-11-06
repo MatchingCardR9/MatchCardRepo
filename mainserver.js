@@ -74,12 +74,36 @@ io.on('connection',function(socket){
         }
     });
 
-    socket.on('wrong',function(data){
+    socket.on('wrong',function(data){ // wrong card
         if(room[data.roomnumber].player1.id == socket.id )
-            room[data.roomnumber].player.
+
+            io.to(rooms[data.roomnumber].player2.id).emit('play',{
+                wrongposition : data.wrongposition
+            });
+        else{
+            io.to(rooms[data.roomnumber].player1.id).emit('play',{
+                wrongposition : data.wrongposition
+            })}
     });
-    socket.on('correct',function(data){
-        if(room[data.roomnumber].player1.id ==)
+
+    socket.on('correct',function(data){ // correct card
+        if(room[data.roomnumber].player1.id == socket.id) {
+            io.to(rooms[data.roomnumber].player2.id).emit('correctposition', {
+                correctposition: data.correctposition
+            });
+            socket.emit('playfirstcard');
+            io.to(rooms[data.roomnumber].player2.id).emit('waitfirstcard');
+
+        }
+        else{
+            io.to(rooms[data.roomnumber].player1.id).emit('correctiposition',{
+                correctposition : data.correctposition
+            });
+            socket.emit('playfirstcard');
+            io.to(rooms[data.roomnumber].player1.id).emit('waitfirstcard');
+
+        }
+        
     });
 
 
