@@ -35,7 +35,7 @@ socket.on('roominfo',function(data){
     }
 });
 
-function ready(){
+function readytoplay(){
     // PRESS READY AFTER NAME SUBMISSION
     socket.emit('readytoplay',{roomnumber : currentRoom});
 }
@@ -62,6 +62,10 @@ function firstcardselected() {
     // ADD FUNCTION FROM FRONTEND TO GET CARD POSITION
     socket.emit('firstcardselected', {cardposition: cardposition} //CHANGE TO VAR SELECTEDPOSITION
     );
+}
+
+function correct(){
+    
 }
 
 
