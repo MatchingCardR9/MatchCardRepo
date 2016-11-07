@@ -21,9 +21,9 @@ function submitName(){
     var nameform = document.getElementById('nameform').value;
     socket.emit('joingame',{name : name} ); // change player name to playername from login box later
     
-	if(name==""){
+	if(myNameName==""){
 		if(confirm("Write your name! or you will be called Gay Retard")==true){
-			name = "Gay Retard";
+			myName = "Gay Retard";
 				alert("Welcome " + name+ "! to Hatestone; cheap matching card game")
 		socket.emit('joingame',{name : name} ); // change player name to playername from login box later
 		document.getElementById('submitbutton').disabled = "disabled";
@@ -31,7 +31,7 @@ function submitName(){
 		$("#waitingplayer").fadeIn();
 		}else{}
 	}else{
-	alert("Welcome " + name+ "! to Hatestone; cheap matching card game")
+	alert("Welcome " + myName+ "! to Hatestone; cheap matching card game")
 	socket.emit('joingame',{name : name} ); // change player name to playername from login box later
     document.getElementById('submitbutton').disabled = "disabled";
 	$("#nameform").fadeOut();
