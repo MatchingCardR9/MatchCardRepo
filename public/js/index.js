@@ -19,23 +19,23 @@ function submitName(){
 //        }else{
 //            alert("Welcome "+ myName +"!! to the card matching game.")
 
-    var name = document.getElementById('username').value;
+    myName = document.getElementById('username').value;
     var nameform = document.getElementById('nameform').value;
     socket.emit('joingame',{name : name} ); // change player name to playername from login box later
-    
-	if(name==""){
+
+	if(myName==""){
 		if(confirm("Write your name! or you will be called Gay")==true){
-			name = "Gay";
-				alert("Welcome " + name+ "! to Hatestone; cheap matching card game")
-	socket.emit('joingame',{name : name} ); // change player name to playername from login box later
+			myName = "Gay";
+				alert("Welcome " + myName+ "! to Hatestone; cheap matching card game")
+	socket.emit('joingame',{name : myName} ); // change player name to playername from login box later
     document.getElementById('submitbutton').disabled = "disabled";
 	$("#nameform").fadeOut();
 		}else{
 			
 	}
 		}else{
-	alert("Welcome " + name+ "! to Hatestone; cheap matching card game")
-	socket.emit('joingame',{name : name} ); // change player name to playername from login box later
+	alert("Welcome " + myName+ "! to Hatestone; cheap matching card game")
+	socket.emit('joingame',{name : myName} ); // change player name to playername from login box later
     document.getElementById('submitbutton').disabled = "disabled";
 	$("#nameform").fadeOut();
 	}
@@ -43,7 +43,7 @@ function submitName(){
 
 }
 
-socket.on('roominfo',function(data){
+socket.on('roominfo',function(data){ //Receive room info , Assign Opponent name + opponent id
     currentRoom = data.roomnumber;
     if(socket.id == data.roomdata.player1.id) {
         opponentName = data.roomdata.player2.name;
@@ -73,8 +73,8 @@ socket.on('gamestart',function(data){
     }
 });
 
-socket.on('playfirstcard',function(){
-    //ACTION WHEN PLAYER ASSIGNED TO PLAY FIRST CARD
+socket.on('choosefirstcard',function(){
+    //ACTION WHEN PLAYER ASSIGNED TO CHOOSE FIRST CARD
 });
 
 socket.on('waitfirstcard',function(){
@@ -82,15 +82,23 @@ socket.on('waitfirstcard',function(){
 });
 
 function firstcardselected() {
-    var cardposition = 5; //change position later
+    var firstcardposition = 5; //change position later
     // ADD FUNCTION FROM FRONTEND TO GET CARD POSITION
-    socket.emit('firstcardselected', {cardposition: cardposition} //CHANGE TO VAR SELECTEDPOSITION
+    socket.emit('firstcardselected', {firstcardposition: firstcardposition , roomnumber : currentRoom} //CHANGE TO VAR SELECTEDPOSITION
     );
 }
-socket.on('play',function(data){
-    // PLAY
-    var opponentwrongposition = data.wrongposition; //USE THIS TO SHOW WHICH POSITION OPPONENT PICKED
+
+socket.on('flipfirstcard',function(data){
+    var firstcardposition = data.firstcardposition;
+    //FLIP THE FIRST CARD AND PLAY THE GAME
+
 });
+
+socket.on('play',function(data){
+    // SHOW WHICH POSITION OPPONENT PICKED AND PLAY
+    var opponentwrongposition = data.wrongposition;//use this to show which position is opponent picked
+});
+
 function wrong(){
     var cardposition = 1; // change this to real position later
 // if player choose wrong card use this method
