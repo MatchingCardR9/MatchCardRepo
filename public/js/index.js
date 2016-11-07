@@ -46,10 +46,13 @@ socket.on('roomready',function(data){ //Receive room info , Assign Opponent name
         opponentName = data.roomdata.player1.name;
         opponentId = data.roomdata.player1.id;
     }
-
+	//ROOM READY , BOTH PLAYER JOINED THE ROOM --> ARE YOU READY?
+	$("#waitingplayer").fadeOut()
+	$("#roomReady").fadeIn();
 });
 
 function readytoplay(){
+	document.getElementById('readyBtn').disabled = "disabled"
     // PRESS READY AFTER NAME SUBMISSION
     socket.emit('readytoplay',{roomnumber : currentRoom});
 }
