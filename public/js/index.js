@@ -43,7 +43,7 @@ function submitName(){
 
 }
 
-socket.on('roominfo',function(data){ //Receive room info , Assign Opponent name + opponent id
+socket.on('roomready',function(data){ //Receive room info , Assign Opponent name + opponent id
     currentRoom = data.roomnumber;
     if(socket.id == data.roomdata.player1.id) {
         opponentName = data.roomdata.player2.name;
@@ -53,6 +53,7 @@ socket.on('roominfo',function(data){ //Receive room info , Assign Opponent name 
         opponentName = data.roomdata.player1.name;
         opponentId = data.roomdata.player1.id;
     }
+
 });
 
 function readytoplay(){
@@ -63,10 +64,13 @@ function readytoplay(){
 socket.on('gamestart',function(data){
     initialcardposition = data.initialcardposition;
     var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
+    myScore = 0;
+    opponentScore = 0;
+    //SCORE = 0 everytime gamestart
     //CARD POSITION FROM SERVBR
     // SHOW ALL CARD 10 SEC
     if(turn=='play'){
-        //PLAYFIRSTCARD
+        //CHOOSEFIRSTCARD
     }
     if(turn=='wait'){
         //WAITFIRSTCARD
@@ -135,7 +139,7 @@ socket.on('gameend',function(data){
     }
 }); // GAME END --> DO SOMETHING , SHOW
 
-function continueGame(){ //AFTER PRESS CONTINUE 
+function continueGame(){ //AFTER PRESS CONTINUE
     socket.emit('continue', {roomnumber : currentRoom});
 }
 

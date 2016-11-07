@@ -16,7 +16,7 @@ app.get('/',function(req,res){
 
 
 io.on('connection',function(socket){
-    console.log('user connected - id :'+socket.id);
+    console.log('client connected - id :'+socket.id);
     socket.on('joingame',function(data){
 
         if(io.sockets.adapter.rooms[roomnumber] &&io.sockets.adapter.rooms[roomnumber].length==2) roomnumber++;
@@ -52,7 +52,7 @@ io.on('connection',function(socket){
 
                 console.log(rooms[roomnumber].player2.name+" joined room: "+roomnumber);
             }
-            io.sockets.in(roomnumber).emit('roominfo', {
+            io.sockets.in(roomnumber).emit('roomready', {
                     'roomnumber': roomnumber,
                     'roomdata': rooms[roomnumber]
                 }
