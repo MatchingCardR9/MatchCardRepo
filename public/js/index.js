@@ -82,7 +82,7 @@ socket.on('waitfirstcard',function(){
 });
 
 function firstcardselected() {
-    var firstcardposition = 5; //change position later
+    var firstcardposition = 5; //CHANGE TO CARD POSITION THAT PLAYER PICKED
     // ADD FUNCTION FROM FRONTEND TO GET CARD POSITION
     socket.emit('firstcardselected', {firstcardposition: firstcardposition , roomnumber : currentRoom} //CHANGE TO VAR SELECTEDPOSITION
     );
@@ -135,7 +135,7 @@ socket.on('gameend',function(data){
     }
 }); // GAME END --> DO SOMETHING , SHOW
 
-function continueGame(){ //AFTER
+function continueGame(){ //AFTER PRESS CONTINUE 
     socket.emit('continue', {roomnumber : currentRoom});
 }
 
