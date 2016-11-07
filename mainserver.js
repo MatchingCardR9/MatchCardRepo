@@ -33,24 +33,24 @@ io.on('connection',function(socket){
                 rooms[roomnumber].player1.id = socket.id;
 
 
-                console.log("Room: "+roomnumber+" "+rooms[roomnumber].player1.name+" joined");
+                console.log("Room: "+roomnumber+" Player1-"+rooms[roomnumber].player1.name+" joined");
             }else {
                 rooms[roomnumber].player2.name = data.name;
                 rooms[roomnumber].player2.id = socket.id;
 
-                console.log("Room: "+roomnumber+" "+rooms[roomnumber].player2.name+" joined");
+                console.log("Room: "+roomnumber+" Player2-"+rooms[roomnumber].player2.name+" joined");
             }
         }else { // 2 players connected to a room already
             if (rooms[roomnumber].player1.id != '') {
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
 
-                console.log("Room: "+roomnumber+" "+rooms[roomnumber].player1.name+" joined");
+                console.log("Room: "+roomnumber+" Player1-"+rooms[roomnumber].player1.name+" joined");
             } else {
                 rooms[roomnumber].player2.name = data.name;
                 rooms[roomnumber].player2.id = socket.id;
 
-                console.log("Room: "+roomnumber+" "+rooms[roomnumber].player2.name+" joined");
+                console.log("Room: "+roomnumber+" Player2-"+rooms[roomnumber].player2.name+" joined");
             }
             console.log("Room : "+roomnumber+"- Both Players joined - wait player to press ready");
             io.sockets.in(roomnumber).emit('roomready', {
