@@ -2,25 +2,44 @@
 <html>
 
 <head>
-    <title>Log in now!</title>
+
+    <title>Login now!</title>
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/loginstyle.css">
+		html, body {
+    height: 100%;
+		}
+
+		html {
+    display: table;
+    margin: auto;
+		}
+
+		body {
+    display: table-cell;
+    vertical-align: middle;
+	background-color: #FFCA28;
+		}
+	
+	
 </head>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/index.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script>
 
 <body>
+<div style="text-align: center;">
+<h1 style="color: white"> Hatestone: Matching Card </h1>
+</div>
 
-<form id="nameform"  >
-    <h1 class="menu-title">Card Matching of Destiny</h1>
-    <p class="error-message"></p>
-    <label for="Nickname">Nickname:</label>
-    <input type="text" id="username" placeholder="Enter nickname" autocomplete="off" required />
-    <input type="button" value="Go" onclick="submitName()" id="submitbutton"/>
+<form id="nameform">
+<div style="text-align: center;">
+      <label for="inputdefault" style="color: white">Tell us your name:</label></br>
+      <input id="username" type="text" maxlength="6" placeholder="Enter your name" autocomplete="off" >
+	  <input type="button" id="submitbutton" class="btn btn-success" value="GO" onclick="submitName()">
+</div>
 </form>
 
-<button onclick="submitName()"> AAAAA</button>
 
 
 </body>
