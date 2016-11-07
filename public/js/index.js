@@ -1,4 +1,3 @@
-
 var socket = io();
 var myName ; //link with text box
 var myScore = 0;
@@ -23,23 +22,24 @@ function submitName(){
     var name = document.getElementById('username').value;
     var nameform = document.getElementById('nameform').value;
     socket.emit('joingame',{name : name} ); // change player name to playername from login box later
-    document.getElementById('submitbutton').disabled = "disabled";
-    $("#nameform").fadeOut();
-
+    
 	if(name==""){
 		if(confirm("Write your name! or you will be called Gay")==true){
 			name = "Gay";
 				alert("Welcome " + name+ "! to Hatestone; cheap matching card game")
 	socket.emit('joingame',{name : name} ); // change player name to playername from login box later
     document.getElementById('submitbutton').disabled = "disabled";
-		}
+	$("#nameform").fadeOut();
+		}else{
+			
+	}
 		}else{
 	alert("Welcome " + name+ "! to Hatestone; cheap matching card game")
 	socket.emit('joingame',{name : name} ); // change player name to playername from login box later
     document.getElementById('submitbutton').disabled = "disabled";
-	
+	$("#nameform").fadeOut();
 	}
-
+	
 
 }
 
