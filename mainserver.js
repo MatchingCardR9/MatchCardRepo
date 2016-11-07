@@ -143,7 +143,9 @@ io.on('connection',function(socket){
 
 
         rooms[data.roomnumber].remainingcards--;
+
         console.log("Room: "+data.roomnumber+" Remaining Cards : "+rooms[data.roomnumber].remainingcards);
+
         if (rooms[data.roomnumber].remainingcards == 0) {// REMAINING CARD IS 0 >> GAME ENDED
 
             console.log("Room :"+data.roomnumber+" Game Ended");
@@ -163,6 +165,8 @@ io.on('connection',function(socket){
                 io.to(rooms[data.roomnumber].player1.id).emit('gameend',{
                     result:'lose'
                 });
+                console.log("Room :"+data.roomnumber+" Player2-"+rooms[data.roomnumber].player2.name+" Win");
+
             }else{
                 io.to(rooms[data.roomnumber].player1.id).emit('gameend',{
                     result:'draw'
@@ -170,6 +174,8 @@ io.on('connection',function(socket){
                 io.to(rooms[data.roomnumber].player2.id).emit('gameend',{
                     result:'draw'
                 });
+                console.log("Room :"+data.roomnumber+" DRAW");
+
             }
         }
         else{ // REMAINING CARD !=0 --> WINNER CHOOSE FIRSTCARD
@@ -197,14 +203,21 @@ io.on('connection',function(socket){
 
 
     socket.on('continue',function(data){
-        if(socket.id == rooms[data.roomnumber].player1.id) rooms[data.roomnumber].player1.continue = true;
-        else{
-            rooms[data.roomnumber].player2.continue = true;
+        if(socket.id == rooms[data.roomnumber].player1.id) { //PLAYER1 CONTINUE
+            rooms[data.roomnumber].player1.continue = true;
+            console.log("Room: "+data.roomnumber+" Player1-"+rooms[data.roomnumber].player1.name+" CONTINUE");
+
         }
-        if(rooms[data.roomnumber].player2.continue && rooms[data.roomnumber].player1.continue){
+        else{ //PLAYER2 CONTINUE
+            rooms[data.roomnumber].player2.continue = true;
+            console.log("Room: "+data.roomnumber+" Player2-"+rooms[data.roomnumber].player2.name+" ready");
+
+        }
+        if(rooms[data.roomnumber].player2.continue && rooms[data.roomnumber].player1.continue){ //BOTH PLAYER CONTINUE , START NEW GAME
 
             rooms[data.roomnumber].initialcardposition = randomCardPosition();
             rooms[data.roomnumber].remainingcards = 36;
+            console.log("Room: "+data.roomnumber+" CONTINUED-->new game started");
 
             if (rooms[data.roomnumber].player1.score > room[data.roomnumber].player2.score){
                 io.to(rooms[data.roomnumber].player1.id).emit('gamestart',{
@@ -213,6 +226,8 @@ io.on('connection',function(socket){
                 io.to(rooms[data.roomnumber].player2.id).emit('gamestart',{
                     'initialcardposition': rooms[roomnumber].initialcardposition , turn :'wait' //PLAYER2 WAIT FIRST
                 });
+
+                console.log("Room: "+data.roomnumber+" Player 1-"+rooms[data.roomnumber].player1.name+" Play first");
             }
             else if (rooms[data.roomnumber].player2.score > room[data.roomnumber].player1.score){
                 io.to(rooms[data.roomnumber].player1.id).emit('gamestart',{
@@ -221,6 +236,9 @@ io.on('connection',function(socket){
                 io.to(rooms[data.roomnumber].player2.id).emit('gamestart',{
                     'initialcardposition': rooms[roomnumber].initialcardposition , turn :'play' //PLAYER2 PLAY FIRST
                 });
+
+                console.log("Room: "+data.roomnumber+" Player 2-"+rooms[data.roomnumber].player2.name+" Play first");
+
             }
             else{
                 if(Math.random()<0.5){
@@ -230,6 +248,9 @@ io.on('connection',function(socket){
                     io.to(rooms[data.roomnumber].player2.id).emit('gamestart',{
                         'initialcardposition': rooms[roomnumber].initialcardposition , turn :'wait' //PLAYER2 WAIT FIRST
                     });
+
+                    console.log("Room: "+data.roomnumber+" Player 1-"+rooms[data.roomnumber].player1.name+" Play first");
+
                 }else{
                     io.to(rooms[data.roomnumber].player1.id).emit('gamestart',{
                         'initialcardposition': rooms[roomnumber].initialcardposition , turn :'wait' //PLAYER1 wait FIRST
@@ -237,6 +258,9 @@ io.on('connection',function(socket){
                     io.to(rooms[data.roomnumber].player2.id).emit('gamestart',{
                         'initialcardposition': rooms[roomnumber].initialcardposition , turn :'play' //PLAYER2 play FIRST
                     });
+
+                    console.log("Room: "+data.roomnumber+" Player 2-"+rooms[data.roomnumber].player2.name+" Play first");
+
                 }
             }
 
