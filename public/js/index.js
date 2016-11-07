@@ -19,20 +19,20 @@ function submitName(){
 
     myName = document.getElementById('username').value;
     var nameform = document.getElementById('nameform').value;
-    socket.emit('joingame',{name : name} ); // change player name to playername from login box later
+    socket.emit('joingame',{name : myName} ); // change player name to playername from login box later
     
 	if(myNameName==""){
 		if(confirm("Write your name! or you will be called Gay Retard")==true){
 			myName = "Gay Retard";
-				alert("Welcome " + name+ "! to Hatestone; cheap matching card game")
-		socket.emit('joingame',{name : name} ); // change player name to playername from login box later
+				alert("Welcome " + myName+ "! to Hatestone; cheap matching card game")
+		socket.emit('joingame',{name : myName} ); // change player name to playername from login box later
 		document.getElementById('submitbutton').disabled = "disabled";
 		$("#nameform").fadeOut();
 		$("#waitingplayer").fadeIn();
 		}else{}
 	}else{
 	alert("Welcome " + myName+ "! to Hatestone; cheap matching card game")
-	socket.emit('joingame',{name : name} ); // change player name to playername from login box later
+	socket.emit('joingame',{name : myName} ); // change player name to playername from login box later
     document.getElementById('submitbutton').disabled = "disabled";
 	$("#nameform").fadeOut();
 	$("#waitingplayer").fadeIn();
