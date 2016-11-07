@@ -104,7 +104,7 @@ socket.on('play',function(data){
 });
 
 function wrong(){
-    var cardposition = 1; // change this to real position later
+    var wrongposition = 1; // change this to real position later
 // if player choose wrong card use this method
     //
 
@@ -113,7 +113,7 @@ function wrong(){
 }
 
 function correct(){
-    var cardposition = 2;
+    var correctposition = 2;
 // if player match correct card use this method
     socket.emit('correct',{correctposition:correctposition, roomnumber : currentRoom , currentscore : myScore});
 }
