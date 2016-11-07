@@ -143,10 +143,10 @@ io.on('connection',function(socket){
 
 
         rooms[data.roomnumber].remainingcards--;
-        console.log("Room: "data.roomnumber+" Remaining Cards : "+rooms[data.roomnumber].remainingcards);
+        console.log("Room: "+data.roomnumber+" Remaining Cards : "+rooms[data.roomnumber].remainingcards);
         if (rooms[data.roomnumber].remainingcards == 0) {// REMAINING CARD IS 0 >> GAME ENDED
 
-            console.log("Room :"data.roomnumber+" Game Ended");
+            console.log("Room :"+data.roomnumber+" Game Ended");
             if (rooms[data.roomnumber].player1.score > room[data.roomnumber].player2.score) {
                 io.to(rooms[data.roomnumber].player1.id).emit('gameend',{
                     result:'win'
@@ -154,7 +154,7 @@ io.on('connection',function(socket){
                 io.to(rooms[data.roomnumber].player2.id).emit('gameend',{
                     result:'lose'
                 });
-                console.log("Room :"data.roomnumber+" Player1-"+rooms[data.roomnumber].player1.name+" Win");
+                console.log("Room :"+data.roomnumber+" Player1-"+rooms[data.roomnumber].player1.name+" Win");
             }
             else if(rooms[data.roomnumber].player2.score > room[data.roomnumber].player1.score){
                 io.to(rooms[data.roomnumber].player2.id).emit('gameend',{
