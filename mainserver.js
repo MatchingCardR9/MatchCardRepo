@@ -52,7 +52,7 @@ io.on('connection',function(socket){
 
                 console.log("Room: "+roomnumber+" "+rooms[roomnumber].player2.name+" joined");
             }
-            console.log("Room : "+roomnumber+" 2 Players joined");
+            console.log("Room : "+roomnumber+"- Both Players joined - wait player to press ready");
             io.sockets.in(roomnumber).emit('roomready', {
                     'roomnumber': roomnumber,
                     'roomdata': rooms[roomnumber]
@@ -271,7 +271,7 @@ io.on('connection',function(socket){
 
 
     socket.on('disconnect',function(){
-        console.log('user:'+whoDisconnected(socket.id)+' id:'+socket.id+' disconnected');
+        console.log(whoDisconnected(socket.id));
     })
 });
 
@@ -299,8 +299,9 @@ function randomCardPosition(){
 function whoDisconnected(socketid){
     for(i=1;i<=roomnumber;i++){
         var room = rooms[i];
-        if(room.player1.id==socketid) return room.player1.name;
-        else if(room.player2.id==socketid) {return room.player2.name;}
+        if(room==null) return ('unknown socket id : '+socketid+' disconnected');
+        if(room.player1.id==socketid) return ('Room :'+room.roomnumber+' Player1-'+room.player1.name+' disconnected');
+        else if(room.player2.id==socketid) {return ('Room :'+room.roomnumber+' Player2-'+room.player2.name+' disconnected');}
     }
 }
 
