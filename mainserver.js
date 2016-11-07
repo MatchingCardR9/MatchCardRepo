@@ -26,8 +26,8 @@ io.on('connection',function(socket){
             rooms[roomnumber].player1 = new Object();
             rooms[roomnumber].player2 = new Object();
             rooms[roomnumber].initialcardposition = randomCardPosition();
-            rooms[roomnumber].remainingcards = 36;
-
+            //rooms[roomnumber].remainingcards = 36;
+            rooms[roomnumber].remainingcards = 10; // USE 10 CARD FOR CORRECT DEBUG
             if(Math.random()<0.5){
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
@@ -149,7 +149,7 @@ io.on('connection',function(socket){
         if (rooms[data.roomnumber].remainingcards == 0) {// REMAINING CARD IS 0 >> GAME ENDED
 
             console.log("Room :"+data.roomnumber+" Game Ended");
-            if (rooms[data.roomnumber].player1.score > room[data.roomnumber].player2.score) {
+            if (rooms[data.roomnumber].player1.score > rooms[data.roomnumber].player2.score) {
                 io.to(rooms[data.roomnumber].player1.id).emit('gameend',{
                     result:'win'
                 });
@@ -158,7 +158,7 @@ io.on('connection',function(socket){
                 });
                 console.log("Room :"+data.roomnumber+" Player1-"+rooms[data.roomnumber].player1.name+" Win");
             }
-            else if(rooms[data.roomnumber].player2.score > room[data.roomnumber].player1.score){
+            else if(rooms[data.roomnumber].player2.score > rooms[data.roomnumber].player1.score){
                 io.to(rooms[data.roomnumber].player2.id).emit('gameend',{
                     result:'win'
                 });

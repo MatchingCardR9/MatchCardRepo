@@ -60,7 +60,7 @@ function readytoplay(){
 socket.on('gamestart',function(data){
 	$("#roomReady").fadeOut();
 	
-	$("#debugCorrect").fadein(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
+	$("#debugCorrect").fadeIn(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
     
 	initialcardposition = data.initialcardposition;
     var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
@@ -114,6 +114,8 @@ function wrong(){
 
 function correct(){
     var correctposition = 2;
+    //
+
 // if player match correct card use this method
     socket.emit('correct',{correctposition:correctposition, roomnumber : currentRoom , currentscore : myScore});
 }
@@ -125,6 +127,7 @@ socket.on('correntposition',function(data){
 });
 
 socket.on('gameend',function(data){
+    $("#debugCorrect").fadeOut();
     if(data.result =='win'){
         //DISPLAY YOU'RE WIN
         //SHOW SCORE OF BOTH PLAYER
