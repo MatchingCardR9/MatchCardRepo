@@ -59,7 +59,10 @@ function readytoplay(){
 
 socket.on('gamestart',function(data){
 	$("#roomReady").fadeOut();
-    initialcardposition = data.initialcardposition;
+	
+	$("#debugCorrect").show(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
+    
+	initialcardposition = data.initialcardposition;
     var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
     myScore = 0;
     opponentScore = 0;
