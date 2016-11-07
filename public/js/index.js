@@ -21,7 +21,7 @@ function submitName(){
     var nameform = document.getElementById('nameform').value;
     socket.emit('joingame',{name : myName} ); // change player name to playername from login box later
     
-	if(myNameName==""){
+	if(myName==""){
 		if(confirm("Write your name! or you will be called Gay Retard")==true){
 			myName = "Gay Retard";
 				alert("Welcome " + myName+ "! to Hatestone; cheap matching card game")
