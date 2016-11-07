@@ -29,6 +29,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script>
 
 <body>
+
 <div style="text-align: center;">
 <h1 style="color: white"> Hatestone: Matching Card </h1>
 </div>
@@ -36,11 +37,15 @@
 <form id="nameform">
 <div style="text-align: center;">
       <label for="inputdefault" style="color: white">Tell us your name:</label></br>
-      <input id="username" type="text" maxlength="6" placeholder="Enter your name" autocomplete="off" >
+      <input id="username" type="text" width="100" placeholder="Enter your name" autocomplete="off" >
 	  <input type="button" id="submitbutton" class="btn btn-success" value="GO" onclick="submitName()">
 </div>
 </form>
 
+<div id="waitingplayer" style="display: none">
+<h3 style="color: white" >Waiting for another player...</h3>
+<div class="loading"></div>
+</div>
 
 
 </body>

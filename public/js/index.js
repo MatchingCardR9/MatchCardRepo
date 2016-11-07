@@ -7,8 +7,6 @@ var opponentScore;
 var currentRoom;
 var initialcardposition = [];
 
-
-
 function submitName(){
     // --> after click , disable button
 //
@@ -24,23 +22,21 @@ function submitName(){
     socket.emit('joingame',{name : name} ); // change player name to playername from login box later
     
 	if(name==""){
-		if(confirm("Write your name! or you will be called Gay")==true){
-			name = "Gay";
+		if(confirm("Write your name! or you will be called Gay Retard")==true){
+			name = "Gay Retard";
 				alert("Welcome " + name+ "! to Hatestone; cheap matching card game")
-	socket.emit('joingame',{name : name} ); // change player name to playername from login box later
-    document.getElementById('submitbutton').disabled = "disabled";
-	$("#nameform").fadeOut();
-		}else{
-			
-	}
-		}else{
+		socket.emit('joingame',{name : name} ); // change player name to playername from login box later
+		document.getElementById('submitbutton').disabled = "disabled";
+		$("#nameform").fadeOut();
+		}else{}
+		$("#waitingplayer").fadeIn();
+	}else{
 	alert("Welcome " + name+ "! to Hatestone; cheap matching card game")
 	socket.emit('joingame',{name : name} ); // change player name to playername from login box later
     document.getElementById('submitbutton').disabled = "disabled";
 	$("#nameform").fadeOut();
+	$("#waitingplayer").fadeIn();
 	}
-	
-
 }
 
 socket.on('roominfo',function(data){
