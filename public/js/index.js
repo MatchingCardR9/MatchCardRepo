@@ -9,6 +9,7 @@ var currentRoom;
 var initialcardposition = [];
 
 
+
 function submitName(){
     // --> after click , disable button
 //
@@ -20,8 +21,10 @@ function submitName(){
 //            alert("Welcome "+ myName +"!! to the card matching game.")
 
     var name = document.getElementById('username').value;
+    var nameform = document.getElementById('nameform').value;
     socket.emit('joingame',{name : name} ); // change player name to playername from login box later
     document.getElementById('submitbutton').disabled = "disabled";
+    $("#nameform").fadeOut();
 }
 
 socket.on('roominfo',function(data){
