@@ -122,7 +122,7 @@ function correct(){
     socket.emit('correct',{correctposition:correctposition, roomnumber : currentRoom , currentscore : myScore});
 }
 
-socket.on('correntposition',function(data){
+socket.on('correctposition',function(data){
     //OPPONENT CHOSE CORRECT CARD
     //SHOW CORRECT POSITION
     var opponentcorrectposition = data.correctposition;
