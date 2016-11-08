@@ -61,7 +61,7 @@ socket.on('gamestart',function(data){
 	$("#roomReady").fadeOut();
 	
 	$("#debugCorrect").fadeIn(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
-    
+    $("#debugWrong").fadeIn(); // DEBUG --> TEST PICK WRONG
 	initialcardposition = data.initialcardposition;
     var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
     myScore = 0;
@@ -105,6 +105,7 @@ socket.on('play',function(data){
 
 function wrong(){
     var wrongposition = 1; // change this to real position later
+    myScore --; //DEBUG WRONG TEST
 // if player choose wrong card use this method
     //
 
@@ -114,6 +115,7 @@ function wrong(){
 
 function correct(){
     var correctposition = 2;
+    myScore ++; //DEBUG CORRECT TEST
     //
 
 // if player match correct card use this method
@@ -127,7 +129,9 @@ socket.on('correntposition',function(data){
 });
 
 socket.on('gameend',function(data){
-    $("#debugCorrect").fadeOut();
+    $("#debugCorrect").fadeOut(); //DEBUG FUNCTION CORRECT TEST
+    $("#debugWrong").fadeOut(); // DEBUG FUNCTION WRONG TEST
+
     if(data.result =='win'){
         //DISPLAY YOU'RE WIN
         //SHOW SCORE OF BOTH PLAYER

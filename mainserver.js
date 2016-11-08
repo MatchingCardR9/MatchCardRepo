@@ -25,31 +25,38 @@ io.on('connection',function(socket){
             rooms[roomnumber] = new Object();
             rooms[roomnumber].player1 = new Object();
             rooms[roomnumber].player2 = new Object();
+
+            rooms[roomnumber].player1.notEmpty = false;
+            rooms[roomnumber].player2.notEmpty = false;
+
             rooms[roomnumber].initialcardposition = randomCardPosition();
             //rooms[roomnumber].remainingcards = 36;
             rooms[roomnumber].remainingcards = 10; // USE 10 CARD FOR CORRECT DEBUG
             if(Math.random()<0.5){
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
-
-
+                rooms[roomnumber].player1.notEmpty = true;
+                // console.log(rooms[roomnumber]);
                 console.log("Room: "+roomnumber+" Player1-"+rooms[roomnumber].player1.name+" joined");
             }else {
                 rooms[roomnumber].player2.name = data.name;
                 rooms[roomnumber].player2.id = socket.id;
-
+                rooms[roomnumber].player2.notEmpty = true;
+                // console.log(rooms[roomnumber]);
                 console.log("Room: "+roomnumber+" Player2-"+rooms[roomnumber].player2.name+" joined");
             }
         }else { // 2 players connected to a room already
-            if (rooms[roomnumber].player1.id != '') {
+            if (rooms[roomnumber].player1.id!=null) {
                 rooms[roomnumber].player2.name = data.name;
                 rooms[roomnumber].player2.id = socket.id;
-
+                rooms[roomnumber].player2.notEmpty = true;
+                // console.log(rooms[roomnumber]);
                 console.log("Room: "+roomnumber+" Player2-"+rooms[roomnumber].player2.name+" joined");
             } else {
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
-
+                rooms[roomnumber].player2.notEmpty = true;
+                // console.log(rooms[roomnumber]);
                 console.log("Room: "+roomnumber+" Player1-"+rooms[roomnumber].player1.name+" joined");
             }
             console.log("Room : "+roomnumber+"- Both Players joined - wait player to press ready");
@@ -299,10 +306,11 @@ function randomCardPosition(){
 function whoDisconnected(socketid){
     for(i=1;i<=roomnumber;i++){
         var room = rooms[i];
-        if(room==null) return ('unknown socket id : '+socketid+' disconnected');
-        if(room.player1.id==socketid) return ('Room :'+room.roomnumber+' Player1-'+room.player1.name+' disconnected');
-        else if(room.player2.id==socketid) {return ('Room :'+room.roomnumber+' Player2-'+room.player2.name+' disconnected');}
+        if(room==null) return ('unknown - socket id : '+socketid+' disconnected');
+        if(room.player1.id==socketid) return ('Room :'+i+' Player1-'+room.player1.name+' disconnected');
+        else if(room.player2.id==socketid) {return ('Room :'+i+' Player2-'+room.player2.name+' disconnected');}
     }
+    return ('unknown - socket id : '+socketid+' disconnected');
 }
 
 
