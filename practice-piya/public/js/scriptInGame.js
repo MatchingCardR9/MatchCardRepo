@@ -44,48 +44,6 @@ var board = [];
 // }
 
 $(function () {
-    var $window = $(window);
-    var $loginPage = $('.login.page'); //login page
-    var $appPage = $('.app.page'); // main game page
-
-    $("body").hide().show("slow");
-
-    Array.prototype.memory_tile_shuffle = function () {
-        var i = this.length, j, temp;
-        while (--i > 0) {
-            j = Math.floor(Math.random() * (i + 1));
-            temp = this[j];
-            this[j] = this[i];
-            this[i] = temp;
-        }
-    }
-
-    function showCards() {
-        for (var i = 0; i < board.length; i++) {
-            board[i].face = 'up';
-        }
-        updateGameBoard();
-    }
-
-    function hideCards() {
-        for (var i = 0; i < board.length; i++) {
-            board[i].face = 'down';
-        }
-        updateGameBoard();
-    }
-
-    function updateGameBoard() {
-        var output = '';
-        for (var i = 0; i < board.length; i++) {
-            if (board[i].face === 'down') {
-                output += '<div class="tile" id="' + i + '" onclick="cardSelectedEvent(this,\'' + board[i].id + '\',\'' + i + '\')"></div>';
-            } else {
-                output += '<div class="tile">' + board[i].id + '</div>';
-            }
-        }
-        document.getElementById('game_board').innerHTML = output;
-    }
-
 
     function showScore() {
         document.getElementById('my_score').innerHTML = '<h3 class="infoText">' + playerScore + '</h3>' + '<p class="subInfoText">' + playerName + '</p>';
@@ -120,6 +78,22 @@ $(function () {
     }
 
     //////////////////////////////////////////////////////////////////////////////
+
+    var $window = $(window);
+    var $loginPage = $('.login.page'); //login page
+    var $appPage = $('.app.page'); // main game page
+
+    $("body").hide().show("slow");
+
+    Array.prototype.memory_tile_shuffle = function () {
+        var i = this.length, j, temp;
+        while (--i > 0) {
+            j = Math.floor(Math.random() * (i + 1));
+            temp = this[j];
+            this[j] = this[i];
+            this[i] = temp;
+        }
+    }
 
     function submitName() {
         // --> after click , disable button
@@ -171,9 +145,18 @@ $(function () {
         socket.emit('readytoplay', {roomnumber: currentRoom});
     }
 
-    socket.on('gamestart', function (data) {
-        newBoard();
+    socket.on('gamestart',function(data){
+        $("#roomReady").fadeOut();
 
+        $("#debugCorrect").fadeIn(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
+        $("#debugWrong").fadeIn(); // DEBUG --> TEST PICK WRONG
+        initialcardposition = data.initialcardposition;
+        var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
+        myScore = 0;
+        opponentScore = 0;
+        //SCORE = 0 everytime gamestart
+        //CARD POSITION FROM SERVER
+        newBoard();
         function newBoard() {
             tiles_flipped = 0;
             var output = '';
@@ -183,6 +166,33 @@ $(function () {
             }
             document.getElementById('memory_board').innerHTML = output;
         }
+        timer = 10;
+        $loginPage.fadeOut();
+        $appPage.fadeIn();
+
+        for(var i = 0; i < memory_array.length; i++){
+            memory_array[i].face = 'up';
+        }
+
+        if(turn=='play'){
+            function memoryFlipTile(tile, val) {
+                if (tile.innerHTML == "" && memory_values.length < 1) {
+                    tile.style.background = '#FAB';
+                    tile.innerHTML = val;
+                    if (memory_values.length == 0) {
+                        memory_values.push(val);
+                        memory_tile_ids.push(tile.id);
+                    }
+                }
+            }
+            //CHOOSEFIRSTCARD
+        }
+        if(turn=='wait'){
+            //WAITFIRSTCARD
+        }
+    });
+    socket.on('gamestart', function (data) {
+
 
         //////////////////////////////
 
@@ -193,9 +203,7 @@ $(function () {
         board = newboard;
         playerScore = 0;
         opponentScore = 0;
-        timer = 10;
-        $loginPage.fadeOut();
-        $appPage.fadeIn();
+
         showCards();
         showScore();
         displayTime();
@@ -204,7 +212,6 @@ $(function () {
 
     });
     if (turn == 'play') {
-
         //PLAYFIRSTCARD
     }
     if (turn == 'wait') {
