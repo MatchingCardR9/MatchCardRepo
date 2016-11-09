@@ -14,6 +14,10 @@ app.get('/',function(req,res){
     res.sendFile(path.join(__dirname+'/index.html'));
 });
 
+// app.get('/admin',function(req,res){
+//     res.sendFile(path.join(__dirname+'/admin.html'));
+// });
+
 
 io.on('connection',function(socket){
     console.log('client connected - id :'+socket.id);
@@ -217,7 +221,7 @@ io.on('connection',function(socket){
         }
         else{ //PLAYER2 CONTINUE
             rooms[data.roomnumber].player2.continue = true;
-            console.log("Room: "+data.roomnumber+" Player2-"+rooms[data.roomnumber].player2.name+" ready");
+            console.log("Room: "+data.roomnumber+" Player2-"+rooms[data.roomnumber].player2.name+" reset");
 
         }
         if(rooms[data.roomnumber].player2.continue && rooms[data.roomnumber].player1.continue){ //BOTH PLAYER CONTINUE , START NEW GAME
@@ -276,13 +280,29 @@ io.on('connection',function(socket){
         }
     });
 
+/*
+    socket.on('resetFromServer', function(data) {    //reset add by earth not sure by now
 
-    socket.on('resetFromServer', function(data))     //reset add by earth
+        rooms[data.roomnumber].initialcardposition = randomCardPosition();
+        rooms[data.roomnumber].remainingcards = 36;
+        console.log("Room: " + data.roomnumber + " CONTINUED-->new game started");
+
+
+        //SEND CARD POSITION --> GAME START AT FRONTEND
+        io.to(rooms[data.roomnumber].player1.id).emit('gamestart', {
+            'initialcardposition': rooms[data.roomnumber].initialcardposition, turn: 'play' //PLAYER1 PLAY FIRST
+        });
+        io.to(rooms[data.roomnumber].player2.id).emit('gamestart', {
+            'initialcardposition': rooms[data.roomnumber].initialcardposition, turn: 'wait' //PLAYER@ WAIT FIRST
+        });
+        console.log('Room: ' + data.roomnumber + ' - Game Started');
+    } );
+*/
 
 
     socket.on('disconnect',function(){
         console.log(whoDisconnected(socket.id));
-    })
+    });
 });
 
 function randomCardPosition(){
