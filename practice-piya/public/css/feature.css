@@ -1,21 +1,21 @@
 /*LOG-IN PAGE*/
-.login.page .html, .login.page .body {
+.login_page .html, .login_page .body {
     height: 100%;
 }
 
-.login.page .html {
+.login_page .html {
     display: table;
     margin: auto;
 }
 
-.login.page .body {
+.login_page .body {
     display: table-cell;
     vertical-align: middle;
     background-color: #FFCA28;
 }
 
 /*GAME PAGE*/
-.app.page .memoryboard{
+.app_page #memory_board{
     background: #f7e1b5;
     border:#999 1px solid;
     width:800px;
@@ -23,7 +23,7 @@
     padding:24px;
     margin:0px auto;
 }
-.app.page .memoryboard > div{
+.app_page #memory_board > div{
     background: url("tile_bg.jpg") no-repeat;
     border: #adadad 1px solid;
     width:71px;
@@ -36,7 +36,7 @@
     text-align:center;
 }
 
-.app.page .body{
+.app_page .body{
     text-align: center;
     background: #00ECB9;
     font-family: sans-serif;

@@ -74,10 +74,10 @@ function displayTime() {
 //////////////////////////////////////////////////////////////////////////////
 
 var $window = $(window);
-var $loginPage = $('.login.page'); //login page
-var $appPage = $('.app.page'); // main game page
+var $loginPage = $('.login_page'); //login page
+var $appPage = $('.app_page'); // main game page
 
-$("body").hide().show("slow");
+//$("body").hide().show("slow");
 
 Array.prototype.memory_tile_shuffle = function () {
     var i = this.length, j, temp;
@@ -89,14 +89,7 @@ Array.prototype.memory_tile_shuffle = function () {
     }
 }
 
-function showInitialCard(){
-    for(var i = 0; i < memory_array.length; i++){
-        //output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
-        output += '<div id="tile_'+i+'" memory_array[i]"></div>';
-        //output += '<div class="tile">'+memory_array[i].id+'</div>';
-    }
-    document.getElementById('memory_board').innerHTML = output;
-}
+
 
 function submitName() {
     // --> after click , disable button
@@ -110,7 +103,6 @@ function submitName() {
 
     myName = document.getElementById('username').value;
     var nameform = document.getElementById('nameform').value;
-    socket.emit('joingame', {name: name}); // change player name to playername from login box later
 
     if (name == "") {
         if (confirm("Write your name! or you will be called Gay Retard") == true) {
@@ -141,14 +133,36 @@ socket.on('roomready', function (data) { //Receive room info , Assign Opponent n
         opponentName = data.roomdata.player1.name;
         opponentId = data.roomdata.player1.id;
     }
-
+    $("#waitingplayer").fadeOut()
+    $("#roomReady").fadeIn();
 });
 
 function readytoplay() {
+    document.getElementById('readyBtn').disabled = "disabled"
     // PRESS READY AFTER NAME SUBMISSION
     socket.emit('readytoplay', {roomnumber: currentRoom});
 }
 
+function magicHappens(){
+    socket.emit('joingame',{name : 'GUMAGIC'});
+}
+function showInitialCard() {
+    var output = '';
+    for (var i = 0; i < memory_array.length; i++) {
+        //output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+memory_array[i]+'\')"></div>';
+        //output += '<div id ="tile_'+i+'" memory_array[i]"></div>';
+        // output += '<div id="tile">'+memory_array[i].id+'</div>';
+    }
+    //console.log(output);
+    //document.getElementById('memory_board').innerHTML = output;
+
+    for (var i = 0; i < memory_array.length; i++) {
+        var tile = 't' + (i+1);
+        console.log('show tile:' + tile + ' value:' + memory_array[i]);
+        showtile(tile, memory_array[i]);
+    }
+    console.log('FINISH SHOW TILE');
+}
 socket.on('gamestart', function (data) {
         $("#roomReady").fadeOut();
 
@@ -165,35 +179,40 @@ socket.on('gamestart', function (data) {
         //CARD POSITION FROM SERVER
         //////////////////////////////
 
-        initialcardposition = data.initialcardposition;
         var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
         //CARD POSITION FROM SERVER
         // SHOW ALL CARD 10 SEC
 
         //board = newboard;
-        playerScore = 0;
-        opponentScore = 0;
-
-        showInitialCard();
+       // showInitialCard();
         //getScore();
-        displayTime();
-        setTimeout(showInitialCard, 10000);
+        //displayTime();
+        console.log('before memory title shuffle');
+        memory_array.memory_tile_shuffle();
+        console.log('after memory title shuffle');
+        showInitialCard();
         ///////////////////////
-        newBoard();
+
+       // setTimeout(function(){console.log('timeoutperiod');},5000);
+        //wait(5);
+        console.log('before call newboard   ()');
+        console.log('5 sec to show initial card');
+        //setTimeout(newBoard,5000);
+
         function newBoard() {
+            console.log('newboard called');
+
             tiles_flipped = 0;
-            var output = '';
-            memory_array.memory_tile_shuffle();
-            for (var i = 0; i < memory_array.length; i++) {
-                output += '<div id="tile_' + i + '" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')"></div>';
-            }
-            document.getElementById('memory_board').innerHTML = output;
+
+
+
+            // for (var i = 0; i < memory_array.length; i++) {
+            //     output += '<div id="tile_' + i + '" onclick="memoryFlipTile(this,\'' + memory_array[i] + '\')"></div>';
+            //     console.log(output);
+            // }
+            // document.getElementById('memory_board').innerHTML = output;
         }
 
-        timer = 10;
-        for (var i = 0; i < memory_array.length; i++) {
-            memory_array[i].face = 'up';
-        }
 
         if (turn == 'play') {
             function memoryFlipTile(tile, val) {
@@ -227,6 +246,12 @@ socket.on('gamestart', function (data) {
     }
 );//WAITFIRSTCARD
 
+function showtile(tile, val) {
+    $('#'+tile).html(val);
+  //  document.getElementById(tile).innerHTML = val;
+
+
+}
 
 socket.on('playfirstcard', function () {
     function memoryFlipTile(tile, val) {
@@ -342,7 +367,18 @@ socket.on('updateOpponentScore', function (data) { //THIS METHOD IS CALLED ON EV
 
 //////////////////////////////////
 
-
+function wait(sec){
+    var countTurn = sec;
+    var counter = setInterval(timer,1000);
+    function timer(){
+        console.log(countTurn+"second left");
+        countTurn = countTurn-1;
+        if(countTurn<=0){
+            clearInterval(counter);
+            return;
+        }
+    }
+}
 // // TURN TIMER TURN TIMER TURN TIMER TURN TIMER TURN TIMER TURN TIMER TURN TIMER TURN TIMER TURN TIMER
 // var countTurn = 11;
 // var counter = setInterval(timer, 1000); //1000 will run it every 1 second

@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="/socket.io/socket.io.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hatestone Matching Card</title>
-    <link rel="stylesheet" type="text/css" href="css/feature.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    <script src="js/scriptInGame.js"></script>
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/scriptInGame.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/feature.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+
     <!--<script src="js/index.js"></script>-->
     <div>
-        <button id="ready_btn" onclick="debugGameReady()">Ready</button>
+
+        <button id="magicButton" onclick="magicHappens()">JOIN</button>
+        <button id="ready_btn" onclick="readytoplay()">Ready</button>
+
     </div>
 </head>
 
@@ -41,9 +47,21 @@
             <div class="loading"></div>
         </div>
 
+        <div id="roomReady" style="display: none">
+            <h3 style="color: white" >Player found!</h3>
+            <h3 style="color: white" >Are you ready?</h3>
+            <input type="button" id="readyBtn" class="btn btn-success" value="Ready" onclick="readytoplay()">
+        </div>
+        <!--Correct,Wrong button for debug>>>>>>>>>>>>>>>>>>>>>-->
+        <div style="display:none" id= "debugCorrect">
+            <button class="btn btn-danger" onclick="correct()">Correct</button>
+        </div>
+
+        <div style="display:none" id="debugWrong"><button class="btn_wrong" onclick="wrong()">Wrong!</button></div>
+
     </li>
     <!--MAIN Page MAIN Page MAIN Page MAIN Page MAIN Page MAIN Page MAIN Page MAIN Page-->
-    <li class="app_page"> App Page
+    <li class="app_page" style="display:none"> App Page
         <div style="text-align: center; font-family: sans-serif; font-size: 20px;">Match Kard Academy</div>
 
         <div class="topInfo">
@@ -53,7 +71,64 @@
             </div>
             <div class="opponentScoreBoard" id="oppScore"></div>
         </div>
-        <div class="memoryboard" id="memory_board"></div>
+        <div class="memoryboard" id="memory_board">
+
+            <div style="width: 100%; height: 100%; background-color: #3D799C;">
+                <table class="table-bordered"
+                       style="width: 100%; height: 100%; align-content: center; border-style: solid; border-width: 3px;">
+                    <tr >
+                        <th id="t1"> </th>
+                        <th id="t2"> </th>
+                        <th id="t3"> </th>
+                        <th id="t4"> </th>
+                        <th id="t5"> </th>
+                        <th id="t6"> </th>
+                    </tr>
+                    <tr>
+                        <th id="t7"> </th>
+                        <th id="t8"> </th>
+                        <th id="t9"> </th>
+                        <th id="t10"> </th>
+                        <th id="t11"> </th>
+                        <th id="t12"> </th>
+                    </tr>
+                    <tr>
+                        <th id="t13"> </th>
+                        <th id="t14"> </th>
+                        <th id="t15"> </th>
+                        <th id="t16"> </th>
+                        <th id="t17"> </th>
+                        <th id="t18"> </th>
+                    </tr>
+                    <tr>
+                        <th id="t19"> </th>
+                        <th id="t20"> </th>
+                        <th id="t21"> </th>
+                        <th id="t22"> </th>
+                        <th id="t23"> </th>
+                        <th id="t24"> </th>
+                    </tr>
+                    <tr>
+                        <th id="t25"> </th>
+                        <th id="t26"> </th>
+                        <th id="t27"> </th>
+                        <th id="t28"> </th>
+                        <th id="t29"> </th>
+                        <th id="t30"> </th>
+                    </tr>
+                    <tr>
+                        <th id="t31"> </th>
+                        <th id="t32"> </th>
+                        <th id="t33"> </th>
+                        <th id="t34"> </th>
+                        <th id="t35"> </th>
+                        <th id="t36"> </th>
+                    </tr>
+                </table>
+            </div>
+
+
+        </div>
     </li>
 
 </ul>

@@ -25,32 +25,39 @@ io.on('connection',function(socket){
             rooms[roomnumber] = new Object();
             rooms[roomnumber].player1 = new Object();
             rooms[roomnumber].player2 = new Object();
-            rooms[roomnumber].initialcardposition = randomCardPosition();
-            rooms[roomnumber].remainingcards = 36;
 
+            rooms[roomnumber].player1.notEmpty = false;
+            rooms[roomnumber].player2.notEmpty = false;
+
+            rooms[roomnumber].initialcardposition = randomCardPosition();
+            //rooms[roomnumber].remainingcards = 36;
+            rooms[roomnumber].remainingcards = 10; // USE 10 CARD FOR CORRECT DEBUG
             if(Math.random()<0.5){
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
-
-
-                console.log("Room: "+roomnumber+" "+rooms[roomnumber].player1.name+" joined");
+                rooms[roomnumber].player1.notEmpty = true;
+                // console.log(rooms[roomnumber]);
+                console.log("Room: "+roomnumber+" Player1-"+rooms[roomnumber].player1.name+" joined");
             }else {
                 rooms[roomnumber].player2.name = data.name;
                 rooms[roomnumber].player2.id = socket.id;
-
-                console.log("Room: "+roomnumber+" "+rooms[roomnumber].player2.name+" joined");
+                rooms[roomnumber].player2.notEmpty = true;
+                // console.log(rooms[roomnumber]);
+                console.log("Room: "+roomnumber+" Player2-"+rooms[roomnumber].player2.name+" joined");
             }
         }else { // 2 players connected to a room already
-            if (rooms[roomnumber].player1.id != '') {
-                rooms[roomnumber].player1.name = data.name;
-                rooms[roomnumber].player1.id = socket.id;
-
-                console.log("Room: "+roomnumber+" "+rooms[roomnumber].player1.name+" joined");
-            } else {
+            if (rooms[roomnumber].player1.id!=null) {
                 rooms[roomnumber].player2.name = data.name;
                 rooms[roomnumber].player2.id = socket.id;
-
-                console.log("Room: "+roomnumber+" "+rooms[roomnumber].player2.name+" joined");
+                rooms[roomnumber].player2.notEmpty = true;
+                // console.log(rooms[roomnumber]);
+                console.log("Room: "+roomnumber+" Player2-"+rooms[roomnumber].player2.name+" joined");
+            } else {
+                rooms[roomnumber].player1.name = data.name;
+                rooms[roomnumber].player1.id = socket.id;
+                rooms[roomnumber].player2.notEmpty = true;
+                // console.log(rooms[roomnumber]);
+                console.log("Room: "+roomnumber+" Player1-"+rooms[roomnumber].player1.name+" joined");
             }
             console.log("Room : "+roomnumber+"- Both Players joined - wait player to press ready");
             io.sockets.in(roomnumber).emit('roomready', {
@@ -101,11 +108,11 @@ io.on('connection',function(socket){
     socket.on('wrong',function(data) { // wrong card
         if (rooms[data.roomnumber].player1.id == socket.id) {    //PLAYER1 CHOSE WRONG CARD
 
-        rooms[data.roomnumber].player1.score = data.currentscore;
-        io.to(rooms[data.roomnumber].player2.id).emit('updateOpponentScore',{opponentScore : data.currentscore});
-        io.to(rooms[data.roomnumber].player2.id).emit('play', {
-            wrongposition: data.wrongposition
-        });
+            rooms[data.roomnumber].player1.score = data.currentscore;
+            io.to(rooms[data.roomnumber].player2.id).emit('updateOpponentScore',{opponentScore : data.currentscore});
+            io.to(rooms[data.roomnumber].player2.id).emit('play', {
+                wrongposition: data.wrongposition
+            });
 
             console.log("Room: "+data.roomnumber+" Player1-"+rooms[data.roomnumber].player1.name+" pick wrong card - card number :"+data.wrongposition);
         }
@@ -149,7 +156,7 @@ io.on('connection',function(socket){
         if (rooms[data.roomnumber].remainingcards == 0) {// REMAINING CARD IS 0 >> GAME ENDED
 
             console.log("Room :"+data.roomnumber+" Game Ended");
-            if (rooms[data.roomnumber].player1.score > room[data.roomnumber].player2.score) {
+            if (rooms[data.roomnumber].player1.score > rooms[data.roomnumber].player2.score) {
                 io.to(rooms[data.roomnumber].player1.id).emit('gameend',{
                     result:'win'
                 });
@@ -158,7 +165,7 @@ io.on('connection',function(socket){
                 });
                 console.log("Room :"+data.roomnumber+" Player1-"+rooms[data.roomnumber].player1.name+" Win");
             }
-            else if(rooms[data.roomnumber].player2.score > room[data.roomnumber].player1.score){
+            else if(rooms[data.roomnumber].player2.score > rooms[data.roomnumber].player1.score){
                 io.to(rooms[data.roomnumber].player2.id).emit('gameend',{
                     result:'win'
                 });
@@ -180,25 +187,25 @@ io.on('connection',function(socket){
         }
         else{ // REMAINING CARD !=0 --> WINNER CHOOSE FIRSTCARD
 
-        if (rooms[data.roomnumber].player1.id == socket.id) { //PLAYER1 CHOSE CORRECT CARD
-           io.to(rooms[data.roomnumber].player2.id).emit('correctposition', {
-                correctposition: data.correctposition
-            });
-            socket.emit('choosefirstcard');
-            io.to(rooms[data.roomnumber].player2.id).emit('waitfirstcard');
+            if (rooms[data.roomnumber].player1.id == socket.id) { //PLAYER1 CHOSE CORRECT CARD
+                io.to(rooms[data.roomnumber].player2.id).emit('correctposition', {
+                    correctposition: data.correctposition
+                });
+                socket.emit('choosefirstcard');
+                io.to(rooms[data.roomnumber].player2.id).emit('waitfirstcard');
 
-        }
-        else {  //PLAYER2 CHOSE CORRECT CARD
-            io.to(rooms[data.roomnumber].player1.id).emit('correctposition', {
-                correctposition: data.correctposition
-            });
-            socket.emit('choosefirstcard');
-            io.to(rooms[data.roomnumber].player1.id).emit('waitfirstcard');
+            }
+            else {  //PLAYER2 CHOSE CORRECT CARD
+                io.to(rooms[data.roomnumber].player1.id).emit('correctposition', {
+                    correctposition: data.correctposition
+                });
+                socket.emit('choosefirstcard');
+                io.to(rooms[data.roomnumber].player1.id).emit('waitfirstcard');
 
-        }
+            }
         }
 
-        
+
     });
 
 
@@ -299,10 +306,11 @@ function randomCardPosition(){
 function whoDisconnected(socketid){
     for(i=1;i<=roomnumber;i++){
         var room = rooms[i];
-        if(room==null) return ('unknown socket id : '+socketid+' disconnected');
-        if(room.player1.id==socketid) return ('Room :'+room.roomnumber+' Player1-'+room.player1.name+' disconnected');
-        else if(room.player2.id==socketid) {return ('Room :'+room.roomnumber+' Player2-'+room.player2.name+' disconnected');}
+        if(room==null) return ('unknown - socket id : '+socketid+' disconnected');
+        if(room.player1.id==socketid) return ('Room :'+i+' Player1-'+room.player1.name+' disconnected');
+        else if(room.player2.id==socketid) {return ('Room :'+i+' Player2-'+room.player2.name+' disconnected');}
     }
+    return ('unknown - socket id : '+socketid+' disconnected');
 }
 
 
