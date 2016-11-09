@@ -68,7 +68,8 @@ socket.on('gamestart', function (data) {
 
     $("#debugCorrect").fadeIn(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
     $("#debugWrong").fadeIn(); // DEBUG --> TEST PICK WRONG
-
+    $("#page_login").fadeOut();
+    $("#page_game").fadeIn();
     initialcardposition = data.initialcardposition;
     var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
     myScore = 0;
@@ -76,6 +77,10 @@ socket.on('gamestart', function (data) {
     //SCORE = 0 everytime gamestart
     //CARD POSITION FROM SERVBR
     // SHOW ALL CARD 10 SEC
+    showInitialCard();
+
+
+
     if (turn == 'play') {
         //CHOOSEFIRSTCARD
     }
@@ -166,6 +171,19 @@ function continueGame() { //AFTER PRESS CONTINUE
 socket.on('updateOpponentScore', function (data) { //THIS METHOD IS CALLED ON EVERY WRONG,CORRECT CARD SELECTION
     opponentScore = data.opponentScore;
 });//FRONTEND --> UPDATE OPPONENTSCORE
+
+function showInitialCard() {
+
+    for (var i = 0; i < memory_array.length; i++) {
+        var tile = 't' + (i+1);
+        console.log('show tile:' + tile + ' value:' + initialcardposition[i]);
+        showtile(tile, initialcardposition[i]);
+    }
+    console.log('FINISH SHOW TILE');
+}
+function showtile(tile, val) {
+    $('#'+tile).html(val);
+}
 
 
 function memoryFlipTile(tile, val) {

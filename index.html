@@ -5,33 +5,34 @@
 
     <title>Hatestone: Matching Card</title>
     <link rel="stylesheet" href="css/bootstrap.css">
-	<style>
-		html, body {
-    height: 100%;
-		}
+    <style>
+        html, body {
+            height: 100%;
+        }
 
-		html {
-    display: table;
-    margin: auto;
-		}
+        html {
+            display: table;
+            margin: auto;
+        }
 
-		body {
-    display: table-cell;
-    vertical-align: middle;
-	background-color: #FFCA28;
-		}
-	</style>
-	
+        body {
+            display: table-cell;
+            vertical-align: middle;
+            background-color: #FFCA28;
+        }
+    </style>
+
 </head>
-
+<!--<link rel="stylesheet" href="css/gamestyle.css">-->
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/index.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <body>
 
 <!--Heading-->
 <div style="text-align: center;">
+<<<<<<< HEAD
 <h1 style="color: white"> Hatestone: Matching Card </h1>
 </div>
 <!--LOGIN-->
@@ -40,45 +41,147 @@
       <label for="inputdefault" style="color: white">Tell us your name:</label></br>
       <input id="username" type="text" width="100" placeholder="Enter your name" autocomplete="off" >
 	  <input type="button" id="submitbutton" class="btn btn-success" value="GO" onclick="submitName()">
+=======
+    <h1 style="color: white"> Hatestone: Matching Card </h1>
+>>>>>>> origin/master
 </div>
-</form>
 
+<<<<<<< HEAD
 <!--WaitingPhase-->
 <div id="waitingplayer" style="display: none">
 <h3 style="color: white" >Waiting for another player...</h3> 
 <div class="loading"></div>
-</div>
+=======
+<div id="page_login">
+    <form id="nameform">
 
+        <div style="text-align: center;">
+            <label for="inputdefault" style="color: white">Tell us your name:</label></br>
+            <input id="username" type="text" width="100" placeholder="Enter your name" autocomplete="off">
+            <input type="button" id="submitbutton" class="btn btn-success" value="GO" onclick="submitName()">
+        </div>
+    </form>
+
+    <div id="waitingplayer" style="display: none">
+        <h3 style="color: white">Waiting for another player...</h3>
+        <div class="loading"></div>
+    </div>
+
+    <div id="roomReady" style="display: none">
+        <h3 style="color: white">Player found!</h3>
+        <h3 style="color: white">Are you ready?</h3>
+        <input type="button" id="readyBtn" class="btn btn-success" value="Ready" onclick="readytoplay()">
+    </div>
+>>>>>>> origin/master
+</div>
+<div id="page_game" style="display:none">
+
+    <div class="topInfo">
+        <div class="myScoreBoard" id="myScore"></div>
+        <div class="timeDisplay" id="time_display">
+            <!--<div id="clockdiv" align="center">Timer: <span id="timeTurn"></span></div>-->
+        </div>
+        <div class="opponentScoreBoard" id="oppScore"></div>
+    </div>
+    <div class="gameboard_custom" id="memory_board">
+
+        <div style="width: 100%; height: 100%; background-color: #3D799C;" >
+            <table class="table-bordered"
+                   style="width: 100%; height: 100%; align-content: center; border-style: solid; border-width: 3px;">
+                <tr >
+                    <th id="t1"> </th>
+                    <th id="t2"> </th>
+                    <th id="t3"> </th>
+                    <th id="t4"> </th>
+                    <th id="t5"> </th>
+                    <th id="t6"> </th>
+                </tr>
+                <tr>
+                    <th id="t7"> </th>
+                    <th id="t8"> </th>
+                    <th id="t9"> </th>
+                    <th id="t10"> </th>
+                    <th id="t11"> </th>
+                    <th id="t12"> </th>
+                </tr>
+                <tr>
+                    <th id="t13"> </th>
+                    <th id="t14"> </th>
+                    <th id="t15"> </th>
+                    <th id="t16"> </th>
+                    <th id="t17"> </th>
+                    <th id="t18"> </th>
+                </tr>
+                <tr>
+                    <th id="t19"> </th>
+                    <th id="t20"> </th>
+                    <th id="t21"> </th>
+                    <th id="t22"> </th>
+                    <th id="t23"> </th>
+                    <th id="t24"> </th>
+                </tr>
+                <tr>
+                    <th id="t25"> </th>
+                    <th id="t26"> </th>
+                    <th id="t27"> </th>
+                    <th id="t28"> </th>
+                    <th id="t29"> </th>
+                    <th id="t30"> </th>
+                </tr>
+                <tr>
+                    <th id="t31"> </th>
+                    <th id="t32"> </th>
+                    <th id="t33"> </th>
+                    <th id="t34"> </th>
+                    <th id="t35"> </th>
+                    <th id="t36"> </th>
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
+
+<<<<<<< HEAD
 <!--PlayerFound-->
 <div id="roomReady" style="display: none">
 <h3 style="color: white" >Player found!</h3>
 <h3 style="color: white" >Are you ready?</h3>
 <input type="button" id="readyBtn" class="btn btn-success" value="Ready" onclick="readytoplay()">
+=======
+>>>>>>> origin/master
 </div>
 
 <!--Correct,Wrong button for debug>>>>>>>>>>>>>>>>>>>>>-->
-<div style="display:none" id= "debugCorrect">
-<button class="btn btn-danger" onclick="correct()">Correct</button>
+<div style="display:none" id="debugCorrect">
+    <button class="btn btn-danger" onclick="correct()">Correct</button>
 </div>
 
 <div style="display:none" id="debugContinue">
-<button class="btn btn-danger" onclick="continueGame()"Continue</button>
+
+=======
+<button class="btn btn-danger" onclick="continueGame()">Continue</button>
+
 </div>
 
-<div style="display:none" id="debugWrong"><button class="btn_wrong" onclick="wrong()">Wrong!</button></div>
+<div style="display:none" id="debugWrong">
+    <button class="btn_wrong" onclick="wrong()">Wrong!</button>
+</div>
 </body>
 <!--<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Correct,Wrong button for debug-->
 
 
 <!--&gt;>>>>>>>>>>>>>>>>CONTINUE BUTTON FOR DEBUG-->
-<div style="display:none" id= "debugContinue">
+<div style="display:none" id="debugContinue">
     <button class="btn btn-danger" onclick="correct()">Correct</button>
 </div>
 <!--<<<<<<<<<<<<<<<<,CONTINUE BUTTON FOR DEBUG-->
 
+
 <div style="display:none" id= "concede">
 	<button class="btn btn-danger" onclick="endGame()">Concede</button>
 <div>
+
 
 <foot>
 
