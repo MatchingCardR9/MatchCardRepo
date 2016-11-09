@@ -30,10 +30,11 @@
 
 <body>
 
+<!--Heading-->
 <div style="text-align: center;">
 <h1 style="color: white"> Hatestone: Matching Card </h1>
 </div>
-
+<!--LOGIN-->
 <form id="nameform">
 <div style="text-align: center;">
       <label for="inputdefault" style="color: white">Tell us your name:</label></br>
@@ -42,16 +43,19 @@
 </div>
 </form>
 
+<!--WaitingPhase-->
 <div id="waitingplayer" style="display: none">
 <h3 style="color: white" >Waiting for another player...</h3> 
 <div class="loading"></div>
 </div>
 
+<!--PlayerFound-->
 <div id="roomReady" style="display: none">
 <h3 style="color: white" >Player found!</h3>
 <h3 style="color: white" >Are you ready?</h3>
 <input type="button" id="readyBtn" class="btn btn-success" value="Ready" onclick="readytoplay()">
 </div>
+
 <!--Correct,Wrong button for debug>>>>>>>>>>>>>>>>>>>>>-->
 <div style="display:none" id= "debugCorrect">
 <button class="btn btn-danger" onclick="correct()">Correct</button>
