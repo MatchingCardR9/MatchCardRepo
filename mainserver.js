@@ -306,10 +306,13 @@ io.on('connection',function(socket){
 
 function randomCardPosition(){
     var initialcardposition = [];
-    for(var i=0;i<18;i++){
-        initialcardposition[2*i] ="index:"+(2*i+1)+ " photonumber "+(i+1);
-        initialcardposition[(2*i)+1] = "index:"+(2*i+2)+"photonumber "+(i+1);
-    }
+     for(var i=0;i<18;i++){
+    //     initialcardposition[2*i] ="index:"+(2*i+1)+ " photonumber "+(i+1);
+    //     initialcardposition[(2*i)+1] = "index:"+(2*i+2)+"photonumber "+(i+1);
+        initialcardposition[2*i] =(i+1);
+        initialcardposition[(2*i)+1] = (i+1);
+
+}
     // for(var i=0;i<36;i++){
     //     console.log(initialcardposition[i]);
     // }

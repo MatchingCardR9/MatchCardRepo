@@ -25,6 +25,15 @@ body {
 	animation: spin .6s infinite linear;
 }
 
+.gameboard_custom{
+  background: #f7e1b5;
+  border:#999 1px solid;
+  width:800px;
+  height:780px;
+  padding:24px;
+  margin:0px auto;
+}
+
 @keyframes "spin" {
  from {
     -webkit-transform: rotate(0deg);
