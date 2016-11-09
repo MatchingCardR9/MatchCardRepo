@@ -63,6 +63,7 @@ socket.on('gamestart', function (data) {
 
     $("#debugCorrect").fadeIn(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
     $("#debugWrong").fadeIn(); // DEBUG --> TEST PICK WRONG
+
     initialcardposition = data.initialcardposition;
     var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
     myScore = 0;
@@ -153,6 +154,7 @@ socket.on('gameend', function (data) {
 
 function continueGame() { //AFTER PRESS CONTINUE
     socket.emit('continue', {roomnumber: currentRoom});
+    $("#debugContinue").fadeOut();
 }
 
 

@@ -226,7 +226,7 @@ io.on('connection',function(socket){
             rooms[data.roomnumber].remainingcards = 36;
             console.log("Room: "+data.roomnumber+" CONTINUED-->new game started");
 
-            if (rooms[data.roomnumber].player1.score > room[data.roomnumber].player2.score){
+            if (rooms[data.roomnumber].player1.score > rooms[data.roomnumber].player2.score){
                 io.to(rooms[data.roomnumber].player1.id).emit('gamestart',{
                     'initialcardposition': rooms[roomnumber].initialcardposition , turn :'play' //PLAYER1 PLAY FIRST
                 });
@@ -236,7 +236,7 @@ io.on('connection',function(socket){
 
                 console.log("Room: "+data.roomnumber+" Player 1-"+rooms[data.roomnumber].player1.name+" Play first");
             }
-            else if (rooms[data.roomnumber].player2.score > room[data.roomnumber].player1.score){
+            else if (rooms[data.roomnumber].player2.score > rooms[data.roomnumber].player1.score){
                 io.to(rooms[data.roomnumber].player1.id).emit('gamestart',{
                     'initialcardposition': rooms[roomnumber].initialcardposition , turn :'wait' //PLAYER1 WAIT FIRST
                 });
