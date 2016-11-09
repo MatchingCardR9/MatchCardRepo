@@ -1,5 +1,5 @@
 var socket = io();
-var myName ; //link with text box
+var myName; //link with text box
 var myScore = 0;
 var opponentName;
 var opponentId;
@@ -7,7 +7,7 @@ var opponentScore;
 var currentRoom;
 var initialcardposition = [];
 
-function submitName(){
+function submitName() {
     // --> after click , disable button
 //
 //        myName = elem.value;
@@ -18,142 +18,142 @@ function submitName(){
 //            alert("Welcome "+ myName +"!! to the card matching game.")
 
     myName = document.getElementById('username').value;
-	if(myName==""){
-		if(confirm("Write your name! or you will be called Gay Retard")==true){
-			myName = "Gay Retard";
-				alert("Welcome " + myName+ "! to Hatestone; cheap matching card game")
-		socket.emit('joingame',{name : myName} ); // change player name to playername from login box later
-		document.getElementById('submitbutton').disabled = "disabled";
-		$("#nameform").fadeOut();
-		$("#waitingplayer").fadeIn();
-		}else{}
-	}else{
-	alert("Welcome " + myName+ "! to Hatestone; cheap matching card game")
-	socket.emit('joingame',{name : myName} ); // change player name to playername from login box later
-    document.getElementById('submitbutton').disabled = "disabled";
-	$("#nameform").fadeOut();
-	$("#waitingplayer").fadeIn();
-	}
+    if (myName == "") {
+        if (confirm("Write your name! or you will be called Gay Retard") == true) {
+            myName = "Gay Retard";
+            alert("Welcome " + myName + "! to Hatestone; cheap matching card game")
+            socket.emit('joingame', {name: myName}); // change player name to playername from login box later
+            document.getElementById('submitbutton').disabled = "disabled";
+            $("#nameform").fadeOut();
+            $("#waitingplayer").fadeIn();
+        } else {
+        }
+    } else {
+        alert("Welcome " + myName + "! to Hatestone; cheap matching card game")
+        socket.emit('joingame', {name: myName}); // change player name to playername from login box later
+        document.getElementById('submitbutton').disabled = "disabled";
+        $("#nameform").fadeOut();
+        $("#waitingplayer").fadeIn();
+    }
 }
 
-socket.on('roomready',function(data){ //Receive room info , Assign Opponent name + opponent id
+socket.on('roomready', function (data) { //Receive room info , Assign Opponent name + opponent id
     currentRoom = data.roomnumber;
-    if(socket.id == data.roomdata.player1.id) {
+    if (socket.id == data.roomdata.player1.id) {
         opponentName = data.roomdata.player2.name;
         opponentId = data.roomdata.player2.id;
     }
-    else{
+    else {
         opponentName = data.roomdata.player1.name;
         opponentId = data.roomdata.player1.id;
     }
-	//ROOM READY , BOTH PLAYER JOINED THE ROOM --> ARE YOU READY?
-	$("#waitingplayer").fadeOut()
-	$("#roomReady").fadeIn();
+    //ROOM READY , BOTH PLAYER JOINED THE ROOM --> ARE YOU READY?
+    $("#waitingplayer").fadeOut()
+    $("#roomReady").fadeIn();
 });
 
-function readytoplay(){
-	document.getElementById('readyBtn').disabled = "disabled"
+function readytoplay() {
+    document.getElementById('readyBtn').disabled = "disabled"
     // PRESS READY AFTER NAME SUBMISSION
-    socket.emit('readytoplay',{roomnumber : currentRoom});
+    socket.emit('readytoplay', {roomnumber: currentRoom});
 }
 
-socket.on('gamestart',function(data){
-	$("#roomReady").fadeOut();
-	
-	$("#debugCorrect").fadeIn(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
+socket.on('gamestart', function (data) {
+    $("#roomReady").fadeOut();
+
+    $("#debugCorrect").fadeIn(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
     $("#debugWrong").fadeIn(); // DEBUG --> TEST PICK WRONG
-	initialcardposition = data.initialcardposition;
+    initialcardposition = data.initialcardposition;
     var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
     myScore = 0;
     opponentScore = 0;
     //SCORE = 0 everytime gamestart
     //CARD POSITION FROM SERVBR
     // SHOW ALL CARD 10 SEC
-    if(turn=='play'){
+    if (turn == 'play') {
         //CHOOSEFIRSTCARD
     }
-    if(turn=='wait'){
+    if (turn == 'wait') {
         //WAITFIRSTCARD
     }
 });
 
-socket.on('choosefirstcard',function(){
+socket.on('choosefirstcard', function () {
     //ACTION WHEN PLAYER ASSIGNED TO CHOOSE FIRST CARD
 });
 
-socket.on('waitfirstcard',function(){
+socket.on('waitfirstcard', function () {
     //ACTION WHEN PLAYER ASSIGNED TO WAIT FIRST CARD
 });
 
 function firstcardselected() {
     var firstcardposition = 5; //CHANGE TO CARD POSITION THAT PLAYER PICKED
     // ADD FUNCTION FROM FRONTEND TO GET CARD POSITION
-    socket.emit('firstcardselected', {firstcardposition: firstcardposition , roomnumber : currentRoom} //CHANGE TO VAR SELECTEDPOSITION
+    socket.emit('firstcardselected', {firstcardposition: firstcardposition, roomnumber: currentRoom} //CHANGE TO VAR SELECTEDPOSITION
     );
 }
 
-socket.on('flipfirstcard',function(data){
+socket.on('flipfirstcard', function (data) {
     var firstcardposition = data.firstcardposition;
     //FLIP THE FIRST CARD AND PLAY THE GAME
 
 });
 
-socket.on('play',function(data){
+socket.on('play', function (data) {
     // SHOW WHICH POSITION OPPONENT PICKED AND PLAY
     var opponentwrongposition = data.wrongposition;//use this to show which position is opponent picked
 });
 
-function wrong(){
+function wrong() {
     var wrongposition = 1; // change this to real position later
-    myScore --; //DEBUG WRONG TEST
+    myScore--; //DEBUG WRONG TEST
 // if player choose wrong card use this method
     //
 
-    socket.emit('wrong',{wrongposition: wrongposition , roomnumber : currentRoom , currentscore : myScore});
+    socket.emit('wrong', {wrongposition: wrongposition, roomnumber: currentRoom, currentscore: myScore});
 
 }
 
-function correct(){
+function correct() {
     var correctposition = 2;
-    myScore ++; //DEBUG CORRECT TEST
+    myScore++; //DEBUG CORRECT TEST
     //
 
 // if player match correct card use this method
-    socket.emit('correct',{correctposition:correctposition, roomnumber : currentRoom , currentscore : myScore});
+    socket.emit('correct', {correctposition: correctposition, roomnumber: currentRoom, currentscore: myScore});
 }
 
-socket.on('correctposition',function(data){
+socket.on('correctposition', function (data) {
     //OPPONENT CHOSE CORRECT CARD
     //SHOW CORRECT POSITION
     var opponentcorrectposition = data.correctposition;
 });
 
-socket.on('gameend',function(data){
+socket.on('gameend', function (data) {
     $("#debugCorrect").fadeOut(); //DEBUG FUNCTION CORRECT TEST
     $("#debugWrong").fadeOut(); // DEBUG FUNCTION WRONG TEST
 
-    if(data.result =='win'){
+    if (data.result == 'win') {
         //DISPLAY YOU'RE WIN
         //SHOW SCORE OF BOTH PLAYER
     }
-    if(data.result =='lose'){
+    if (data.result == 'lose') {
         //DISPLAY OPPONENT WIN
         //SHOW SCORE OF BOTH PLAYER
     }
-    if(data.result =='draw'){
+    if (data.result == 'draw') {
         //DISPLAYER DRAW
         //SHOW SCORE OF BOTH PLAYER
     }
 }); // GAME END --> DO SOMETHING , SHOW
 
-function continueGame(){ //AFTER PRESS CONTINUE
-    socket.emit('continue', {roomnumber : currentRoom});
+function continueGame() { //AFTER PRESS CONTINUE
+    socket.emit('continue', {roomnumber: currentRoom});
 }
 
 
-
-socket.on('updateOpponentScore',function(data){ //THIS METHOD IS CALLED ON EVERY WRONG,CORRECT CARD SELECTION
-       opponentScore = data.opponentScore;
+socket.on('updateOpponentScore', function (data) { //THIS METHOD IS CALLED ON EVERY WRONG,CORRECT CARD SELECTION
+    opponentScore = data.opponentScore;
 });//FRONTEND --> UPDATE OPPONENTSCORE
 
 
@@ -164,9 +164,6 @@ function memoryFlipTile(tile, val) {
         if (memory_values.length == 0) {
             memory_values.push(val);
             memory_tile_ids.push(tile.id);
-
-
-
 
 
         } else if (memory_values.length == 1) {
