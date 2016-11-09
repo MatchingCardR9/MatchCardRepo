@@ -132,18 +132,22 @@ socket.on('correctposition', function (data) {
 socket.on('gameend', function (data) {
     $("#debugCorrect").fadeOut(); //DEBUG FUNCTION CORRECT TEST
     $("#debugWrong").fadeOut(); // DEBUG FUNCTION WRONG TEST
+    $("#debugContinue").fadeIn();//DEBUG FUNCTION CONTINUE TEST
 
     if (data.result == 'win') {
         //DISPLAY YOU'RE WIN
         //SHOW SCORE OF BOTH PLAYER
+        console.log("You win");
     }
     if (data.result == 'lose') {
         //DISPLAY OPPONENT WIN
         //SHOW SCORE OF BOTH PLAYER
+        console.log(opponentName + "win");
     }
     if (data.result == 'draw') {
         //DISPLAYER DRAW
         //SHOW SCORE OF BOTH PLAYER
+        console.log("draw");
     }
 }); // GAME END --> DO SOMETHING , SHOW
 
