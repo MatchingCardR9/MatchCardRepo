@@ -50,6 +50,8 @@ socket.on('roomready', function (data) { //Receive room info , Assign Opponent n
     //ROOM READY , BOTH PLAYER JOINED THE ROOM --> ARE YOU READY?
     $("#waitingplayer").fadeOut()
     $("#roomReady").fadeIn();
+
+
 });
 
 function readytoplay() {
@@ -105,7 +107,7 @@ socket.on('play', function (data) {
     var opponentwrongposition = data.wrongposition;//use this to show which position is opponent picked
 });
 
-function wrong() {
+function wrong(wrongposition) {
     var wrongposition = 1; // change this to real position later
     myScore--; //DEBUG WRONG TEST
 // if player choose wrong card use this method
