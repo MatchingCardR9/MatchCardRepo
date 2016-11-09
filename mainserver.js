@@ -14,9 +14,9 @@ app.get('/',function(req,res){
     res.sendFile(path.join(__dirname+'/index.html'));
 });
 
-// app.get('/admin',function(req,res){
-//     res.sendFile(path.join(__dirname+'/admin.html'));
-// });
+app.get('/admin',function(req,res){
+    res.sendFile(path.join(__dirname+'/admin.html'));
+});
 
 
 io.on('connection',function(socket){
@@ -280,7 +280,7 @@ io.on('connection',function(socket){
         }
     });
 
-/*
+
     socket.on('resetFromServer', function(data) {    //reset add by earth not sure by now
 
         rooms[data.roomnumber].initialcardposition = randomCardPosition();
@@ -297,7 +297,6 @@ io.on('connection',function(socket){
         });
         console.log('Room: ' + data.roomnumber + ' - Game Started');
     } );
-*/
 
 
     socket.on('disconnect',function(){
