@@ -277,6 +277,9 @@ io.on('connection',function(socket){
     });
 
 
+    socket.on('resetFromServer', function(data))     //reset add by earth
+
+
     socket.on('disconnect',function(){
         console.log(whoDisconnected(socket.id));
     })
