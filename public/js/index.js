@@ -6,6 +6,7 @@ var opponentId;
 var opponentScore;
 var currentRoom;
 var initialcardposition = [];
+var audio = new Audio('/sound/imgay.mp3')
 
 function submitName() {
     // --> after click , disable button
@@ -20,9 +21,11 @@ function submitName() {
     myName = document.getElementById('username').value;
     if (myName == "") {
         if (confirm("Write your name! or you will be called Gay Retard") == true) {
-            myName = "Gay Retard";
-            alert("Welcome " + myName + "! to Hatestone; cheap matching card game")
-            socket.emit('joingame', {name: myName}); // change player name to playername from login box later
+			myName = "Gay Retard";
+			audio.play();
+			window.setTimeout(alert(),2000);
+			alert("Welcome " + myName + "! to Hatestone; cheap matching card game")
+			socket.emit('joingame', {name: myName}); // change player name to playername from login box later
             document.getElementById('submitbutton').disabled = "disabled";
             $("#nameform").fadeOut();
             $("#waitingplayer").fadeIn();
