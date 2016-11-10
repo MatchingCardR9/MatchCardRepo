@@ -3,7 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 var express = require('express');
-
+var amountofplayers = 0;
 app.use(express.static(__dirname+'/public'));
 
 var rooms = [];
@@ -18,7 +18,7 @@ app.get('/admin',function(req,res){
     res.sendFile(path.join(__dirname+'/admin.html'));
 });
 
-
+        amountofplayers++;
 io.on('connection',function(socket){
     console.log('client connected - id :'+socket.id);
     socket.on('joingame',function(data){
@@ -133,6 +133,29 @@ io.on('connection',function(socket){
         //CASE >> time out , let position = 100 --> frontend (index.js) if position = 100 --> do something
     });
 
+
+    // socket.on('timeUpForPick',function(data){
+    //     if (rooms[data.roomnumber].player1.id == socket.id) {    //PLAYER1 CHOSE WRONG CARD
+    //
+    //         rooms[data.roomnumber].player1.score = data.currentscore;
+    //         io.to(rooms[data.roomnumber].player2.id).emit('updateOpponentScore',{opponentScore : data.currentscore});
+    //         io.to(rooms[data.roomnumber].player2.id).emit('opponentTimeUp', {
+    //
+    //         });
+    //
+    //         console.log("Room: "+data.roomnumber+" Player1-"+rooms[data.roomnumber].player1.name+" TIME UP");
+    //     }
+    //     else{   //PLAYER2 CHOSE WRONG CARD
+    //         rooms[data.roomnumber].player2.score = data.currentscore;
+    //         io.to(rooms[data.roomnumber].player1.id).emit('updateOpponentScore',{opponentScore : data.currentscore});
+    //         io.to(rooms[data.roomnumber].player1.id).emit('opponentTimeUp',{
+    //
+    //         });
+    //
+    //         console.log("Room: "+data.roomnumber+" Player2-"+rooms[data.roomnumber].player2.name+"  TIME UP");
+    //
+    //     }
+    // });
 
 
     socket.on('correct',function(data) { // correct card
@@ -285,14 +308,14 @@ io.on('connection',function(socket){
 
         rooms[data.roomnumber].initialcardposition = randomCardPosition();
         rooms[data.roomnumber].remainingcards = 4;
-        console.log("Room: " + data.roomnumber + " CONTINUED-->new game started");
+        console.log("Room: " + data.roomnumber + " SERVER RESET-->new game started");
 
 
         //SEND CARD POSITION --> GAME START AT FRONTEND
-        io.to(rooms[data.roomnumber].player1.id).emit('gamestart', {
+        io.to(rooms[data.roomnumber].player1.id).emit('gamereset', {
             'initialcardposition': rooms[data.roomnumber].initialcardposition, turn: 'play' //PLAYER1 PLAY FIRST
         });
-        io.to(rooms[data.roomnumber].player2.id).emit('gamestart', {
+        io.to(rooms[data.roomnumber].player2.id).emit('gamereset', {
             'initialcardposition': rooms[data.roomnumber].initialcardposition, turn: 'wait' //PLAYER@ WAIT FIRST
         });
         console.log('Room: ' + data.roomnumber + ' - Game Started');
@@ -300,7 +323,13 @@ io.on('connection',function(socket){
 
 
     socket.on('disconnect',function(){
+
         console.log(whoDisconnected(socket.id));
+    });
+
+    //ADMIN PAGE
+    socket.on('getNumberOfPlayers',function(){
+        socket.emit('numberOfPlayers',{numberofplayers:amountofplayers})
     });
 });
 
@@ -333,10 +362,12 @@ function whoDisconnected(socketid){
         var room = rooms[i];
         if(room==null) return ('unknown - socket id : '+socketid+' disconnected');
         if(room.player1.id==socketid) {
+            amountofplayers--;
             autoJoinWhenOpponentDisconnected(room.player2.id);
             return ('Room :'+i+' Player1-'+room.player1.name+' disconnected');}
 
         else if(room.player2.id==socketid) {
+            amountofplayers--;
             autoJoinWhenOpponentDisconnected(room.player1.id);
             return ('Room :'+i+' Player2-'+room.player2.name+' disconnected');}
     }
