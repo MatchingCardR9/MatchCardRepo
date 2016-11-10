@@ -18,11 +18,11 @@ app.get('/admin',function(req,res){
     res.sendFile(path.join(__dirname+'/admin.html'));
 });
 
-        amountofplayers++;
+
 io.on('connection',function(socket){
     console.log('client connected - id :'+socket.id);
     socket.on('joingame',function(data){
-
+        amountofplayers++;
         if(io.sockets.adapter.rooms[roomnumber] &&io.sockets.adapter.rooms[roomnumber].length==2) roomnumber++;
         socket.join(roomnumber);
         if(io.sockets.adapter.rooms[roomnumber].length==1) {
