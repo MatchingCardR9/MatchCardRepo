@@ -55,12 +55,12 @@
         </div>
     </form>
     <div id="waitingplayer" style="display: none; text-align: center">
-        <h3 style="color: white">Waiting for another player...</h3>
+        <h3>Waiting for another player...</h3>
         <div class="loading"></div>
     </div>
     <div id="roomReady" style="display: none">
-        <h3 style="color: white">Player found!</h3>
-        <h3 style="color: white">Are you ready?</h3>
+        <h3>Player found!</h3>
+        <h3>Are you ready?</h3>
         <input type="button" id="readyBtn" class="btn btn-success" value="Ready" onclick="readytoplay()">
     </div>
 </div>
@@ -155,27 +155,28 @@
 
 
 
-<div id="tutorial">
+<div id="tutorial" style="text-align: center">
     <div class="container">
         <a href="#howtoplay" class="btn btn-info" data-toggle="collapse">How to Play?</a>
-        <p id="howtoplay" class="collapse" style="color: white; background-color: #F48FB1">
-            1) First Player Select a starting card.</br>
+        <div id="howtoplay" class="collapse" >
+		<div class="boxTutor" style="color: white; background-color: #F48FB1">
+            <p>1) First Player Select a starting card.</br>
             2) The second player try to match the card.</br>
             2.1) Correct match gives the player + 1 point</br>
 			and it's the player's turn to pick a starting card.</br>
             2.2) Wrong match takes 1 point from the player,</br>
 			and it's the opponent turn.</br>
-            3) The game goes on until there is no card left.
+            3) The game goes on until there is no card left.</p>
+			</div>
+			</div>
         </div>
-</div>
+	</div>
 </body>
 <!--<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Correct,Wrong button for debug-->
 
 
 <!--&gt;>>>>>>>>>>>>>>>>CONTINUE BUTTON FOR DEBUG-->
-<div style="display:none" id="debugContinue">
-    <button class="btn btn-danger" onclick="continueGame()">Continue</button>
-</div>
+
 <!--<<<<<<<<<<<<<<<<,CONTINUE BUTTON FOR DEBUG-->
 
 
