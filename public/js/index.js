@@ -412,3 +412,17 @@ function magicHappens(){
     $("#nameform").fadeOut();
 }
 //>>>>>>>>>>>>>>>>>>>FOR DEBUG ONLY
+
+function wait(sec) {
+    var countTurn = sec;
+    var counter = setInterval(timer, 1000);
+
+    function timer() {
+        console.log(countTurn + "second left");
+        countTurn = countTurn - 1;
+        if (countTurn <= 0) {
+            clearInterval(counter);
+            return;
+        }
+    }
+}
