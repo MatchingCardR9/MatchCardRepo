@@ -8,3 +8,14 @@ function reset() { //AFTER PRESS reset
     socket.emit('resetFromServer', {roomnumber: currentRoom});
 
 }
+
+function showPlayers(){
+    socket.emit('getNumberOfPlayers');
+}
+socket.on('numberOfPlayers',function(data){
+    console.log('recieve number of players');
+    $('#playerAmount').text('Number Of Connected Player :'+data.numberofplayers);
+
+
+
+});

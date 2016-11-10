@@ -42,7 +42,38 @@
 </div>
 
 <body>
+<<<<<<< HEAD
 <div id="title" style="text-align: center; background-color: #1976D2;">
+=======
+<div id="avatarSelectBar">
+    <p> Choose your Buddy:
+
+        <img border="0" alt="Trump" src="images/trump.png" width="100" height="100" onClick="setAvatar('trump')" data-toggle="tooltip" title="selected">
+
+        <img border="0" alt="Clinton" src="images/hillary.png" width="100" height="100" onClick="setAvatar('hillary')" data-toggle="tooltip" title="selected">
+
+        <img border="0" alt="Putin" src="images/putin.png" width="100" height="100" onClick="setAvatar('putin')" data-toggle="tooltip" title="selected">
+
+    </p>
+</div>
+
+<button onClick="testAV()">DEBUG</button>
+
+<div id="tutorial">
+    <div class="container">
+        <a href="#howtoplay" class="btn btn-info" data-toggle="collapse">How to Play?</a>
+        <p id="howtoplay" class="collapse">
+            1.) First Player Select a starting card.
+            2.) The second player try to match the card.
+            >> Correct match gives the player + 1 point and it's the player's turn to pick a starting card.
+            / Wrong match takes 1 point from the player, and it's the opponent turn.
+            3.) The game goes on until there is no card left.
+    </div>
+</div>
+</div>
+
+<div style="text-align: center;">
+>>>>>>> origin/master
     <h1 style="color: white"> Hatestone: Matching Card </h1>
 </div>
 
@@ -63,13 +94,28 @@
         <h3>Are you ready?</h3>
         <input type="button" id="readyBtn" class="btn btn-success" value="Ready" onclick="readytoplay()">
     </div>
+
+    <div id="roomReset" style="display: none">
+        <h3 style="color: white">Room Reset by Server</h3>
+        <h3 style="color: white">Are you ready?</h3>
+        <input type="button" id="readyBtnAfterReset" class="btn btn-success" value="Ready" onclick="readytoplay()">
+    </div>
 </div>
 
 <div id="page_game" style="display:none">
     <div class="row">
         <div class="col-sm-4" style="background-color:#bce8f1">
-            <div id="page_myName"></div>
-            <div id="page_myScore"></div>
+            <div class="media">
+                <div class="media-left">
+                    <img src="images/trump.png" class="media-object" style="width:60px">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <div id="page_myName"></div>
+                    </h4>
+                    <div id="page_myScore"></div>
+                </div>
+            </div>
         </div>
         <div class="col-sm-4" id="page_gameinfo" style="background-color:whitesmoke">
             <div id="page_gameState"></div>
@@ -77,8 +123,17 @@
             <div id="clockdiv" align="center">Timer: <span id="timeTurn"></span></div>
         </div>
         <div class="col-sm-4" style="background-color:red">
-            <div id="page_opponentName"></div>
-            <div id="page_opponentScore"></div>
+            <div class="media">
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <div id="page_opponentName"></div>
+                    </h4>
+                    <div id="page_opponentScore"></div>
+                </div>
+                <div class="media-right">
+                    <img src="images/hillary.png" class="media-object" style="width:60px">
+                </div>
+            </div>
         </div>
     </div>
 
