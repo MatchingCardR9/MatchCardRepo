@@ -78,6 +78,7 @@ socket.on('gamestart', function (data) {
     //CARD POSITION FROM SERVBR
     // SHOW ALL CARD 10 SEC
     showInitialCard();
+    setTimeout(hideAllCard,5000); //HIDE CARD AFTER 10 SEC
 
 
 
@@ -174,15 +175,23 @@ socket.on('updateOpponentScore', function (data) { //THIS METHOD IS CALLED ON EV
 
 function showInitialCard() {
 
-    for (var i = 0; i < memory_array.length; i++) {
+    for (var i = 0; i < initialcardposition.length; i++) {
         var tile = 't' + (i+1);
-        console.log('show tile:' + tile + ' value:' + initialcardposition[i]);
+      //  console.log('show tile:' + tile + ' value:' + initialcardposition[i]);
         showtile(tile, initialcardposition[i]);
+        //SHOW TILE OKAY!
     }
     console.log('FINISH SHOW TILE');
 }
 function showtile(tile, val) {
     $('#'+tile).html(val);
+}
+function hideAllCard(){
+
+    for (var i = 0; i < initialcardposition.length; i++) {
+        var tile = 't' + (i+1);
+        $('#'+tile).html('FOLD')
+    }
 }
 
 
@@ -229,3 +238,10 @@ function memoryFlipTile(tile, val) {
         }
     }
 }
+
+//FOR DEBUG ONLY<<<<<<<<<<<<<<<<<<<<,,,,,
+function magicHappens(){
+    socket.emit('joingame',{name : 'GUMAGIC'});
+    $("#nameform").fadeOut();
+}
+//>>>>>>>>>>>>>>>>>>>FOR DEBUG ONLY
