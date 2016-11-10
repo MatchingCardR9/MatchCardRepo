@@ -668,13 +668,17 @@ function bgToRussia(){
     document.body.style.backgroundImage = "url('images/bg_russia.svg')";
 }
 
-$('#sendMessage').on('click',function(){console.log('555');});
-// $("#sendMessage").click(function(){
-//     console.log('SEND CHAT!');
-//     socket.emit('chat message', $('#m').val());
-//     $('#m').val('');
-//     return false;
-// });
+console.log('5555');
+setTimeout(function(){
+
+$("#sendMessage").click(function(){
+    console.log('SEND CHAT!');
+    socket.emit('chat message', $('#m').val());
+    $('#m').val('');
+    return false;
+});
+},300);
+
 
 socket.on('chat message', function(msg){
     $('#messages').append($('<li>').text(msg));
