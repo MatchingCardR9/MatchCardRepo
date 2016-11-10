@@ -48,7 +48,6 @@
 <body>
 
 <div id="title" style="text-align: center; background-color: #1976D2;">
-<button onClick="testAV()">DEBUG</button>
     <h1 style="color: white"> Hatestone: Matching Card </h1>
 </div>
 
@@ -180,12 +179,10 @@
             </table>
         </div>
     </div>
-
     <!--Correct,Wrong button for debug>>>>>>>>>>>>>>>>>>>>>-->
     <div style="display:none" id="debugCorrect">
         <button class="btn btn-danger" onclick="correct()">Correct</button>
     </div>
-
 
     <div style="display:none" id="debugWrong">
         <button class="btn_wrong" onclick="wrong()">Wrong!</button>
@@ -196,6 +193,13 @@
     </div>
 </div>
 
+<div class="box" id="gameEndBox" style="display: none">
+<h2 id="you">YOU</br></h2>
+<h1 id="gameEndStat"></h1>
+<div style="display:none" id="debugContinue">
+    <button class="btn btn-danger" onclick="continueGame()">Continue</button>
+</div>
+</div>
 
 
 <div id="tutorial" style="text-align: center">
@@ -226,8 +230,6 @@
 <div style="display:none" id="concede">
     <button class="btn btn-danger" onclick="endGame()">Concede</button>
     <div>
-
-
         <foot>
 
         </foot>

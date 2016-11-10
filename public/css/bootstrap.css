@@ -118,9 +118,9 @@ body {
 .gameboard_custom {
     background: #f7e1b5;
     border: #999 1px solid;
-    width: 100%;
+    width: 80%;
     height: 100%;
-    padding: 5%;
+    padding: 1%;
     margin: 0% auto;
     min-width: 15px;
 }
