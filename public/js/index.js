@@ -73,11 +73,12 @@ function readytoplay() {
 
 socket.on('gamestart', function (data) {
     $("#roomReady").fadeOut();
-
+    console.log('GAME STARTED');
     $("#debugCorrect").fadeIn(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
     $("#debugWrong").fadeIn(); // DEBUG --> TEST PICK WRONG
     $("#page_login").fadeOut();
     $("#page_game").fadeIn();
+    $("#memory_board").fadeIn()
     initialcardposition = data.initialcardposition;
     copyCardPosition();
 
@@ -111,7 +112,7 @@ socket.on('gamestart', function (data) {
         waitFirstCard();
         //WAITFIRSTCARD
     }
-    },3000); // EDIT LATER
+    },10000); // EDIT LATER
 });
 
 socket.on('choosefirstcard', function () {
@@ -172,6 +173,11 @@ function correct(correctposition) {
     cardstate[temp_firstcard] = 'MATCHED';
     cardstate[correctposition] = 'MATCHED';
 
+
+    $('#'+temp_firstcard).addClass('whiteBg');
+    $('#'+correctposition).addClass('whiteBg');
+
+
 // if player match correct card use this method
     socket.emit('correct', {correctposition: correctposition, roomnumber: currentRoom, currentscore: myScore});
 }
@@ -182,7 +188,10 @@ socket.on('correctposition', function (data) {
 
     cardstate[temp_firstcard] = 'MATCHED';
     cardstate[data.correctposition] = 'MATCHED';
-    console.log
+
+    $('#'+temp_firstcard).addClass('whiteBg');
+    $('#'+data.correctposition).addClass('whiteBg');
+
     showCorrectCard(data.correctposition);
 });
 
@@ -190,7 +199,9 @@ socket.on('gameend', function (data) {
     $("#debugCorrect").fadeOut(); //DEBUG FUNCTION CORRECT TEST
     $("#debugWrong").fadeOut(); // DEBUG FUNCTION WRONG TEST
     $("#debugContinue").fadeIn();//DEBUG FUNCTION CONTINUE TEST
+    $("#page_game").fadeOut();
     $("#memory_board").fadeOut();
+    setAlltoFold();
     if (data.result == 'win') {
         //DISPLAY YOU'RE WIN
         //SHOW SCORE OF BOTH PLAYER
@@ -216,6 +227,7 @@ function continueGame() { //AFTER PRESS CONTINUE
 
 socket.on('updateOpponentScore', function (data) { //THIS METHOD IS CALLED ON EVERY WRONG,CORRECT CARD SELECTION
     opponentScore = data.opponentScore;
+    $('#page_opponentScore').text(opponentScore);
 });//FRONTEND --> UPDATE OPPONENTSCORE
 
 
@@ -239,6 +251,18 @@ function setAlltoFold(){
         var tile = 't' + (i+1);
         $('#'+tile).html('FOLD');
         cardstate[tile]='FOLD';
+        $('#'+tile).removeClass();  // FOLD CARD SET COLOR BACK TO NORMAL
+    }
+}
+
+function foldOtherCard(firstcardid){
+    for (var i = 0; i < initialcardposition.length; i++) {
+        var tile = 't' + (i+1);
+        if(tile==firstcardid){}
+        else {
+            //$('#' + tile).html('FOLD');
+            cardstate[tile] = 'FOLD';
+        }
     }
 }
 
@@ -342,6 +366,7 @@ function addOnClick(){
                 console.log(this.id+' :card'+cardposition[this.id]+' is picked');
                 flipFirstCard(this.id);
                 $("#page_gameState").text('OPPONENT TURN!');
+                foldOtherCard(this.id);
                 firstcardselected(this.id);
             }
             if(cardstate[this.id]=='FIRSTCARD'){
@@ -352,17 +377,19 @@ function addOnClick(){
                 var currentid = this.id;
                 var cardIsMatch = isMatch(this.id,temp_firstcard);
                 flipCard(this.id);
-                if(cardIsMatch){
+                if(cardIsMatch){ //CORRECT CARD!!!
 
                     $('#'+this.id).addClass('greenBg');
                     console.log('Correct card');
                     $('#page_matchResult').text('Correct!');
                     correct(this.id);
+                    $('#page_myScore').text(myScore);
                 }
-                else{
+                else{ //WRONG CARD!!
                     $('#'+this.id).addClass('redBg');
                     console.log('Wrong!');
                     $('#page_matchResult').text('Wrong!');
+                    $('#page_myScore').text(myScore);
                     setTimeout(function(){
                         foldCard(currentid);
 

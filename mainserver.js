@@ -221,7 +221,7 @@ io.on('connection',function(socket){
         }
         else{ //PLAYER2 CONTINUE
             rooms[data.roomnumber].player2.continue = true;
-            console.log("Room: "+data.roomnumber+" Player2-"+rooms[data.roomnumber].player2.name+" reset");
+            console.log("Room: "+data.roomnumber+" Player2-"+rooms[data.roomnumber].player2.name+" CONTINUE");
 
         }
         if(rooms[data.roomnumber].player2.continue && rooms[data.roomnumber].player1.continue){ //BOTH PLAYER CONTINUE , START NEW GAME
@@ -284,7 +284,7 @@ io.on('connection',function(socket){
     socket.on('resetFromServer', function(data) {    //reset add by earth not sure by now
 
         rooms[data.roomnumber].initialcardposition = randomCardPosition();
-        rooms[data.roomnumber].remainingcards = 36;
+        rooms[data.roomnumber].remainingcards = 4;
         console.log("Room: " + data.roomnumber + " CONTINUED-->new game started");
 
 
