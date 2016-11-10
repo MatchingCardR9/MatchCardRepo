@@ -119,6 +119,7 @@ socket.on('gamestart', function (data) {
     //CARD POSITION FROM SERVBR
     // SHOW ALL CARD 10 SEC
     showAllCard();
+
     addOnClick();
 
 
@@ -134,7 +135,7 @@ socket.on('gamestart', function (data) {
         waitFirstCard();
         //WAITFIRSTCARD
     }
-    },10000); // EDIT LATER
+    },5000); // EDIT LATER
 });
 
 socket.on('choosefirstcard', function () {
@@ -283,6 +284,33 @@ function showAllCard() {
         showtile(tile, initialcardposition[i]);
         //SHOW TILE OKAY!
     }
+
+    countTurn = parseInt(10);
+    var counter = setInterval(timer,1000);
+    function timer(){
+        console.log(countTurn+" second left");
+        if(countTurn>100){
+            $('#timeLeftThisTurn').text('');
+        } else if(countTurn>=0){
+
+            $('#timeLeftThisTurn').text(countTurn);
+        }
+        countTurn = countTurn-1;
+        if(countTurn <=-2){
+            console.log('TIME OUT');
+
+            $('#timeLeftThisTurn').text('Time Out!');
+            clearInterval(counter);
+            return;
+        }else if(countTurn >100){
+            console.log('CARD CHOSEN BEFORE TIME OUT');
+            clearInterval(counter);
+            return;
+        }
+    }
+
+
+
     console.log('FINISH SHOW TILE');
 }
 
