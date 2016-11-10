@@ -13,8 +13,8 @@ body {
 .box{
 	background: #FFFFFF;
 	width: 360px;
-	padding-top: 8%;
-	padding-bottom: 8%;
+	padding-top:20px;
+	padding-bottom: 20px;
 	margin: auto;
 	text-align: center;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -26,11 +26,9 @@ body {
 	text-align: center;
 	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-}
+
 
 #title{
-	padding-top: 4%;
-	padding-bottom: 4%;
 	width: 100%;
 }
 
