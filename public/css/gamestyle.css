@@ -1,12 +1,12 @@
 
 /*GAME PAGE*/
 /*#page_game #memory_board{*/
-    /*background: #f7e1b5;*/
-    /*border:#999 1px solid;*/
-    /*width:800px;*/
-    /*height:780px;*/
-    /*padding:24px;*/
-    /*margin:0px auto;*/
+/*background: #f7e1b5;*/
+/*border:#999 1px solid;*/
+/*width:800px;*/
+/*height:780px;*/
+/*padding:24px;*/
+/*margin:0px auto;*/
 /*}*/
 
 .redBg{
@@ -24,7 +24,7 @@
 
 #clockdiv{
     font-family: sans-serif;
-    color: #0f05ff;
+    color: #fff;
     display: inline-block;
     font-weight: 100;
     text-align: center;
@@ -43,4 +43,18 @@
     display: inline-block;
 }
 
+#avatar img {
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
+#avatar img:hover {
+    opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+}
+
+#avatar img:active {
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+}
 /*//----------------------------------------------//*/
