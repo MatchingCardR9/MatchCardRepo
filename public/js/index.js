@@ -647,3 +647,16 @@ function setAvatar(avatarchoice) {
 function testAV(click) {
     alert("You chose " + selectedAvatar);
 }
+
+function bgToThai(){
+    document.body.style.backgroundColor = "#f3f3f3";
+    document.body.style.backgroundImage = "url('images/bg_thai.jpg')";
+}
+function bgToUS(){
+    document.body.style.backgroundColor = "#f3f3f3";
+    document.body.style.backgroundImage = "url('images/bg_usa.svg')";
+}
+function bgToRussia(){
+    document.body.style.backgroundColor = "#f3f3f3";
+    document.body.style.backgroundImage = "url('images/bg_russia.svg')";
+}
