@@ -586,6 +586,7 @@ function resetCardState(){
 var selectedAvatar;
 function setAvatar(avatarchoice) {
     selectedAvatar = avatarchoice;
+    console.log(avatarchoice);
 }
 function testAV(click) {
     alert("You chose " + selectedAvatar);
