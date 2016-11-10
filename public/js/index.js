@@ -35,7 +35,7 @@ function submitName() {
 			audio.play();
 			window.setTimeout(alert(),2000);
 			alert("Welcome " + myName + "! to Hatestone; cheap matching card game")
-			socket.emit('joingame', {name: myName}); // change player name to playername from login box later
+			socket.emit('joingame', {name: myName , avatar:myAvatar}); // change player name to playername from login box later
             document.getElementById('submitbutton').disabled = "disabled";
             $("#nameform").fadeOut();
             $("#waitingplayer").fadeIn();
@@ -632,14 +632,14 @@ function setAvatar(avatarchoice) {
         putinAvatar.css('opacity',0.5);
 
         $('#gameAvatar_left').attr('src',"images/trump.png");
-        myAvatar = 'avatar_Trump'
+        myAvatar = 'avatar_Trump';
     }else if(selectedAvatar=='Clinton'){
         clintonAvatar.css('opacity',1.0);
 
         trumpAvatar.css('opacity',0.5);
         putinAvatar.css('opacity',0.5);
         $('#gameAvatar_left').attr('src',"images/hillary.png");
-        myAvatar = 'avatar_Clinton'
+        myAvatar = 'avatar_Clinton';
     }
     else if(selectedAvatar=='Putin'){
         putinAvatar.css('opacity',1.0);
@@ -648,7 +648,7 @@ function setAvatar(avatarchoice) {
         clintonAvatar.css('opacity',0.5);
 
         $('#gameAvatar_left').attr('src',"images/putin.png");
-        myAvatar = 'avatar_Putin'
+        myAvatar = 'avatar_Putin';
     }
 }
 function testAV(click) {
@@ -667,3 +667,15 @@ function bgToRussia(){
     document.body.style.backgroundColor = "#f3f3f3";
     document.body.style.backgroundImage = "url('images/bg_russia.svg')";
 }
+
+$('#sendMessage').on('click',function(){console.log('555');});
+// $("#sendMessage").click(function(){
+//     console.log('SEND CHAT!');
+//     socket.emit('chat message', $('#m').val());
+//     $('#m').val('');
+//     return false;
+// });
+
+socket.on('chat message', function(msg){
+    $('#messages').append($('<li>').text(msg));
+});

@@ -338,6 +338,11 @@ io.on('connection',function(socket){
         console.log(whoDisconnected(socket.id));
     });
 
+    socket.on('chat message',function(msg){
+        io.emit('chat message', msg);
+    });
+
+
     //ADMIN PAGE
     socket.on('getNumberOfPlayers',function(){
         socket.emit('numberOfPlayers',{numberofplayers:amountofplayers})
