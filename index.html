@@ -80,25 +80,23 @@
 </div>
 <div id="page_game" style="display:none">
 
-    <div class="topInfo">
-        <div id="page_name">
+    <div class="row">
+        <div class="col-sm-4" style="background-color:#bce8f1">
             <div id="page_myName"></div>
-            <div id="page_opponentName"></div>
-        </div>
-        <div id="page_gameinfo">
             <div id="page_myScore"></div>
-            <div id="page_gameState"></div>
-                <div id="page_matchResult"></div>
-            <div id="page_opponentScore"></div>
         </div>
-        <div class="myScoreBoard" id="myScore"></div>
-        <div class="timeDisplay" id="time_display">
+        <div class="col-sm-4" id="page_gameinfo" style="background-color:whitesmoke">
+            <div id="page_gameState"></div>
+            <div id="page_matchResult"></div>
             <div id="clockdiv" align="center">Timer: <span id="timeTurn"></span></div>
         </div>
-        <div class="opponentScoreBoard" id="oppScore"></div>
+        <div class="col-sm-4" style="background-color:red">
+            <div id="page_opponentName"></div>
+            <div id="page_opponentScore"></div>
+        </div>
     </div>
-    <div class="gameboard_custom" id="memory_board">
 
+    <div class="gameboard_custom" id="memory_board">
         <div style="width: 100%; height: 100%; background-color: #3D799C;">
             <table class="table-bordered"
                    style="width: 100%; height: 100%; align-content: center; border-style: solid; border-width: 3px;">
@@ -162,10 +160,9 @@
     </div>
 
 
-
-<div style="display:none" id="debugWrong">
-    <button class="btn_wrong" onclick="wrong()">Wrong!</button>
-</div>
+    <div style="display:none" id="debugWrong">
+        <button class="btn_wrong" onclick="wrong()">Wrong!</button>
+    </div>
 
     <div style="display:none" id="debugAutojoin">
         <button class="btn btn-danger" onclick="joinNewGame()">Autojoin</button>
@@ -177,13 +174,11 @@
 <!--<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Correct,Wrong button for debug-->
 
 
-
 <!--&gt;>>>>>>>>>>>>>>>>CONTINUE BUTTON FOR DEBUG-->
 <div style="display:none" id="debugContinue">
     <button class="btn btn-danger" onclick="continueGame()">Continue</button>
 </div>
 <!--<<<<<<<<<<<<<<<<,CONTINUE BUTTON FOR DEBUG-->
-
 
 
 <div style="display:none" id="concede">
