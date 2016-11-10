@@ -8,6 +8,9 @@ var currentRoom;
 var initialcardposition = [];
 var audio = new Audio('/sound/imgay.mp3')
 
+//TEST ON CLICK
+console.log('TESTTTT');
+
 function submitName() {
     // --> after click , disable button
 //
@@ -78,6 +81,10 @@ socket.on('gamestart', function (data) {
     //CARD POSITION FROM SERVBR
     // SHOW ALL CARD 10 SEC
     showInitialCard();
+
+    addOnClick();
+
+
     setTimeout(hideAllCard,5000); //HIDE CARD AFTER 10 SEC
 
 
@@ -191,6 +198,17 @@ function hideAllCard(){
     for (var i = 0; i < initialcardposition.length; i++) {
         var tile = 't' + (i+1);
         $('#'+tile).html('FOLD')
+    }
+}
+
+function addOnClick(){
+    for(var i=0;i<initialcardposition.length;i++){
+        var tile = 't'+(i+1);
+        $('#'+tile).on('click',function(){
+            console.log(this.id);
+            console.log(this.innerHTML);
+          //  console.log(tile+' is clicked');
+        });
     }
 }
 
