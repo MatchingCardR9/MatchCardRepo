@@ -8,7 +8,7 @@ var currentRoom;
 var initialcardposition = [];
 var audio = new Audio('/sound/imgay.mp3')
 var cardstate = [];
-
+var cardposition =  [];
 //TEST ON CLICK
 console.log('TESTTTT');
 
@@ -75,6 +75,8 @@ socket.on('gamestart', function (data) {
     $("#page_login").fadeOut();
     $("#page_game").fadeIn();
     initialcardposition = data.initialcardposition;
+
+
     var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
     myScore = 0;
     opponentScore = 0;
@@ -85,16 +87,23 @@ socket.on('gamestart', function (data) {
 
     addOnClick();
 
-    setTimeout(hideAllCard,5000); //HIDE CARD AFTER 10 SEC
 
+    setTimeout(function(){
+  //  setTimeout(hideAllCard,5000); //HIDE CARD AFTER 10 SEC
 
+    hideAllCard();
 
     if (turn == 'play') {
+        console.log('CHOOSE FIRST CARD!');
+        chooseFirstCard();
         //CHOOSEFIRSTCARD
     }
     if (turn == 'wait') {
+        console.log('WAIT OPPONENT TO CHOOSE FIRST CARD');
+        waitFirstCard();
         //WAITFIRSTCARD
     }
+    },5000);
 });
 
 socket.on('choosefirstcard', function () {
@@ -190,6 +199,7 @@ function showInitialCard() {
     }
     console.log('FINISH SHOW TILE');
 }
+
 function showtile(tile, val) {
     $('#'+tile).html(val);
     cardstate[tile] = 'SHOW';
@@ -203,6 +213,16 @@ function hideAllCard(){
     }
 }
 
+
+function chooseFirstCard(){
+    console.log('CHOOSE FIRST CARD FUNCTION')
+    for (var i = 0; i < initialcardposition.length; i++) {
+        var tile = 't' + (i+1);
+        cardstate[tile]='PICKANY';
+        cardposition[tile]=initialcardposition[i];
+    }
+}
+
 function addOnClick(){
     for(var i=0;i<initialcardposition.length;i++){
         var tile = 't'+(i+1);
@@ -212,6 +232,9 @@ function addOnClick(){
             }
             if(cardstate[this.id]=='FOLD'){
                 console.log(this.id+' is folded');
+            }
+            if(cardstate[this.id]=='PICKANY'){
+                console.log(this.id+' :card'+cardposition[this.id]+' is picked');
             }
           //   console.log(this.id);
           //   console.log(this.innerHTML);
