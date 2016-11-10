@@ -10,10 +10,10 @@
             height: 100%;
         }
 
-        html {
+        <!--html {
             display: table;
             margin: auto;
-        }
+        }-->
 
         body {
             display: table-cell;
@@ -35,55 +35,37 @@
 
 </head>
 
-<!--FOR DEBUG ONLY , JOIN AND READY FUNCTION<<<<<<<<<<<<<<<<<<<<<<<<<<-->
 <div>
-
     <button id="quickJoin" onclick="magicHappens()">JOIN</button>
     <button id="quickReady" onclick="readytoplay()">Ready</button>
 
 </div>
-<!--&gt;>>>>>>>>>>>>>>>>>>>>>FOR DEBUG ONLY , JOIN AND READY FUNCTION&ndash;&gt;-->
 
 <body>
-<div id="tutorial">
-    <div class="container">
-        <a href="#howtoplay" class="btn btn-info" data-toggle="collapse">How to Play?</a>
-        <p id="howtoplay" class="collapse">
-            1.) First Player Select a starting card.
-            2.) The second player try to match the card.
-            2.1) Correct match gives the player + 1 point and it's the player's turn to pick a starting card.
-            2.2) Wrong match takes 1 point from the player, and it's the opponent turn.
-            3.) The game goes on until there is no card left.
-        </div>
-    </div>
-</div>
-
-<div style="text-align: center;">
+<div id="title" style="text-align: center; background-color: #1976D2;">
     <h1 style="color: white"> Hatestone: Matching Card </h1>
 </div>
 
-<div id="page_login">
+<div class="box" id="page_login">
     <form id="nameform">
         <div style="text-align: center;">
-            <label for="inputdefault" style="color: white">Tell us your name:</label></br>
+            <label for="inputdefault">Tell us your name:</label></br>
             <input id="username" type="text" width="100" placeholder="Enter your name" autocomplete="off">
             <input type="button" id="submitbutton" class="btn btn-success" value="GO" onclick="submitName()">
         </div>
     </form>
-
-    <div id="waitingplayer" style="display: none">
+    <div id="waitingplayer" style="display: none; text-align: center">
         <h3 style="color: white">Waiting for another player...</h3>
         <div class="loading"></div>
     </div>
-
     <div id="roomReady" style="display: none">
         <h3 style="color: white">Player found!</h3>
         <h3 style="color: white">Are you ready?</h3>
         <input type="button" id="readyBtn" class="btn btn-success" value="Ready" onclick="readytoplay()">
     </div>
 </div>
-<div id="page_game" style="display:none">
 
+<div id="page_game" style="display:none">
     <div class="row">
         <div class="col-sm-4" style="background-color:#bce8f1">
             <div id="page_myName"></div>
@@ -154,8 +136,6 @@
                 </tr>
             </table>
         </div>
-
-
     </div>
 
     <!--Correct,Wrong button for debug>>>>>>>>>>>>>>>>>>>>>-->
@@ -171,8 +151,22 @@
     <div style="display:none" id="debugAutojoin">
         <button class="btn btn-danger" onclick="joinNewGame()">Autojoin</button>
     </div>
+</div>
 
 
+
+<div id="tutorial">
+    <div class="container">
+        <a href="#howtoplay" class="btn btn-info" data-toggle="collapse">How to Play?</a>
+        <p id="howtoplay" class="collapse" style="color: white; background-color: #F48FB1">
+            1) First Player Select a starting card.</br>
+            2) The second player try to match the card.</br>
+            2.1) Correct match gives the player + 1 point</br>
+			and it's the player's turn to pick a starting card.</br>
+            2.2) Wrong match takes 1 point from the player,</br>
+			and it's the opponent turn.</br>
+            3) The game goes on until there is no card left.
+        </div>
 </div>
 </body>
 <!--<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Correct,Wrong button for debug-->
