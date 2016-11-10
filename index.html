@@ -45,17 +45,31 @@
 <!--&gt;>>>>>>>>>>>>>>>>>>>>>FOR DEBUG ONLY , JOIN AND READY FUNCTION&ndash;&gt;-->
 
 <body>
+<div id="avatar">
+    <p> Choose your Buddy:
+
+        <img border="0" alt="Trump" src="images/trump.png" width="100" height="100" onClick="setAvatar('trump')" data-toggle="tooltip" title="selected">
+
+        <img border="0" alt="Clinton" src="images/hillary.png" width="100" height="100" onClick="setAvatar('hillary')" data-toggle="tooltip" title="selected">
+
+        <img border="0" alt="Putin" src="images/putin.png" width="100" height="100" onClick="setAvatar('putin')" data-toggle="tooltip" title="selected">
+
+    </p>
+</div>
+
+<button onClick="testAV()">DEBUG</button>
+
 <div id="tutorial">
     <div class="container">
         <a href="#howtoplay" class="btn btn-info" data-toggle="collapse">How to Play?</a>
         <p id="howtoplay" class="collapse">
             1.) First Player Select a starting card.
             2.) The second player try to match the card.
-            2.1) Correct match gives the player + 1 point and it's the player's turn to pick a starting card.
-            2.2) Wrong match takes 1 point from the player, and it's the opponent turn.
+            >> Correct match gives the player + 1 point and it's the player's turn to pick a starting card.
+            / Wrong match takes 1 point from the player, and it's the opponent turn.
             3.) The game goes on until there is no card left.
-        </div>
     </div>
+</div>
 </div>
 
 <div style="text-align: center;">

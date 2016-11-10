@@ -580,3 +580,11 @@ function resetCardState(){
         cardstate[id] = 'BeforeGameStart';
     }
 }
+
+var selectedAvatar;
+function setAvatar(avatarchoice) {
+    selectedAvatar = avatarchoice;
+}
+function testAV(click) {
+    alert("You chose " + selectedAvatar);
+}
