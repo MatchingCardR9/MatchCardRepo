@@ -40,12 +40,16 @@ io.on('connection',function(socket){
             if(Math.random()<0.5){
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
+                rooms[roomnumber].player1.avatar = data.avatar;
+
                 rooms[roomnumber].player1.notEmpty = true;
                 // console.log(rooms[roomnumber]);
                 console.log("Room: "+roomnumber+" Player1-"+rooms[roomnumber].player1.name+" joined");
             }else {
                 rooms[roomnumber].player2.name = data.name;
                 rooms[roomnumber].player2.id = socket.id;
+                rooms[roomnumber].player2.avatar = data.avatar;
+
                 rooms[roomnumber].player2.notEmpty = true;
                 // console.log(rooms[roomnumber]);
                 console.log("Room: "+roomnumber+" Player2-"+rooms[roomnumber].player2.name+" joined");
@@ -54,12 +58,16 @@ io.on('connection',function(socket){
             if (rooms[roomnumber].player1.id!=null) {
                 rooms[roomnumber].player2.name = data.name;
                 rooms[roomnumber].player2.id = socket.id;
+                rooms[roomnumber].player2.avatar = data.avatar;
+
                 rooms[roomnumber].player2.notEmpty = true;
                 // console.log(rooms[roomnumber]);
                 console.log("Room: "+roomnumber+" Player2-"+rooms[roomnumber].player2.name+" joined");
             } else {
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
+                rooms[roomnumber].player1.avatar = data.avatar;
+
                 rooms[roomnumber].player2.notEmpty = true;
                 // console.log(rooms[roomnumber]);
                 console.log("Room: "+roomnumber+" Player1-"+rooms[roomnumber].player1.name+" joined");

@@ -12,6 +12,14 @@ var cardposition =  [];
 
 var countTurn = 0;
 
+var myAvatar = 'avatar_Trump';
+var opponentAvatar;
+setTimeout(function(){
+    $('#avatar_Trump').css('opacity',1.0);
+},500);
+
+//SET AVATAR TRUMP AS DEFAULT
+
 var temp_firstcard;
 var temp_selected;
 
@@ -35,7 +43,7 @@ function submitName() {
         }
     } else {
         alert("Welcome " + myName + "! to Hatestone; cheap matching card game")
-        socket.emit('joingame', {name: myName}); // change player name to playername from login box later
+        socket.emit('joingame', {name: myName , avatar:myAvatar }); // change player name to playername from login box later
         document.getElementById('submitbutton').disabled = "disabled";
         $("#nameform").fadeOut();
         $("#waitingplayer").fadeIn();
@@ -47,10 +55,13 @@ socket.on('roomready', function (data) { //Receive room info , Assign Opponent n
     if (socket.id == data.roomdata.player1.id) {
         opponentName = data.roomdata.player2.name;
         opponentId = data.roomdata.player2.id;
+        opponentAvatar = data.roomdata.player2.avatar;
     }
     else {
         opponentName = data.roomdata.player1.name;
         opponentId = data.roomdata.player1.id;
+        opponentAvatar = data.roomdata.player1.avatar;
+
     }
     //ROOM READY , BOTH PLAYER JOINED THE ROOM --> ARE YOU READY?
     $("#waitingplayer").fadeOut()
@@ -88,6 +99,21 @@ socket.on('gamestart', function (data) {
     $("#page_opponentScore").html('oppoenent score: '+opponentScore);
     $("#page_myName").html('myname is '+myName);
     $("#page_opponentName").html('Oppoenent is '+opponentName);
+
+    if(opponentAvatar=='avatar_Trump'){
+
+        $('#gameAvatar_right').attr('src',"images/trump.png");
+
+    }else if(opponentAvatar=='avatar_Clinton'){
+
+        $('#gameAvatar_right').attr('src',"images/hillary.png");
+
+
+    }else if(opponentAvatar=='avatar_Putin'){
+
+        $('#gameAvatar_right').attr('src',"images/putin.png");
+
+    }
 
     //SCORE = 0 everytime gamestart
     //CARD POSITION FROM SERVBR
@@ -587,6 +613,36 @@ var selectedAvatar;
 function setAvatar(avatarchoice) {
     selectedAvatar = avatarchoice;
     console.log(avatarchoice);
+
+    var trumpAvatar = $('#avatar_Trump');
+    var clintonAvatar = $('#avatar_Clinton');
+    var putinAvatar = $('#avatar_Putin');
+
+    if(selectedAvatar=='Trump'){
+        trumpAvatar.css('opacity',1.0);
+
+        clintonAvatar.css('opacity',0.5);
+        putinAvatar.css('opacity',0.5);
+
+        $('#gameAvatar_left').attr('src',"images/trump.png");
+        myAvatar = 'avatar_Trump'
+    }else if(selectedAvatar=='Clinton'){
+        clintonAvatar.css('opacity',1.0);
+
+        trumpAvatar.css('opacity',0.5);
+        putinAvatar.css('opacity',0.5);
+        $('#gameAvatar_left').attr('src',"images/hillary.png");
+        myAvatar = 'avatar_Clinton'
+    }
+    else if(selectedAvatar=='Putin'){
+        putinAvatar.css('opacity',1.0);
+
+        trumpAvatar.css('opacity',0.5);
+        clintonAvatar.css('opacity',0.5);
+
+        $('#gameAvatar_left').attr('src',"images/putin.png");
+        myAvatar = 'avatar_Putin'
+    }
 }
 function testAV(click) {
     alert("You chose " + selectedAvatar);
