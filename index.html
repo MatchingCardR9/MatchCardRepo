@@ -5,7 +5,7 @@
 
     <title>Hatestone: Matching Card</title>
     <link rel="stylesheet" href="css/bootstrap.css">
-    <style>
+   <!-- <style>
         html, body {
             height: 100%;
         }
@@ -13,14 +13,14 @@
         <!--html {
             display: table;
             margin: auto;
-        }-->
+        }
 
         body {
             display: table-cell;
             vertical-align: middle;
             background-color: #FFCA28;
         }
-    </style>
+    </style>-->
 
     <link rel="stylesheet" href="css/gamestyle.css">
     <script src="/socket.io/socket.io.js"></script>
@@ -49,7 +49,6 @@
 <body>
 
 <div id="title" style="text-align: center; background-color: #1976D2;">
-<button onClick="testAV()">DEBUG</button>
     <h1 style="color: white"> Hatestone: Matching Card </h1>
 </div>
 
@@ -91,33 +90,36 @@
 
 <div id="page_game" style="display:none">
     <div class="row">
-        <div class="col-sm-4" style="background-color:#bce8f1">
+        <div class="col-sm-3" style="background-color:#bce8f1">
             <div class="media">
                 <div class="media-left">
                     <img id="gameAvatar_left" src="images/trump.png" class="media-object" style="width:60px">
                 </div>
-                <div class="media-body">
-                    <h4 class="media-heading">
-                        <br>YOU</br>
-                        <div id="page_myName"></div>
-                    </h4>
-                    <div id="page_myScore"></div>
+                <div class="media-body" style="text-align: center;">
+                    <h4 style="color: white">YOU</h4>
+					<h4  id="page_myName"></h4>
+                    <h4 id="page_myScore"></h4>
                 </div>
+				
             </div>
         </div>
+		<div class="col-sm-1">
+		<button class="btn btn-success">HINT!</button>
+		</div>
         <div class="col-sm-4" id="page_gameinfo" style="background-color:whitesmoke">
             <div id="page_gameState"></div>
             <div id="page_matchResult"></div>
             <div id="clockdiv" align="center">Timer: <span id="timeLeftThisTurn"></span></div>
         </div>
-        <div class="col-sm-4" style="background-color:red">
+		<div class="col-sm-1">
+		<button class="btn btn-success">HINT!</button>
+		</div>
+        <div class="col-sm-3" style="background-color:red">
             <div class="media">
-                <div class="media-body">
-                    <h4 class="media-heading">
-                        <br>OPPONENT</br>
-                        <div id="page_opponentName"></div>
-                    </h4>
-                    <div id="page_opponentScore"></div>
+                <div class="media-body" style="text-align: center;">
+                    <h4 style="color: white">OPPONENT</h4>
+                    <h4 id="page_opponentName"></h4>
+                    <h4 id="page_opponentScore"></h4>
                 </div>
                 <div class="media-right">
                     <img id="gameAvatar_right" src="images/hillary.png" class="media-object" style="width:60px">
@@ -181,12 +183,10 @@
             </table>
         </div>
     </div>
-
     <!--Correct,Wrong button for debug>>>>>>>>>>>>>>>>>>>>>-->
-    <div style="display:none" id="debugCorrect">
+   <!-- <div style="display:none" id="debugCorrect">
         <button class="btn btn-danger" onclick="correct()">Correct</button>
     </div>
-
 
     <div style="display:none" id="debugWrong">
         <button class="btn_wrong" onclick="wrong()">Wrong!</button>
@@ -195,8 +195,15 @@
     <div style="display:none" id="debugAutojoin">
         <button class="btn btn-danger" onclick="joinNewGame()">Autojoin</button>
     </div>
-</div>
+</div>-->
 
+<div class="box" id="gameEndBox" style="display: none">
+<h2 id="you">YOU</br></h2>
+<h1 id="gameEndStat"></h1>
+<div style="display:none" id="debugContinue">
+    <button class="btn btn-danger" onclick="continueGame()">Continue</button>
+</div>
+</div>
 
 
 <div id="tutorial" style="text-align: center">
@@ -234,8 +241,6 @@
 <div style="display:none" id="concede">
     <button class="btn btn-danger" onclick="endGame()">Concede</button>
     <div>
-
-
         <foot>
 
         </foot>

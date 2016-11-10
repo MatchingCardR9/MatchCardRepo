@@ -241,16 +241,23 @@ socket.on('gameend', function (data) {
     if (data.result == 'win') {
         //DISPLAY YOU'RE WIN
         //SHOW SCORE OF BOTH PLAYER
+		$("#gameEndBox").fadeIn();
+		$("#gameEndStat").html("Win");
         console.log("You win");
     }
     if (data.result == 'lose') {
         //DISPLAY OPPONENT WIN
         //SHOW SCORE OF BOTH PLAYER
+		$("#gameEndBox").fadeIn();
+		$("#gameEndStat").html("Lose");
         console.log(opponentName + "win");
     }
     if (data.result == 'draw') {
         //DISPLAYER DRAW
         //SHOW SCORE OF BOTH PLAYER
+		$("#gameEndBox").fadeIn();
+		$("#you").fadeOut();
+		$("#gameEndStat").html("Draw");
         console.log("draw");
     }
 }); // GAME END --> DO SOMETHING , SHOW
