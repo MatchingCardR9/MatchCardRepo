@@ -232,6 +232,8 @@ socket.on('gameend', function (data) {
 function continueGame() { //AFTER PRESS CONTINUE
     socket.emit('continue', {roomnumber: currentRoom});
     $("#debugContinue").fadeOut();
+    myScore = 0;
+    opponentScore = 0;
 }
 
 
@@ -513,8 +515,8 @@ socket.on('gamereset', function (data) {
     $('#readyBtnAfterReset').fadeIn();
     $("#roomReset").fadeIn();
     $("#page_login").fadeIn();
-    $("#page_game").fadeIn();
-    $("#memory_board").fadeIn()
+    // $("#page_game").fadeIn();
+    // $("#memory_board").fadeIn()
 
     myScore=0;
     opponentScore=0;
