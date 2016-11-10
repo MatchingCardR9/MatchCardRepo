@@ -34,7 +34,7 @@
 <!--&gt;>>>>>>>>>>>>>>>>>>>>>FOR DEBUG ONLY , JOIN AND READY FUNCTION&ndash;&gt;-->
 
 
-<!--<link rel="stylesheet" href="css/gamestyle.css">-->
+<link rel="stylesheet" href="css/gamestyle.css">
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/jquery-3.1.1.js"></script>
 <script src="js/index.js"></script>
@@ -79,6 +79,16 @@
 <div id="page_game" style="display:none">
 
     <div class="topInfo">
+        <div id="page_name">
+            <div id="page_myName"></div>
+            <div id="page_opponentName"></div>
+        </div>
+        <div id="page_gameinfo">
+        <div id="page_myScore"></div>
+        <div id="page_gameState"></div>
+            <div id="page_matchResult"></div>
+        <div id="page_opponentScore"></div>
+        </div>
         <div class="myScoreBoard" id="myScore"></div>
         <div class="timeDisplay" id="time_display">
             <!--<div id="clockdiv" align="center">Timer: <span id="timeTurn"></span></div>-->
@@ -143,16 +153,6 @@
 
 
     </div>
-
-<<<<<<< HEAD
-<!--PlayerFound-->
-<div id="roomReady" style="display: none">
-<h3 style="color: white" >Player found!</h3>
-<h3 style="color: white" >Are you ready?</h3>
-<input type="button" id="readyBtn" class="btn btn-success" value="Ready" onclick="readytoplay()">
-=======
->>>>>>> origin/master
-</div>
 
 <!--Correct,Wrong button for debug>>>>>>>>>>>>>>>>>>>>>-->
 <div style="display:none" id="debugCorrect">
