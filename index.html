@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Hatestone: Matching Card</title>
+    <title>MatchCard</title>
     <link rel="stylesheet" href="css/bootstrap.css">
    <!-- <style>
         html, body {
@@ -48,14 +48,14 @@
 
 <body>
 <header>
-<div id="title" style="text-align: center; background-color: #1976D2;">
-    <h1 style="color: white"> Hatestone: Matching Card </h1>
+<div id="title" style="text-align: center; background-color: #1976D2; padding: 1em; margin-bottom: 10px">
+    <h1 style="color: white">World Ruler card matching!</h1>
 </div>
 </header>
 <div class="box" id="page_login">
     <form id="nameform">
         <div id="avatarSelectBar">
-            <br> Choose your Buddy:</br>
+            <h2> Choose your Ruler: </h2> </br>
 
                 <img border="0" id="avatar_Trump" alt="Trump" src="images/trump.png" width="100" height="100" onClick="setAvatar('Trump')" data-toggle="tooltip" title="selected">
 
@@ -184,6 +184,7 @@
         </div>
     </div>
 </div>
+
     <!--Correct,Wrong button for debug>>>>>>>>>>>>>>>>>>>>>-->
    <!-- <div style="display:none" id="debugCorrect">
         <button class="btn btn-danger" onclick="correct()">Correct</button>
@@ -207,7 +208,7 @@
 </div>
 
 
-<div id="tutorial" style="text-align: center">
+<div id="tutorial" style="text-align: center; margin-top:10px">
     <div class="container">
         <a href="#howtoplay" class="btn btn-info" data-toggle="collapse">How to Play?</a>
         <div id="howtoplay" class="collapse" >
@@ -221,8 +222,14 @@
             3) The game goes on until there is no card left.</p>
 			</div>
 			</div>
+
     </div>
 </div>
+
+    <div id="chatBoxArea" style="text-align:center">
+        <ul id="messages"></ul>
+            <input id="m" autocomplete="off" /><button id="sendMessage">Send</button>
+    </div>
 
 </body>
 
