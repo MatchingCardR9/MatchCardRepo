@@ -339,7 +339,8 @@ io.on('connection',function(socket){
     });
 
     socket.on('chat message',function(msg){
-        io.emit('chat message', msg);
+        message = whoSendMessage(socket.id)+msg;
+        io.emit('chat message', message);
     });
 
 
@@ -389,6 +390,25 @@ function whoDisconnected(socketid){
     }
     return ('unknown - socket id : '+socketid+' disconnected');
 }
+
+function whoSendMessage(socketid){ //CAN EDIT TO SEND MESSAGE ONLY IN ROOM LATER
+    for(i=1;i<=roomnumber;i++){
+        var room = rooms[i];
+        if(room==null) return ('unknown - socket id : '+socketid+' :');
+        if(room.player1.id==socketid) {
+            amountofplayers--;
+            autoJoinWhenOpponentDisconnected(room.player2.id);
+            return ('Room :'+i+' Player1-'+room.player1.name+' :');}
+
+        else if(room.player2.id==socketid) {
+            amountofplayers--;
+            autoJoinWhenOpponentDisconnected(room.player1.id);
+            return ('Room :'+i+' Player2-'+room.player2.name+' :');}
+    }
+    return ('unknown - socket id : '+socketid+' :');
+}
+
+
 
 function autoJoinWhenOpponentDisconnected(mysocketid){ //modify
     io.to(mysocketid).emit('opponentDisconnected');
