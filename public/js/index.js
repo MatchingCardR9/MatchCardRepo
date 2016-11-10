@@ -95,10 +95,10 @@ socket.on('gamestart', function (data) {
     opponentScore = 0;
     var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
 
-    $("#page_myScore").html('my Score:'+myScore);
-    $("#page_opponentScore").html('oppoenent score: '+opponentScore);
-    $("#page_myName").html('myname is '+myName);
-    $("#page_opponentName").html('Oppoenent is '+opponentName);
+    $("#page_myScore").html('Score: '+myScore);
+    $("#page_opponentScore").html('Score: '+opponentScore);
+    $("#page_myName").html(''+myName);
+    $("#page_opponentName").html(''+opponentName);
 
     if(opponentAvatar=='avatar_Trump'){
 
@@ -552,10 +552,10 @@ socket.on('gamereset', function (data) {
 
 
 
-    $("#page_myScore").html('my Score:'+myScore);
-    $("#page_opponentScore").html('oppoenent score: '+opponentScore);
-    $("#page_myName").html('myname is '+myName);
-    $("#page_opponentName").html('Oppoenent is '+opponentName);
+    $("#page_myScore").html('Score:'+myScore);
+    $("#page_opponentScore").html('Score: '+opponentScore);
+    $("#page_myName").html(''+myName);
+    $("#page_opponentName").html(''+opponentName);
     //SCORE = 0 everytime gamestart
 
     $('#readyBtn').prop('disabled',false);
