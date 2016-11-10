@@ -696,7 +696,6 @@ function bgToRussia(){
     document.body.style.backgroundImage = "url('images/bg_russia.svg')";
 }
 
-console.log('5555');
 setTimeout(function(){
 
 $("#sendMessage").click(function(){
