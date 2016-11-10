@@ -35,7 +35,7 @@ io.on('connection',function(socket){
 
             rooms[roomnumber].initialcardposition = randomCardPosition();
             //rooms[roomnumber].remainingcards = 36;
-            rooms[roomnumber].remainingcards = 10; // USE 10 CARD FOR CORRECT DEBUG
+            rooms[roomnumber].remainingcards = 3; // USE 10 CARD FOR CORRECT DEBUG
             if(Math.random()<0.5){
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
@@ -144,7 +144,7 @@ io.on('connection',function(socket){
             console.log("Room: "+data.roomnumber+" Player1-"+rooms[data.roomnumber].player1.name+" pick CORRECT card - card number :"+data.correctposition);
 
         }
-        else { // PLAYER 2 PICK WRONG CARD
+        else { // PLAYER 2 PICK CORRECT
             rooms[data.roomnumber].player2.score = data.currentscore;
             io.to(rooms[data.roomnumber].player1.id).emit('updateOpponentScore',{opponentScore : data.currentscore});
 

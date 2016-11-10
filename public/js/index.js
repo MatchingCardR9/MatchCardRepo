@@ -98,7 +98,7 @@ socket.on('gamestart', function (data) {
     setTimeout(function(){
   //  setTimeout(hideAllCard,5000); //HIDE CARD AFTER 10 SEC
 
-    hideAllCard();
+    setAlltoFold();
 
     if (turn == 'play') {
         console.log('CHOOSE FIRST CARD!');
@@ -110,15 +110,21 @@ socket.on('gamestart', function (data) {
         waitFirstCard();
         //WAITFIRSTCARD
     }
-    },5000);
+    },3000); // EDIT LATER
 });
 
 socket.on('choosefirstcard', function () {
     //ACTION WHEN PLAYER ASSIGNED TO CHOOSE FIRST CARD
+    console.log('CHOOSE FIRST CARD!');
+    chooseFirstCard();
+    //CHOOSEFIRSTCARD
 });
 
 socket.on('waitfirstcard', function () {
     //ACTION WHEN PLAYER ASSIGNED TO WAIT FIRST CARD
+    console.log('WAIT OPPONENT TO CHOOSE FIRST CARD');
+    waitFirstCard();
+    //WAITFIRSTCARD
 });
 
 function firstcardselected(firstcardposition) {
@@ -141,11 +147,15 @@ socket.on('flipfirstcard', function (data) {
 
 socket.on('play', function (data) {
     // SHOW WHICH POSITION OPPONENT PICKED AND PLAY
+
+
     var opponentwrongposition = data.wrongposition;//use this to show which position is opponent picked
+    showOpponentWrongAndPlay(opponentwrongposition);
+
 });
 
 function wrong(wrongposition) {
-    var wrongposition = 1; // change this to real position later
+    var wrongposition = wrongposition; // change this to real position later
     myScore--; //DEBUG WRONG TEST
 // if player choose wrong card use this method
     //
@@ -154,10 +164,12 @@ function wrong(wrongposition) {
 
 }
 
-function correct() {
-    var correctposition = 2;
+function correct(correctposition) {
     myScore++; //DEBUG CORRECT TEST
     //
+    console.log('CORRECT FUNCTION'+correctposition);
+    cardstate[temp_firstcard] = 'MATCHED';
+    cardstate[correctposition] = 'MATCHED';
 
 // if player match correct card use this method
     socket.emit('correct', {correctposition: correctposition, roomnumber: currentRoom, currentscore: myScore});
@@ -166,14 +178,18 @@ function correct() {
 socket.on('correctposition', function (data) {
     //OPPONENT CHOSE CORRECT CARD
     //SHOW CORRECT POSITION
-    var opponentcorrectposition = data.correctposition;
+
+    cardstate[temp_firstcard] = 'MATCHED';
+    cardstate[data.correctposition] = 'MATCHED';
+    console.log
+    showCorrectCard(data.correctposition);
 });
 
 socket.on('gameend', function (data) {
     $("#debugCorrect").fadeOut(); //DEBUG FUNCTION CORRECT TEST
     $("#debugWrong").fadeOut(); // DEBUG FUNCTION WRONG TEST
     $("#debugContinue").fadeIn();//DEBUG FUNCTION CONTINUE TEST
-
+    $("#memory_board").fadeOut();
     if (data.result == 'win') {
         //DISPLAY YOU'RE WIN
         //SHOW SCORE OF BOTH PLAYER
@@ -216,8 +232,7 @@ function showtile(tile, val) {
     $('#'+tile).html(val);
     cardstate[tile] = 'SHOW';
 }
-function hideAllCard(){
-
+function setAlltoFold(){
     for (var i = 0; i < initialcardposition.length; i++) {
         var tile = 't' + (i+1);
         $('#'+tile).html('FOLD');
@@ -234,17 +249,12 @@ function chooseFirstCard(){
         cardstate[tile]='PICKFIRSTCARD';
         //cardposition[tile]=initialcardposition[i];
     }
+
 }
 function waitFirstCard(){
     $("#page_gameState").text('WAIT FOR YOUR OPPONENT TO CHOOSE FIRST CARD');
 }
-function setAlltoFold(){
-    for (var i = 0; i < initialcardposition.length; i++) {
-        var tile = 't' + (i+1);
-        $('#'+tile).html('FOLD');
-        cardstate[tile]='FOLD';
-    }
-}
+
 function flipFirstCard(cardid){
     $('#'+cardid).addClass('greenBg');
     $('#'+cardid).html(''+cardposition[cardid]);
@@ -256,17 +266,64 @@ function flipCard(cardid){
     $('#'+cardid).html(''+cardposition[cardid]);
     cardstate[cardid] = 'FIRSTCARD';
 }
+
+function foldCard(cardid){
+    $('#'+cardid).text('FOLD');
+    $('#'+cardid).removeClass();  // FOLD CARD SET COLOR BACK TO NORMAL
+    cardstate[cardid] = 'FOLD';
+
+}
+
 function matchCard(firstcardid){
     console.log('matchcard - '+firstcardid);
-    console.log(cardposition.length);
+   // console.log(cardposition.length);
     for(var i=0;i<initialcardposition.length;i++){
         var currentid = 't'+(i+1);
-        console.log('match card - currentid'+currentid);
+        //console.log('match card - currentid'+currentid);
         if(currentid==firstcardid){}
         else{
             cardstate[currentid]='CHOOSE';
         }
     }
+}
+
+function waitOpponentToMatch(firstcardid){
+    console.log('wait opponent to match - '+firstcardid);
+   // console.log(cardposition.length);
+    $('#page_gameState').text('OPPONENT TURN');
+    for(var i=0;i<initialcardposition.length;i++){
+        var currentid = 't'+(i+1);
+        if(currentid==firstcardid){}
+        else{
+            cardstate[currentid]='FOLD';
+        }
+    }
+}
+
+function showOpponentWrongAndPlay(position){
+    $('#'+position).addClass('redBg');
+    $('#'+position).html(cardposition[position]);
+    console.log('Opponent pick Wrong!');
+    $('#page_matchResult').text('Opponent Picked wrong card');
+    setTimeout(function(){
+        foldCard(position);
+        $('#page_gameState').html('YOUR TURN');
+        matchCard(temp_firstcard);
+
+
+    },3000);
+
+}
+function  showCorrectCard(position){
+    console.log('SHOWING CORRECT CARD');
+    console.log('OPPONENT CORRECTCARD IS '+position);
+    $('#'+position).addClass('greenBg');
+    $('#'+position).html(cardposition[position]);
+    console.log('Opponent Picked Correct card');
+    $('#page_matchResult').text('Opponent Picked CORRECT card');
+    setTimeout(function(){
+        $('#page_matchResult').text('Opponent turn');
+    },3000);
 }
 
 function addOnClick(){
@@ -281,7 +338,6 @@ function addOnClick(){
             }
             if(cardstate[this.id]=='PICKFIRSTCARD'){
                 console.log(this.id+' :card'+cardposition[this.id]+' is picked');
-                setAlltoFold();
                 flipFirstCard(this.id);
                 $("#page_gameState").text('OPPONENT TURN!');
                 firstcardselected(this.id);
@@ -291,6 +347,7 @@ function addOnClick(){
             }
             if(cardstate[this.id]=='CHOOSE'){
                 console.log(this.id+' :card'+cardposition[this.id]+' is CHOSEN');
+                var currentid = this.id;
                 var cardIsMatch = isMatch(this.id,temp_firstcard);
                 flipCard(this.id);
                 if(cardIsMatch){
@@ -298,11 +355,18 @@ function addOnClick(){
                     $('#'+this.id).addClass('greenBg');
                     console.log('Correct card');
                     $('#page_matchResult').text('Correct!');
+                    correct(this.id);
                 }
                 else{
                     $('#'+this.id).addClass('redBg');
                     console.log('Wrong!');
                     $('#page_matchResult').text('Wrong!');
+                    setTimeout(function(){
+                        foldCard(currentid);
+
+                    },3000);
+                    waitOpponentToMatch(temp_firstcard);
+                    wrong(this.id);
                 }
                 // if(correcT){
                 //
@@ -322,49 +386,6 @@ function addOnClick(){
 
 
 
-function memoryFlipTile(tile, val) {
-    if (tile.innerHTML == "" && memory_values.length < 1) {
-        tile.style.background = '#FAB';
-        tile.innerHTML = val;
-        if (memory_values.length == 0) {
-            memory_values.push(val);
-            memory_tile_ids.push(tile.id);
-
-
-        } else if (memory_values.length == 1) {
-            memory_values.push(val);
-            memory_tile_ids.push(tile.id);
-            if (memory_values[0] == memory_values[1]) {
-                tiles_flipped += 2;
-                // Clear both arrays
-                memory_values = [];
-                memory_tile_ids = [];
-                // Check to see if the whole board is cleared
-                if (tiles_flipped == memory_array.length) {
-                    alert("Board cleared... generating new board");
-                    document.getElementById('memory_board').innerHTML = "";
-                    newBoard();
-                }
-            } else {
-                function flip2Back() {
-                    // Flip the 2 tiles back over
-                    var tile_1 = document.getElementById(memory_tile_ids[0]);
-                    var tile_2 = document.getElementById(memory_tile_ids[1]);
-                    tile_1.sty
-                    le.background = 'url(tile_bg.jpg) no-repeat';
-                    tile_1.innerHTML = "";
-                    tile_2.style.background = 'url(tile_bg.jpg) no-repeat';
-                    tile_2.innerHTML = "";
-                    // Clear both arrays
-                    memory_values = [];
-                    memory_tile_ids = [];
-                }
-
-                setTimeout(flip2Back, 700);
-            }
-        }
-    }
-}
 
 function isMatch(cardid1,cardid2){
     var value1 = cardposition[cardid1];
