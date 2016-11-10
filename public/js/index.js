@@ -60,6 +60,7 @@ socket.on('roomready', function (data) { //Receive room info , Assign Opponent n
 
 function readytoplay() {
     document.getElementById('readyBtn').disabled = "disabled"
+    $('#readyBtnAfterReset').prop('disabled',true);
     // PRESS READY AFTER NAME SUBMISSION
     socket.emit('readytoplay', {roomnumber: currentRoom});
 }
@@ -69,8 +70,10 @@ socket.on('gamestart', function (data) {
     $("#debugWrong").fadeIn(); // DEBUG --> TEST PICK WRONG
     console.log('GAME STARTED');
 
+
     $("#roomReady").fadeOut();
     $("#page_login").fadeOut();
+    $('#page_gameState').text('REMEMBER THE CARDS!');
     $("#page_game").fadeIn();
     $("#memory_board").fadeIn();
 
@@ -133,6 +136,7 @@ socket.on('flipfirstcard', function (data) {
     var firstcardposition = data.firstcardposition;
     flipFirstCard(data.firstcardposition);
     $('#page_gameState').html('YOUR TURN');
+    $('#page_matchResult').text('Match A Card');
     //FLIP THE FIRST CARD AND PLAY THE GAME
 
     //PLAY THE GAME
@@ -349,6 +353,7 @@ function showOpponentWrongAndPlay(position){
         setTimeout(function () {
             foldCard(position);
             $('#page_gameState').html('YOUR TURN');
+            $('#page_matchResult').text('Match A Card');
 
             matchCard(temp_firstcard);
 
@@ -367,6 +372,7 @@ function showOpponentWrongAndPlay(position){
         setTimeout(function () {
             foldCard(position);
             $('#page_gameState').html('YOUR TURN');
+            $('#page_matchResult').text('Match A Card');
 
             matchCard(temp_firstcard);
 
@@ -482,6 +488,7 @@ function isMatch(cardid1,cardid2){
 }
 
 function copyCardPosition(){
+    console.log('Copy Card Position from initial to cardpos');
     for(var i=0;i<initialcardposition.length;i++) {
         var id = 't'+(i+1);
         cardposition[id] = initialcardposition[i];
@@ -503,48 +510,28 @@ socket.on('gamereset', function (data) {
     $("#debugCorrect").fadeIn(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
     $("#debugWrong").fadeIn(); // DEBUG --> TEST PICK WRONG
 
-    $("#roomReady").fadeOut();
-    $("#page_login").fadeOut();
+    $('#readyBtnAfterReset').fadeIn();
+    $("#roomReset").fadeIn();
+    $("#page_login").fadeIn();
     $("#page_game").fadeIn();
     $("#memory_board").fadeIn()
 
-    initialcardposition = data.initialcardposition;
     myScore=0;
     opponentScore=0;
-    copyCardPosition();
 
-    var turn = data.turn; // CHECK IF YOU ARE PLAYER 1 or PLAYER 2 ( player1 play first card )
-    myScore = 0;
-    opponentScore = 0;
+    resetCardState();
+
+
+
+
     $("#page_myScore").html('my Score:'+myScore);
     $("#page_opponentScore").html('oppoenent score: '+opponentScore);
     $("#page_myName").html('myname is '+myName);
     $("#page_opponentName").html('Oppoenent is '+opponentName);
     //SCORE = 0 everytime gamestart
-    //CARD POSITION FROM SERVBR
-    // SHOW ALL CARD 10 SEC
 
-    for(var i=0;i<initialcardposition.length;i++){ // FIX RESET AND CARD STILL HAVE COLOR OF PREVIOUS CORRECT POSITION
-        var id = 't'+(i+1);
-        $('#'+id).removeClass();
-    }
+    $('#readyBtn').prop('disabled',false);
 
-    showAllCard();
-    addOnClick();
-
-    setTimeout(function(){
-        setAlltoFold();
-        if (turn == 'play') {
-            console.log('CHOOSE FIRST CARD!');
-            chooseFirstCard();
-            //CHOOSEFIRSTCARD
-        }
-        if (turn == 'wait') {
-            console.log('WAIT OPPONENT TO CHOOSE FIRST CARD');
-            waitFirstCard();
-            //WAITFIRSTCARD
-        }
-    },3000); // EDIT LATER
 });
 
 
@@ -582,4 +569,14 @@ function timeOut(){
 
     waitOpponentToMatch(temp_firstcard);
     wrong('TIMEOUT'); //EMIT TO SERVER
+}
+
+function resetCardState(){
+    console.log('reset card state');
+    for(var i=0;i<initialcardposition.length;i++){ // FIX RESET AND CARD STILL HAVE COLOR OF PREVIOUS CORRECT POSITION
+        var id = 't'+(i+1);
+        $('#'+id).removeClass();
+        $('#'+id).text('FOLD');
+        cardstate[id] = 'BeforeGameStart';
+    }
 }

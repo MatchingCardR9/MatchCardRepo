@@ -36,6 +36,7 @@ io.on('connection',function(socket){
             rooms[roomnumber].initialcardposition = randomCardPosition();
             //rooms[roomnumber].remainingcards = 36;
             rooms[roomnumber].remainingcards = 3; // USE 10 CARD FOR CORRECT DEBUG
+
             if(Math.random()<0.5){
                 rooms[roomnumber].player1.name = data.name;
                 rooms[roomnumber].player1.id = socket.id;
@@ -310,13 +311,14 @@ io.on('connection',function(socket){
         rooms[data.roomnumber].remainingcards = 4;
         console.log("Room: " + data.roomnumber + " SERVER RESET-->new game started");
 
-
+        rooms[data.roomnumber].player1.ready = false;
+        rooms[data.roomnumber].player2.ready = false;
         //SEND CARD POSITION --> GAME START AT FRONTEND
         io.to(rooms[data.roomnumber].player1.id).emit('gamereset', {
-            'initialcardposition': rooms[data.roomnumber].initialcardposition, turn: 'play' //PLAYER1 PLAY FIRST
+             //PLAYER1 PLAY FIRST
         });
         io.to(rooms[data.roomnumber].player2.id).emit('gamereset', {
-            'initialcardposition': rooms[data.roomnumber].initialcardposition, turn: 'wait' //PLAYER@ WAIT FIRST
+            //PLAYER@ WAIT FIRST
         });
         console.log('Room: ' + data.roomnumber + ' - Game Started');
     } );
