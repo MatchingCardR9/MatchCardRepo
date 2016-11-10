@@ -23,7 +23,7 @@ var initialcardposition = [];
 
 // var room = '';
 // var roomJoined = false;
-var board = [];
+
 // var cardSelectedIndex = [];
 // var cardSelected = [];
 // var turn = false;
@@ -90,7 +90,6 @@ Array.prototype.memory_tile_shuffle = function () {
 }
 
 
-
 function submitName() {
     // --> after click , disable button
 //
@@ -143,8 +142,8 @@ function readytoplay() {
     socket.emit('readytoplay', {roomnumber: currentRoom});
 }
 
-function magicHappens(){
-    socket.emit('joingame',{name : 'GUMAGIC'});
+function magicHappens() {
+    socket.emit('joingame', {name: 'GUMAGIC'});
 }
 function showInitialCard() {
     var output = '';
@@ -157,12 +156,31 @@ function showInitialCard() {
     //document.getElementById('memory_board').innerHTML = output;
 
     for (var i = 0; i < memory_array.length; i++) {
-        var tile = 't' + (i+1);
+        var tile = 't' + (i + 1);
         console.log('show tile:' + tile + ' value:' + memory_array[i]);
         showtile(tile, memory_array[i]);
     }
     console.log('FINISH SHOW TILE');
 }
+
+function showCard() {
+    var tile = 't' + (i+1);
+    var output = '';
+    for (var i = 0; i < memory_array.length; i++) {
+        showtile(tile, memory_array[i]);
+        output += '<div id="t"' + i + '">' + memory_array[i].id + '</div>';
+    }
+
+}
+function hideCard() {
+    var tile = 't' + (i+1);
+    var output = '';
+    for (var i = 0; i < memory_array.length; i++) {
+        showtile(tile, memory_array[i]);
+        output += '<div id="t"' + i + '"></div>'; //onclick="firstcardselected(this,\'' + memory_array[i].id + '\',\'' + i + '\')"></div>';*/
+    }
+}
+
 socket.on('gamestart', function (data) {
         $("#roomReady").fadeOut();
 
@@ -184,7 +202,7 @@ socket.on('gamestart', function (data) {
         // SHOW ALL CARD 10 SEC
 
         //board = newboard;
-       // showInitialCard();
+        // showInitialCard();
         //getScore();
         //displayTime();
         console.log('before memory title shuffle');
@@ -193,17 +211,19 @@ socket.on('gamestart', function (data) {
         showInitialCard();
         ///////////////////////
 
-       // setTimeout(function(){console.log('timeoutperiod');},5000);
+        // setTimeout(function(){console.log('timeoutperiod');},5000);
         //wait(5);
         console.log('before call newboard   ()');
         console.log('5 sec to show initial card');
         //setTimeout(newBoard,5000);
+        console.log('hide all cards');
+        setTimeout(hideCard, 5000);
+
 
         function newBoard() {
             console.log('newboard called');
 
             tiles_flipped = 0;
-
 
 
             // for (var i = 0; i < memory_array.length; i++) {
@@ -217,12 +237,15 @@ socket.on('gamestart', function (data) {
         if (turn == 'play') {
             function memoryFlipTile(tile, val) {
                 if (tile.innerHTML == "" && memory_values.length < 1) {
-                    tile.style.background = '#FAB';
+                    tile.style.background = '#FEF';
                     tile.innerHTML = val;
                     if (memory_value1.length == 0) {
                         memory_value1.push(val);
                         //memory_tile_id1.push(tile.id);
                         memory_tile_ids.push(tile.id);
+                    }
+                    for (var i = 0; i < board.length; i++) {
+                        showCard();
                     }
                     firstcardselected();
                 }
@@ -247,10 +270,8 @@ socket.on('gamestart', function (data) {
 );//WAITFIRSTCARD
 
 function showtile(tile, val) {
-    $('#'+tile).html(val);
-  //  document.getElementById(tile).innerHTML = val;
-
-
+    $('#' + tile).html(val);
+    //  document.getElementById(tile).innerHTML = val;
 }
 
 socket.on('playfirstcard', function () {
@@ -367,13 +388,14 @@ socket.on('updateOpponentScore', function (data) { //THIS METHOD IS CALLED ON EV
 
 //////////////////////////////////
 
-function wait(sec){
+function wait(sec) {
     var countTurn = sec;
-    var counter = setInterval(timer,1000);
-    function timer(){
-        console.log(countTurn+"second left");
-        countTurn = countTurn-1;
-        if(countTurn<=0){
+    var counter = setInterval(timer, 1000);
+
+    function timer() {
+        console.log(countTurn + "second left");
+        countTurn = countTurn - 1;
+        if (countTurn <= 0) {
             clearInterval(counter);
             return;
         }
