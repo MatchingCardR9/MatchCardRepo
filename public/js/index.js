@@ -6,7 +6,7 @@ var opponentId;
 var opponentScore;
 var currentRoom;
 var initialcardposition = [];
-var audio = new Audio('/sound/imgay.mp3')
+var audio = new Audio('/sound/imgay.mp3');
 var cardstate = [];
 var cardposition =  [];
 
@@ -63,6 +63,7 @@ socket.on('roomready', function (data) { //Receive room info , Assign Opponent n
 
 
 });
+
 
 function readytoplay() {
     document.getElementById('readyBtn').disabled = "disabled"
@@ -201,6 +202,7 @@ socket.on('updateOpponentScore', function (data) { //THIS METHOD IS CALLED ON EV
     opponentScore = data.opponentScore;
 });//FRONTEND --> UPDATE OPPONENTSCORE
 
+
 function showInitialCard() {
 
     for (var i = 0; i < initialcardposition.length; i++) {
@@ -319,8 +321,22 @@ function addOnClick(){
     }
 }
 
+///AUTO JOIN FEATURE
+function askToJoinNewGame(){
+    $("#debugAutojoin").fadeIn();
+}
+function joinNewGame(){ // earth
+    socket.emit('joingame',{name: myName});
+    $("#nameform").fadeOut();
+    $("#waitingplayer").fadeIn();
+}
 
+socket.on('opponentDisconnected', function(data) { // Earth
+    console.log("Do you want to continue");
+    askToJoinNewGame(); //SHOW JOIN NEW GAME BUTTON , CLEAR BOARD
 
+});
+//AUToJOIN FEATURE
 
 function memoryFlipTile(tile, val) {
     if (tile.innerHTML == "" && memory_values.length < 1) {

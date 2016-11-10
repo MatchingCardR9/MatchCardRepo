@@ -332,13 +332,21 @@ function whoDisconnected(socketid){
     for(i=1;i<=roomnumber;i++){
         var room = rooms[i];
         if(room==null) return ('unknown - socket id : '+socketid+' disconnected');
-        if(room.player1.id==socketid) return ('Room :'+i+' Player1-'+room.player1.name+' disconnected');
-        else if(room.player2.id==socketid) {return ('Room :'+i+' Player2-'+room.player2.name+' disconnected');}
+        if(room.player1.id==socketid) {
+            autoJoinWhenOpponentDisconnected(room.player2.id);
+            return ('Room :'+i+' Player1-'+room.player1.name+' disconnected');}
+
+        else if(room.player2.id==socketid) {
+            autoJoinWhenOpponentDisconnected(room.player1.id);
+            return ('Room :'+i+' Player2-'+room.player2.name+' disconnected');}
     }
     return ('unknown - socket id : '+socketid+' disconnected');
 }
 
+function autoJoinWhenOpponentDisconnected(mysocketid){ //modify
+    io.to(mysocketid).emit('opponentDisconnected');
 
+}
 
 http.listen(3000, function(){
     console.log('listening on localhost:3000');
