@@ -7,6 +7,7 @@ var opponentScore;
 var currentRoom;
 var initialcardposition = [];
 var audio = new Audio('/sound/imgay.mp3')
+var cardstate = [];
 
 //TEST ON CLICK
 console.log('TESTTTT');
@@ -83,7 +84,6 @@ socket.on('gamestart', function (data) {
     showInitialCard();
 
     addOnClick();
-
 
     setTimeout(hideAllCard,5000); //HIDE CARD AFTER 10 SEC
 
@@ -192,12 +192,14 @@ function showInitialCard() {
 }
 function showtile(tile, val) {
     $('#'+tile).html(val);
+    cardstate[tile] = 'SHOW';
 }
 function hideAllCard(){
 
     for (var i = 0; i < initialcardposition.length; i++) {
         var tile = 't' + (i+1);
-        $('#'+tile).html('FOLD')
+        $('#'+tile).html('FOLD');
+        cardstate[tile]='FOLD';
     }
 }
 
@@ -205,9 +207,15 @@ function addOnClick(){
     for(var i=0;i<initialcardposition.length;i++){
         var tile = 't'+(i+1);
         $('#'+tile).on('click',function(){
-            console.log(this.id);
-            console.log(this.innerHTML);
-          //  console.log(tile+' is clicked');
+            if(cardstate[this.id]=='SHOW'){
+                console.log(this.id+' SHOWING');
+            }
+            if(cardstate[this.id]=='FOLD'){
+                console.log(this.id+' is folded');
+            }
+          //   console.log(this.id);
+          //   console.log(this.innerHTML);
+          //   console.log(tile+' is clicked');
         });
     }
 }
