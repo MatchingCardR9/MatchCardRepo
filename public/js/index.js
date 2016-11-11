@@ -741,7 +741,15 @@ $("#sendMessage").click(function(){
     $('#m').val('');
     return false;
 });
+
+    $("#myHintButton").click(function(){
+        
+    });
+
+
 },300);
+
+
 
 
 socket.on('chat message', function(msg){
