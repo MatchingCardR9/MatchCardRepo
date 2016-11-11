@@ -7,6 +7,7 @@ var opponentScore;
 var currentRoom;
 var initialcardposition = [];
 var audio = new Audio('/sound/imgay.mp3');
+var song = new Audio('/sound/song.mp3');
 var cardstate = [];
 var cardposition =  [];
 
@@ -28,6 +29,7 @@ var temp_selected;
 console.log('TESTTTT');
 
 function submitName() {
+	song.loop= true;
     myName = document.getElementById('username').value;
     if (myName == "") {
         if (confirm("Write your name! or you will be called Gay Retard") == true) {
@@ -87,6 +89,7 @@ socket.on('gamestart', function (data) {
     $('#page_gameState').text('REMEMBER THE CARDS!');
     $("#page_game").fadeIn();
     $("#memory_board").fadeIn();
+	song.play()
 
     initialcardposition = data.initialcardposition;
     copyCardPosition();
