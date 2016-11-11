@@ -216,7 +216,11 @@
 </div>
 </div>
 
-
+<!--Go PRACTICE MODE-->
+<div class="container" style="text-align: center">
+    <input type="button" id="single_mode" class="btn btn-success" value="Single Player Mode" onclick="goPracticeMode()">
+</div>
+<!--HOW TO PLAY-->
 <div id="tutorial" style="text-align: center; margin-top:10px">
     <div class="container">
         <a href="#howtoplay" class="btn btn-info" data-toggle="collapse">How to Play?</a>
@@ -228,7 +232,8 @@
 			and it's the player's turn to pick a starting card.</br>
             2.2) Wrong match takes 1 point from the player,</br>
 			and it's the opponent turn.</br>
-            3) The game goes on until there is no card left.</p>
+            3) The game goes on until there is no card left.</br>
+            Single Player Mode: Player has to choose two cards to match each other until done all tiles</p>
 			</div>
 			</div>
 
@@ -253,14 +258,19 @@
 
 <!--&gt;>>>>>>>>>>>>>>>>CONTINUE BUTTON FOR DEBUG-->
 
-<!--<<<<<<<<<<<<<<<<,CONTINUE BUTTON FOR DEBUG-->
+<!--BACK TO LOGIN / MULTIPLAYER-->
+<input type="button" id="backto_multi" class="btn btn-success" style="display: none;" value="Back to Multiplayer Mode"
+       onclick="goBackMultiMode()">
+<div id="practice_board" style="display: none;"></div>
+<script>newSPBoard();</script>
 
-
+<!--xxxxxxxxxxxxxxxx-->
 <div style="display:none" id="concede">
     <button class="btn btn-danger" onclick="endGame()">Concede</button>
     <div>
         <foot>
 
         </foot>
-
+    </div>
+</div>
 </html>

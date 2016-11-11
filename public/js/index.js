@@ -710,3 +710,76 @@ $("#sendMessage").click(function(){
 socket.on('chat message', function(msg){
     $('#messages').append($('<li>').text(msg));
 });
+
+// SINGLE PLAYER SINGLE PLAYER SINGLE PLAYER SINGLE PLAYER SINGLE PLAYER
+function goPracticeMode() {
+    $("#page_login").fadeOut();
+    $("#practice_board").fadeIn();
+    $("#backto_multi").fadeIn();
+}
+function goBackMultiMode() {
+    $("#practice_board").fadeOut();
+    $("#backto_multi").fadeOut();
+    $("#page_login").fadeIn();
+}
+var sp_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
+var sp_values = [];
+var sp_tile_ids = [];
+var sp_tile_flipped = 0;
+Array.prototype.memory_tile_shuffle = function(){
+    var i = this.length, j, temp;
+    while(--i > 0){
+        j = Math.floor(Math.random() * (i+1));
+        temp = this[j];
+        this[j] = this[i];
+        this[i] = temp;
+    }
+}
+function newSPBoard(){
+    sp_tile_flipped = 0;
+    var output = '';
+    sp_array.memory_tile_shuffle();
+    for(var i = 0; i < sp_array.length; i++){
+        output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+sp_array[i]+'\')"></div>';
+    }
+    document.getElementById('practice_board').innerHTML = output;
+}
+function memoryFlipTile(tile,val){
+    if(tile.innerHTML == "" && sp_values.length < 2){
+        tile.style.background = '#FFF';
+        tile.innerHTML = val;
+        if(sp_values.length == 0){
+            sp_values.push(val);
+            sp_tile_ids.push(tile.id);
+        } else if(sp_values.length == 1){
+            sp_values.push(val);
+            sp_tile_ids.push(tile.id);
+            if(sp_values[0] == sp_values[1]){
+                sp_tile_flipped += 2;
+
+                sp_values = [];
+                sp_tile_ids = [];
+
+                if(sp_tile_flipped == sp_array.length){
+                    alert("Board cleared... generating new board");
+                    document.getElementById('practice_board').innerHTML = "";
+                    newSPBoard();
+                }
+            } else {
+                function flippingBack(){
+
+                    var tile_1 = document.getElementById(sp_tile_ids[0]);
+                    var tile_2 = document.getElementById(sp_tile_ids[1]);
+                    tile_1.style.background = 'url(tile_bg.jpg) no-repeat';
+                    tile_1.innerHTML = "";
+                    tile_2.style.background = 'url(tile_bg.jpg) no-repeat';
+                    tile_2.innerHTML = "";
+
+                    sp_values = [];
+                    sp_tile_ids = [];
+                }
+                setTimeout(flippingBack, 700);
+            }
+        }
+    }
+}
