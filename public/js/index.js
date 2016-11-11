@@ -756,6 +756,9 @@ socket.on('chat message', function(msg){
     $('#messages').append($('<li>').text(msg));
 });
 
+
+
+
 // SINGLE PLAYER SINGLE PLAYER SINGLE PLAYER SINGLE PLAYER SINGLE PLAYER
 function goPracticeMode() {
     $("#page_login").fadeOut();
@@ -790,6 +793,12 @@ function newSPBoard(){
         output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this,\''+sp_array[i]+'\')"></div>';
     }
     document.getElementById('practice_board').innerHTML = output;
+}
+
+
+function emoteToOtherPlayer(){  //by earth
+    socket.emit('emote', {roomnumber:currentRoom});
+
 }
 function memoryFlipTile(tile,val){
     if(tile.innerHTML == "" && sp_values.length < 2){
