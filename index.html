@@ -205,6 +205,11 @@
 <div class="container" style="text-align: center">
     <input type="button" id="single_mode" class="btn btn-success" value="Single Player Mode" onclick="goPracticeMode()">
 </div>
+<div style="text-align: center">
+<input type="button" id="backto_multi" class="btn btn-success" style="display: none;" value="Back to Multiplayer Mode"
+       onclick="goBackMultiMode()">
+	   </div>
+<div id="practice_board" style="display: none;"></div>
 <!--HOW TO PLAY-->
 <div id="tutorial" style="text-align: center; margin-top:10px">
     <div class="container">
@@ -250,9 +255,7 @@
 <!--&gt;>>>>>>>>>>>>>>>>CONTINUE BUTTON FOR DEBUG-->
 
 <!--BACK TO LOGIN / MULTIPLAYER-->
-<input type="button" id="backto_multi" class="btn btn-success" style="display: none;" value="Back to Multiplayer Mode"
-       onclick="goBackMultiMode()">
-<div id="practice_board" style="display: none;"></div>
+
 <script>newSPBoard();</script>
 
 <!--xxxxxxxxxxxxxxxx-->

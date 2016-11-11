@@ -719,11 +719,13 @@ function goPracticeMode() {
     $("#page_login").fadeOut();
     $("#practice_board").fadeIn();
     $("#backto_multi").fadeIn();
+	$("#single_mode").fadeOut();
 }
 function goBackMultiMode() {
     $("#practice_board").fadeOut();
     $("#backto_multi").fadeOut();
     $("#page_login").fadeIn();
+	$("#single_mode").fadeIn();
 }
 var sp_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H','H','I','I','J','J','K','K','L','L'];
 var sp_values = [];
