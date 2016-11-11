@@ -30,10 +30,12 @@ console.log('TESTTTT');
 function mute(){
 	song.pause();
 	$("#mute").fadeOut();
+	$("#unmute").fadeIn);
 }
 function unmute(){
 	song.play();
 	$("#unmute").fadeOut();
+	$("#mute").fadeIn();
 }
 function submitName() {
 	song.loop= true;
@@ -90,7 +92,7 @@ socket.on('gamestart', function (data) {
     $("#debugWrong").fadeIn(); // DEBUG --> TEST PICK WRONG
     console.log('GAME STARTED');
 
-
+	$("#mute").fadeIn();
     $("#roomReady").fadeOut();
     $("#page_login").fadeOut();
     $('#page_gameState').text('REMEMBER THE CARDS!');
