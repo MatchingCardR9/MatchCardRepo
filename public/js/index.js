@@ -29,11 +29,11 @@ var temp_selected;
 console.log('TESTTTT');
 function mute(){
 	song.pause();
-	$(#mute).fadeOut();
+	$("#mute").fadeOut();
 }
 function unmute(){
 	song.play();
-	$(#unmute).fadeOut();
+	$("#unmute").fadeOut();
 }
 function submitName() {
 	song.loop= true;
