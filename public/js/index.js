@@ -27,7 +27,14 @@ var temp_selected;
 
 //TEST ON CLICK
 console.log('TESTTTT');
-
+function mute(){
+	song.pause();
+	$(#mute).fadeOut();
+}
+function unmute(){
+	song.play();
+	$(#unmute).fadeOut();
+}
 function submitName() {
 	song.loop= true;
     myName = document.getElementById('username').value;
@@ -247,6 +254,7 @@ socket.on('gameend', function (data) {
         //SHOW SCORE OF BOTH PLAYER
 		$("#gameEndBox").fadeIn();
 		$("#gameEndStat").html("Win");
+		$('#resultPic').attr('src',"images/win.gif");
         console.log("You win");
     }
     if (data.result == 'lose') {
@@ -255,6 +263,7 @@ socket.on('gameend', function (data) {
 		$("#gameEndBox").fadeIn();
 		$("#gameEndStat").html("Lose");
         console.log(opponentName + "win");
+		$('#resultPic').attr('src',"images/lose.gif");
     }
     if (data.result == 'draw') {
         //DISPLAYER DRAW
@@ -262,6 +271,7 @@ socket.on('gameend', function (data) {
 		$("#gameEndBox").fadeIn();
 		$("#you").fadeOut();
 		$("#gameEndStat").html("Draw");
+		$('#resultPic').attr('src',"images/draw.gif");
         console.log("draw");
     }
 }); // GAME END --> DO SOMETHING , SHOW
