@@ -537,12 +537,36 @@ function addOnClick(){
 
 ///AUTO JOIN FEATURE
 function askToJoinNewGame(){
+    $('#page_game').fadeOut();
+    $('#memory_board').fadeOut();
+
     $("#debugAutojoin").fadeIn();
 }
 function joinNewGame(){ // earth
-    socket.emit('joingame',{name: myName});
+
     $("#nameform").fadeOut();
     $("#waitingplayer").fadeIn();
+    $("#page_login").fadeIn();
+    // $("#page_game").fadeIn();
+    // $("#memory_board").fadeIn()
+    $("#debugAutojoin").fadeOut();
+    myScore=0;
+    opponentScore=0;
+
+    resetCardState();
+
+
+
+
+    $("#page_myScore").html('Score:'+myScore);
+    $("#page_opponentScore").html('Score: '+opponentScore);
+    $("#page_myName").html(''+myName);
+    $("#page_opponentName").html(''+opponentName);
+    //SCORE = 0 everytime gamestart
+
+    $('#readyBtn').prop('disabled',false);
+
+    socket.emit('joingame',{name: myName});
 }
 
 socket.on('opponentDisconnected', function(data) { // Earth

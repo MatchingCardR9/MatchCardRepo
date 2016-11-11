@@ -384,13 +384,11 @@ function whoSendMessage(socketid){ //CAN EDIT TO SEND MESSAGE ONLY IN ROOM LATER
                 var room = rooms[i];
                 if(room==null) return ('unknown');
                if(room.player1.id==socketid) {
-                        amountofplayers--;
-                        autoJoinWhenOpponentDisconnected(room.player2.id);
+
                         return ('Room :'+i+' Player1-'+room.player1.name+' :');}
 
                    else if(room.player2.id==socketid) {
-                        amountofplayers--;
-                     autoJoinWhenOpponentDisconnected(room.player1.id);
+
                         return ('Room :'+i+' Player2-'+room.player2.name+' :');}
             }
        return ('unknown');
@@ -403,17 +401,20 @@ function whoDisconnected(socketid){
         if(room.player1.id==socketid) {
             amountofplayers--;
             autoJoinWhenOpponentDisconnected(room.player2.id);
+            console.log('notify Room :'+i+' Player2-'+room.player2.name)
             return ('Room :'+i+' Player1-'+room.player1.name+' disconnected');}
 
         else if(room.player2.id==socketid) {
             amountofplayers--;
             autoJoinWhenOpponentDisconnected(room.player1.id);
+            console.log('notify Room :'+i+' Player1-'+room.player1.name)
             return ('Room :'+i+' Player2-'+room.player2.name+' disconnected');}
     }
     return ('unknown - socket id : '+socketid+' disconnected');
 }
 
 function autoJoinWhenOpponentDisconnected(mysocketid){ //modify
+
     io.to(mysocketid).emit('opponentDisconnected');
 
 }
