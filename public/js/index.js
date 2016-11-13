@@ -81,7 +81,8 @@ socket.on('roomready', function (data) { //Receive room info , Assign Opponent n
 
 
 function readytoplay() {
-    document.getElementById('readyBtn').disabled = "disabled"
+    document.getElementById('readyBtn').disabled = "disabled";
+    document.getElementById('readyBtnAfterReset').disabled = "disabled";
     $('#readyBtnAfterReset').prop('disabled',true);
     // PRESS READY AFTER NAME SUBMISSION
     socket.emit('readytoplay', {roomnumber: currentRoom});
@@ -609,14 +610,14 @@ function magicHappens(){
 
 socket.on('gamereset', function (data) {
     console.log('GAME RESET BY SERVER');
-    $("#debugCorrect").fadeIn(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
-    $("#debugWrong").fadeIn(); // DEBUG --> TEST PICK WRONG
+    // $("#debugCorrect").fadeIn(); //DEBUG--> TEST PICK CORRECT UNTIL GAME END
+    // $("#debugWrong").fadeIn(); // DEBUG --> TEST PICK WRONG
 
     $('#readyBtnAfterReset').fadeIn();
     $("#roomReset").fadeIn();
     $("#page_login").fadeIn();
-    // $("#page_game").fadeIn();
-    // $("#memory_board").fadeIn()
+    $("#page_game").fadeOut();
+    $("#memory_board").fadeOut()
 
     myScore=0;
     opponentScore=0;
@@ -632,7 +633,8 @@ socket.on('gamereset', function (data) {
     $("#page_opponentName").html(''+opponentName);
     //SCORE = 0 everytime gamestart
 
-    $('#readyBtn').prop('disabled',false);
+    $('#readyBtnAfterReset').prop('disabled',false);
+
 
 });
 
