@@ -30,7 +30,7 @@ console.log('TESTTTT');
 function mute(){
 	song.pause();
 	$("#mute").fadeOut();
-	$("#unmute").fadeIn);
+	$("#unmute").fadeIn();
 }
 function unmute(){
 	song.play();
