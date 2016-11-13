@@ -349,19 +349,23 @@ io.on('connection',function(socket){
     });
 
 
+    // Admit the emote from client
+    socket.on('emote', function() {
+            if (rooms[data.roomnumber].player1.id == socket.id)
+                io.to.emit(rooms[data.roomnumber].player2.id).emit('emote', {});
+            else {
+                rooms[data.roomnumber].player2.id = socket.id;
+                io.to.emit(rooms[data.roomnumber].player1.id).emit('emote', {});
+            }
+        }
+    );
+
     //ADMIN PAGE
     socket.on('getNumberOfPlayers',function(){
         socket.emit('numberOfPlayers',{numberofplayers:amountofplayers})
     });
 });
-    // Admit the emote from client
-    socket.on('emote', function(){
-        if (rooms[data.roomnumber].player1.id == socket.id)
-            io.to.emit(rooms[data.roomnumber].player2.id).emit('emote',{});
-        else{
-            rooms[data.roomnumber].player2.id = socket.id;
-            io.to.emit(rooms[data.roomnumber].player1.id).emit('emote',{});
-}
+
 
 function randomCardPosition(){
     var initialcardposition = [];
